@@ -3,1831 +3,821 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <meta name="description" content="Траектория роста — инклюзивный образовательный дашборд">
-  <title>Траектория роста | deep indigo-blue gradient</title>
+  <meta name="description" content="AI Assistant — меню поверх, компактные элементы">
+  <title>AI Assistant | Траектория роста</title>
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts - Cyrillic-friendly fonts -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Raleway:wght@400;500;600;700;800&family=Ubuntu:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Raleway:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *,
     *::before,
     *::after {
       box-sizing: border-box;
-      padding: 0;
       margin: 0;
+      padding: 0;
     }
 
     html, body {
       width: 100%;
-      max-width: 100vw;
-      overflow-x: hidden;
-      position: relative;
+      height: 100%;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
     }
 
     body {
       font-family: "Inter", "Montserrat", sans-serif;
-      min-height: 100vh;
-      min-height: -webkit-fill-available;
-      transition: background-color 0.5s ease, font-size 0.2s ease;
-      position: relative;
-      cursor: none;
-      background-color: #0a1f3a;
+      background: linear-gradient(135deg, #fbe9e7 0%, #f5e0dd 100%);
       font-size: 16px;
+      height: 100%;
       width: 100%;
+      position: relative;
     }
 
-    /* High contrast mode - PURE black and yellow, ABSOLUTELY NO BLUE/PURPLE */
-    body.high-contrast {
-      background-color: #000000 !important;
-    }
-    
-    body.high-contrast,
-    body.high-contrast * {
-      border-color: #ffff00 !important;
-    }
-    
-    body.high-contrast .glass-ui,
-    body.high-contrast .glass-card,
-    body.high-contrast .access-bar,
-    body.high-contrast .stat-card,
-    body.high-contrast .featured-card,
-    body.high-contrast .principle-card,
-    body.high-contrast .course-card,
-    body.high-contrast .resource-card,
-    body.high-contrast .right-panel > *,
-    body.high-contrast .progress-ring-card,
-    body.high-contrast .activity-feed,
-    body.high-contrast .tip-card,
-    body.high-contrast .sidebar,
-    body.high-contrast .main-content,
-    body.high-contrast .footer,
-    body.high-contrast .mobile-menu-toggle,
-    body.high-contrast .gradient-overlay,
-    body.high-contrast .gradient-container,
-    body.high-contrast canvas {
-      background-color: #000000 !important;
-      background-image: none !important;
-      border: 2px solid #ffff00 !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-    }
-    
-    body.high-contrast p,
-    body.high-contrast h1,
-    body.high-contrast h2,
-    body.high-contrast h3,
-    body.high-contrast h4,
-    body.high-contrast span,
-    body.high-contrast div,
-    body.high-contrast .stat-number,
-    body.high-contrast .stat-label,
-    body.high-contrast .course-meta,
-    body.high-contrast .feed-time,
-    body.high-contrast .feed-content p,
-    body.high-contrast .principle-card p,
-    body.high-contrast .resource-text p,
-    body.high-contrast .tip-card p,
-    body.high-contrast .logo-text h1,
-    body.high-contrast .logo-text span,
-    body.high-contrast .user-info h4,
-    body.high-contrast .user-info p,
-    body.high-contrast .section-header h2,
-    body.high-contrast .activity-feed h3,
-    body.high-contrast .tip-card h4,
-    body.high-contrast .tip-card div,
-    body.high-contrast .footer,
-    body.high-contrast .footer a,
-    body.high-contrast i,
-    body.high-contrast .fa-*,
-    body.high-contrast [class^="fa-"],
-    body.high-contrast [class*=" fa-"],
-    body.high-contrast .principle-number,
-    body.high-contrast .progress-percent,
-    body.high-contrast .value,
-    body.high-contrast .label,
-    body.high-contrast .wcag-badge,
-    body.high-contrast .feed-badge {
-      color: #ffff00 !important;
-    }
-    
-    body.high-contrast button,
-    body.high-contrast .btn-primary,
-    body.high-contrast .btn-secondary,
-    body.high-contrast .a11y-btn,
-    body.high-contrast .color-btn,
-    body.high-contrast .view-all,
-    body.high-contrast .nav-item a,
-    body.high-contrast .user-chip,
-    body.high-contrast .wcag-badge {
-      background-color: #000000 !important;
-      border: 2px solid #ffff00 !important;
-      color: #ffff00 !important;
-      box-shadow: none !important;
-    }
-    
-    body.high-contrast .progress-fill {
-      background-color: #ffff00 !important;
-    }
-    
-    body.high-contrast .progress-bar {
-      background-color: #333333 !important;
-      border: 1px solid #ffff00 !important;
-    }
-    
-    body.high-contrast .logo-icon,
-    body.high-contrast .course-icon,
-    body.high-contrast .resource-icon,
-    body.high-contrast .feed-avatar,
-    body.high-contrast .user-avatar {
-      background-color: #ffff00 !important;
-      color: #000000 !important;
-      border: 2px solid #ffff00 !important;
-    }
-    
-    body.high-contrast .custom-cursor {
-      border-color: #ffff00 !important;
-      background: rgba(255, 255, 0, 0.2) !important;
-    }
-    
-    body.high-contrast .custom-cursor::before {
-      background: #ffff00 !important;
-    }
-    
-    body.high-contrast .wcag-tag {
-      background-color: #000000 !important;
-      border: 2px solid #ffff00 !important;
-      color: #ffff00 !important;
-    }
-
-    /* Large text mode */
-    body.large-text {
-      font-size: 20px;
-    }
-    
-    body.large-text .stat-number {
-      font-size: 3.5rem;
-    }
-    
-    body.large-text .principle-number {
-      font-size: 2.8rem;
-    }
-    
-    body.large-text .btn-primary,
-    body.large-text .btn-secondary,
-    body.large-text .a11y-btn {
-      font-size: 1.1rem;
-      padding: 0.9rem 1.5rem;
-    }
-
-    p, .text-muted, .text-sm, .stat-label, .course-meta, .resource-text p, .feed-time {
-      font-family: "Raleway", "Inter", sans-serif;
-      font-weight: 500;
-    }
-
-    h1, h2, h3, h4, h5, h6, .heading-font, .nav-item a, .btn-primary, .btn-secondary, .color-btn, .a11y-btn, .view-all, .user-info h4, .stat-number, .principle-number, .feed-avatar {
-      font-family: "Montserrat", "Ubuntu", sans-serif;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    /* Canvas background setup */
+    /* Canvas Background */
     .gradient-container {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
+      z-index: 0;
       overflow: hidden;
       pointer-events: none;
     }
-
-    .gradient-hero-light {
+    #canvas-bg {
       position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* SINGLE CONTAINER */
+    .single-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+      padding: 20px 24px;
+      gap: 20px;
+      overflow: hidden;
+    }
+
+    /* Top Bar — menu button first, then models, then accessibility */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      gap: 16px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 5;
+    }
+    
+    /* Left: menu button */
+    .menu-btn-wrapper {
+      display: flex;
+      align-items: center;
+    }
+    .menu-toggle-btn {
+      background: rgba(224, 170, 160, 0.25);
+      border: 1px solid rgba(224, 170, 160, 0.6);
+      border-radius: 50px;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      backdrop-filter: blur(8px);
+      color: #e0aaa0;
+      font-size: 1.3rem;
+    }
+    .menu-toggle-btn:hover {
+      background: rgba(224, 170, 160, 0.45);
+      transform: scale(1.02);
+      color: #3a3a3a;
+    }
+
+    /* Center: model selector */
+    .model-selector {
+      display: flex;
+      gap: 4px;
+      background: rgba(255,247,245,0.65);
+      backdrop-filter: blur(12px);
+      padding: 5px 8px;
+      border-radius: 60px;
+      border: 1px solid rgba(224, 170, 160, 0.35);
+    }
+    .model-btn {
+      padding: 8px 18px;
+      border-radius: 50px;
+      background: transparent;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: 0.2s;
+      font-family: "Montserrat", sans-serif;
+      color: #5c5c5c;
+      white-space: nowrap;
+    }
+    .model-btn.active {
+      background: #e0aaa0;
+      color: white;
+      box-shadow: 0 2px 8px rgba(224, 170, 160, 0.3);
+    }
+    .model-btn:hover:not(.active) {
+      background: rgba(224, 170, 160, 0.2);
+    }
+
+    /* Right: accessibility tooltip button */
+    .tooltip-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    .info-icon {
+      background: rgba(255, 247, 245, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(224, 170, 160, 0.6);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: help;
+      transition: all 0.2s;
+      color: #e0aaa0;
+      font-size: 1.3rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .info-icon:hover {
+      background: rgba(224, 170, 160, 0.3);
+      transform: scale(1.05);
+    }
+    .tooltip-text {
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 12px;
+      background: rgba(30, 30, 35, 0.96);
+      backdrop-filter: blur(16px);
+      color: #fff5e8;
+      padding: 14px 20px;
+      border-radius: 24px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      width: 280px;
+      line-height: 1.55;
+      transition: all 0.25s ease;
+      z-index: 100;
+      pointer-events: none;
+      border: 1px solid rgba(224, 170, 160, 0.5);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: left;
+      font-family: "Inter", sans-serif;
+      letter-spacing: 0.2px;
+    }
+    .tooltip-wrapper:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(5px);
+    }
+
+    /* MAIN GRID */
+    .dashboard-grid {
+      display: flex;
+      gap: 20px;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    /* Sidebar Overlay Menu — appears as overlay on top of everything */
+    .sidebar-overlay {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      align-items: center;
-      overflow: hidden;
-      z-index: -2;
-    }
-
-    #canvas {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: -2;
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      pointer-events: none;
-    }
-
-    /* Blur Overlay */
-    .gradient-overlay {
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      backdrop-filter: blur(80px);
-      -webkit-backdrop-filter: blur(80px);
-      z-index: -1;
-      background: rgba(10, 31, 58, 0.2);
-      pointer-events: none;
-    }
-
-    /* Custom cursor - hide on mobile */
-    .custom-cursor {
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      border: 2px solid #7d9ac9;
-      border-radius: 50%;
-      pointer-events: none;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(4px);
       z-index: 1000;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s ease, height 0.2s ease, border-width 0.2s ease, background 0.2s ease;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(4px);
-      will-change: transform;
-    }
-
-    .custom-cursor::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 8px;
-      height: 8px;
-      background: #7d9ac9;
-      border-radius: 50%;
-    }
-
-    .custom-cursor.hover {
-      width: 60px;
-      height: 60px;
-      background: rgba(125, 154, 201, 0.2);
-      border-color: #7d9ac9;
-    }
-
-    @media (max-width: 768px) {
-      .custom-cursor {
-        display: none;
-      }
-    }
-
-    /* Glassmorphism base */
-    .glass-ui {
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
-    }
-
-    .glass-card {
-      background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
-      border-radius: 1rem;
-      transition: background 0.3s ease, border 0.3s ease;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-4px);
-    }
-
-    @media (max-width: 768px) {
-      .glass-card:hover {
-        transform: none;
-      }
-    }
-
-    /* Glass theme for deep indigo-blue */
-    .glass-ui {
-      background-color: rgba(10, 31, 58, 0.3);
-      border: 1px solid rgba(125, 154, 201, 0.2);
-    }
-
-    .glass-card {
-      background: rgba(10, 31, 58, 0.25);
-      border: 1px solid rgba(125, 154, 201, 0.15);
-      border-bottom: 1px solid rgba(125, 154, 201, 0.25) !important;
-      border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
-    }
-
-    .glass-card:hover {
-      background: rgba(10, 31, 58, 0.35);
-      border: 1px solid rgba(125, 154, 201, 0.3);
-    }
-
-    /* Main layout - RESPONSIVE FIXES */
-    .dashboard {
-      display: grid;
-      grid-template-columns: 280px 1fr 340px;
-      width: 100%;
-      min-height: 100vh;
-      gap: 16px;
-      padding: 20px 24px;
-      position: relative;
-      z-index: 10;
-      margin: 0 auto;
-      max-width: 1800px;
-    }
-
-    /* Template-style buttons */
-    .color-btn, .a11y-btn, .btn-primary, .btn-secondary, .view-all, .user-chip, .nav-item a, .mobile-menu-toggle {
-      min-width: 48px;
-      padding: 0.75rem 1.25rem;
-      background: rgba(10, 31, 58, 0.4);
-      border: 1px solid rgba(125, 154, 201, 0.3);
-      border-radius: 24px;
-      color: #e0f0ff;
-      font-family: "Montserrat", "Ubuntu", sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      cursor: pointer;
+      visibility: hidden;
+      opacity: 0;
       transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-
-    .color-btn:hover, .a11y-btn:hover, .btn-primary:hover, .btn-secondary:hover, .view-all:hover, .user-chip:hover, .nav-item a:hover, .mobile-menu-toggle:hover {
-      background: rgba(10, 31, 58, 0.6);
-      border-color: #7d9ac9;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(125, 154, 201, 0.3);
-    }
-
-    .color-btn.active, .nav-item.active a {
-      background: rgba(125, 154, 201, 0.25);
-      border-color: #7d9ac9;
-      color: #ffffff;
-      font-weight: 700;
-    }
-
-    .btn-primary {
-      background: rgba(125, 154, 201, 0.3);
-      border-color: #7d9ac9;
-      color: #ffffff;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border-color: #7d9ac9;
-      color: #e0f0ff;
-    }
-
-    .view-all {
-      background: transparent;
-      border: 1px dashed #7d9ac9;
-    }
-
-    /* Mobile menu toggle - FIXED: fully clickable */
-    .mobile-menu-toggle {
-      display: none;
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 2000;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      padding: 0;
-      font-size: 1.5rem;
-      background: rgba(10, 31, 58, 0.6);
-      border: 2px solid #7d9ac9;
-      cursor: pointer;
-      pointer-events: auto;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    .mobile-menu-toggle:hover {
-      transform: scale(1.1);
-    }
-
-    .mobile-menu-toggle:active {
-      transform: scale(0.95);
-    }
-
-    /* Sidebar */
-    .sidebar {
-      padding: 28px 18px;
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-      border-radius: 28px;
-      transition: transform 0.3s ease;
-      height: fit-content;
-      max-height: calc(100vh - 40px);
-    }
-
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 48px;
-      padding-left: 6px;
-      flex-wrap: wrap;
-    }
-
-    .logo-icon {
-      width: 52px;
-      height: 52px;
-      background: #7d9ac9;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #0a1f3a;
-      font-size: 2.2rem;
-      font-weight: 800;
-      font-family: "Montserrat", "Ubuntu", sans-serif;
-      box-shadow: 0 12px 28px -8px rgba(125, 154, 201, 0.5);
-      flex-shrink: 0;
-    }
-
-    .logo-text h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      line-height: 1.2;
-      color: #ffffff;
-      letter-spacing: -0.3px;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .logo-text span {
-      font-size: 0.75rem;
-      opacity: 0.8;
-      font-weight: 400;
-      color: #c0d8ff;
-    }
-
-    .nav-menu {
-      list-style: none;
-      flex: 1;
-    }
-
-    .nav-item {
-      margin-bottom: 8px;
-    }
-
-    .nav-item a {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 12px 18px;
-      color: #e0f0ff;
-      text-decoration: none;
-      border-radius: 20px;
-      transition: all 0.2s ease;
-      font-weight: 600;
-      font-size: 1rem;
-      border: 1px solid transparent;
-      min-height: 48px;
-      width: 100%;
-      justify-content: flex-start;
-    }
-
-    .nav-item a i {
-      width: 24px;
-      font-size: 1.3rem;
-      color: #7d9ac9;
-    }
-
-    .user-chip {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      border-radius: 60px;
-      margin-top: auto;
-      min-height: 70px;
-      width: 100%;
-      color: #ffffff;
-    }
-
-    .user-avatar {
-      width: 46px;
-      height: 46px;
-      background: #7d9ac9;
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #0a1f3a;
-      font-weight: 800;
-      font-size: 1.3rem;
-      flex-shrink: 0;
-    }
-
-    .user-info {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .user-info h4 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #ffffff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .user-info p {
-      font-size: 0.7rem;
-      opacity: 0.8;
-      color: #c0d8ff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* Main content */
-    .main-content {
-      padding: 28px 26px;
-      overflow-y: auto;
-      border-radius: 28px;
-      scrollbar-width: thin;
-      -webkit-overflow-scrolling: touch;
-      max-height: calc(100vh - 40px);
-    }
-
-    /* Access bar */
-    .access-bar {
-      border-radius: 60px;
-      padding: 8px 20px 8px 16px;
-      margin-bottom: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(10, 31, 58, 0.3);
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .access-controls {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .wcag-badge {
-      background: rgba(125, 154, 201, 0.2);
-      backdrop-filter: blur(4px);
-      color: #ffffff;
-      padding: 8px 20px;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      border: 1px solid #7d9ac9;
-      white-space: nowrap;
-    }
-
-    /* Stats grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-bottom: 30px;
-    }
-
-    .stat-card {
-      border-radius: 28px;
-      padding: 22px 20px;
-      transition: all 0.25s ease;
-      min-height: 120px;
-    }
-
-    .stat-number {
-      font-size: 2.8rem;
-      font-weight: 800;
-      color: #7d9ac9;
-      line-height: 1;
-      margin-bottom: 8px;
-      text-shadow: 0 2px 10px rgba(125, 154, 201, 0.3);
-      word-break: break-word;
-    }
-
-    .stat-label {
-      font-size: 0.95rem;
-      color: #e0f0ff;
-      line-height: 1.4;
-      font-weight: 500;
-      word-break: break-word;
-    }
-
-    /* Featured card */
-    .featured-card {
-      border-radius: 32px;
-      padding: 26px;
-      margin-bottom: 40px;
-      transition: all 0.25s ease;
-    }
-
-    .featured-card h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #ffffff;
-      word-break: break-word;
-    }
-
-    .featured-card p {
-      color: #c0d8ff !important;
-      word-break: break-word;
-    }
-
-    /* Section headers */
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 36px 0 18px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .section-header h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      flex-wrap: wrap;
-    }
-
-    .section-header h2 i {
-      color: #7d9ac9;
-      background: rgba(125, 154, 201, 0.15);
-      padding: 8px;
-      border-radius: 16px;
-    }
-
-    /* Principles grid */
-    .principles-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-bottom: 20px;
-    }
-
-    .principle-card {
-      border-radius: 26px;
-      padding: 22px 18px;
-      transition: all 0.25s ease;
-      min-height: 200px;
-    }
-
-    .principle-number {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: rgba(125, 154, 201, 0.3);
-      line-height: 1;
-      margin-bottom: 12px;
-    }
-
-    .principle-card h3 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #ffffff;
-      word-break: break-word;
-    }
-
-    .principle-card p {
-      font-size: 0.85rem;
-      color: #e0f0ff;
-      margin-bottom: 15px;
-      line-height: 1.5;
-      opacity: 0.9;
-      word-break: break-word;
-    }
-
-    .wcag-tag {
-      background: rgba(125, 154, 201, 0.2);
-      color: #ffffff;
-      padding: 4px 12px;
-      border-radius: 30px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      border: 1px solid rgba(125, 154, 201, 0.3);
-      display: inline-block;
-      margin-right: 6px;
-      margin-bottom: 4px;
-    }
-
-    /* Courses grid */
-    .courses-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin: 20px 0 30px;
-    }
-
-    .course-card {
-      border-radius: 26px;
-      padding: 22px;
-      transition: all 0.25s ease;
-      cursor: pointer;
-      min-height: 200px;
-    }
-
-    .course-icon {
-      width: 54px;
-      height: 54px;
-      background: #7d9ac9;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #0a1f3a;
-      font-size: 1.8rem;
-      margin-bottom: 16px;
-      flex-shrink: 0;
-    }
-
-    .course-card h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #ffffff;
-      word-break: break-word;
-    }
-
-    .course-meta {
-      display: flex;
-      gap: 16px;
-      font-size: 0.8rem;
-      color: #c0d8ff;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-      font-weight: 500;
-    }
-
-    .progress-bar {
-      height: 6px;
-      background: rgba(125, 154, 201, 0.2);
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: #7d9ac9;
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-
-    .progress-stats {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 6px;
-      font-size: 0.8rem;
-      color: #e0f0ff;
-    }
-
-    .progress-percent {
-      font-weight: 700;
-      color: #7d9ac9;
-    }
-
-    /* Resources grid */
-    .resources-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin: 20px 0;
-    }
-
-    .resource-card {
-      border-radius: 22px;
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: all 0.25s ease;
-      min-height: 88px;
-    }
-
-    .resource-icon {
-      width: 48px;
-      height: 48px;
-      background: rgba(125, 154, 201, 0.2);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #7d9ac9;
-      font-size: 1.4rem;
-      flex-shrink: 0;
-    }
-
-    .resource-text {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .resource-text h4 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #ffffff;
-      word-break: break-word;
-    }
-
-    .resource-text p {
-      font-size: 0.75rem;
-      color: #c0d8ff;
-      word-break: break-word;
-    }
-
-    /* Right panel */
-    .right-panel {
-      padding: 28px 22px;
-      overflow-y: auto;
-      border-radius: 28px;
-      -webkit-overflow-scrolling: touch;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      max-height: calc(100vh - 40px);
-    }
-
-    .progress-ring-card {
-      border-radius: 32px;
-      padding: 28px 20px;
-      text-align: center;
-      margin-bottom: 5px;
-      transition: all 0.25s ease;
-      background: rgba(10, 31, 58, 0.3);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(125, 154, 201, 0.2);
-    }
-
-    .ring-progress {
-      width: 130px;
-      height: 130px;
-      margin: 18px auto;
-      background: conic-gradient(#7d9ac9 0deg 245deg, rgba(125, 154, 201, 0.2) 245deg 360deg);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .ring-progress::before {
-      content: '';
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      background: rgba(10, 31, 58, 0.5);
-      border-radius: 50%;
-      border: 1px solid #7d9ac9;
-    }
-
-    .ring-progress span {
-      position: relative;
-      font-size: 2rem;
-      font-weight: 800;
-      color: #7d9ac9;
-      z-index: 2;
-    }
-
-    .stats-mini {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .stat-mini-item .value {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: #7d9ac9;
-    }
-
-    .stat-mini-item .label {
-      font-size: 0.7rem;
-      color: #e0f0ff;
-      opacity: 0.8;
-    }
-
-    /* Right panel buttons - full width */
-    .right-panel .btn-primary,
-    .right-panel .btn-secondary {
-      width: 100%;
-      margin: 0;
-    }
-
-    /* Activity feed */
-    .activity-feed {
-      border-radius: 28px;
-      padding: 22px;
-      margin: 5px 0;
+    .sidebar-overlay.active {
+      visibility: visible;
+      opacity: 1;
     }
     
-    .activity-feed h3 {
-      color: #ffffff;
-      margin-bottom: 16px;
+    /* Left Sidebar — floating overlay menu, full height */
+    .sidebar-ai {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 320px;
+      max-width: 85vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 28px 20px;
+      border-radius: 0 28px 28px 0;
+      overflow-y: auto;
+      background: rgba(255, 247, 245, 0.96);
+      backdrop-filter: blur(24px);
+      border-right: 1px solid rgba(224, 170, 160, 0.4);
+      box-shadow: 8px 0 30px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(-100%);
+      z-index: 1001;
+    }
+    .sidebar-ai.open {
+      transform: translateX(0);
+    }
+    
+    .sidebar-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(224, 170, 160, 0.2);
+      border: 1px solid rgba(224, 170, 160, 0.5);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #e0aaa0;
+      font-size: 1rem;
+      z-index: 10;
     }
-
-    .feed-item {
+    .sidebar-close-btn:hover {
+      background: rgba(224, 170, 160, 0.4);
+      transform: scale(1.05);
+      color: #3a3a3a;
+    }
+    
+    .brand-area {
       display: flex;
+      align-items: center;
       gap: 14px;
-      margin-bottom: 18px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid rgba(125, 154, 201, 0.2);
+      margin-top: 8px;
     }
-
-    .feed-item:last-child {
-      border-bottom: none;
-    }
-
-    .feed-avatar {
-      width: 44px;
-      height: 44px;
-      background: #7d9ac9;
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      background: #e0aaa0;
       border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #0a1f3a;
-      font-weight: 800;
-      flex-shrink: 0;
-      font-size: 1.2rem;
+      color: white;
+      font-size: 1.6rem;
     }
-
-    .feed-content {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .feed-content p {
-      color: #ffffff;
-      font-size: 0.9rem;
-      word-break: break-word;
-    }
-
-    .feed-time {
-      color: #c0d8ff;
-      font-size: 0.7rem;
-      display: block;
-      margin: 4px 0;
-      opacity: 0.8;
-    }
-
-    .feed-badge {
-      background: rgba(125, 154, 201, 0.15);
-      color: #ffffff;
-      padding: 4px 12px;
-      border-radius: 30px;
-      font-size: 0.7rem;
+    .brand-text h2 {
+      font-size: 1.3rem;
       font-weight: 700;
-      display: inline-block;
-      border: 1px solid rgba(125, 154, 201, 0.3);
+      color: #3a3a3a;
     }
-
-    .tip-card {
-      background: rgba(125, 154, 201, 0.15);
-      backdrop-filter: blur(12px);
-      border: 1px solid #7d9ac9;
-      border-radius: 28px;
-      padding: 24px;
-      transition: all 0.25s ease;
+    .brand-text span {
+      font-size: 0.7rem;
+      color: #8a8a8a;
     }
-
-    .tip-card h4 {
-      color: #7d9ac9;
-      font-size: 1.2rem;
-      margin-bottom: 8px;
+    .new-chat-btn {
+      width: 100%;
+      padding: 12px;
+      background: rgba(224, 170, 160, 0.2);
+      border: 1px solid #e0aaa0;
+      border-radius: 40px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: "Montserrat", sans-serif;
+      color: #3a3a3a;
     }
-
-    .tip-card p {
-      color: #ffffff;
-      word-break: break-word;
+    .new-chat-btn:hover {
+      background: rgba(224, 170, 160, 0.35);
+      transform: translateY(-1px);
     }
-
-    .tip-card div {
-      color: #7d9ac9 !important;
-    }
-
-    /* Footer */
-    .footer {
-      position: fixed;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      color: #ffffff;
-      font-family: "Montserrat", "Ubuntu", sans-serif;
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0 12px;
       font-size: 0.75rem;
       font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      color: #5c5c5c;
+    }
+    .convo-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .convo-item {
+      padding: 12px 14px;
+      border-radius: 20px;
+      background: rgba(224, 170, 160, 0.1);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #3a3a3a;
+    }
+    .convo-item i {
+      color: #e0aaa0;
+      width: 20px;
+    }
+    .convo-item.active {
+      background: rgba(224, 170, 160, 0.25);
+      border: 1px solid #e0aaa0;
+    }
+    .convo-item:hover {
+      background: rgba(224, 170, 160, 0.2);
+      transform: translateX(2px);
+    }
+    .status-chip {
+      background: rgba(224,170,160,0.15);
+      border-radius: 30px;
+      padding: 10px 12px;
+      font-size: 0.7rem;
       text-align: center;
-      pointer-events: auto;
-      background: rgba(10, 31, 58, 0.4);
-      backdrop-filter: blur(10px);
-      padding: 0.5rem 1.5rem;
+      margin-top: auto;
+    }
+
+    /* CENTER: CHAT AREA */
+    .chat-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+
+    /* Messages scrollable */
+    .messages-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      scroll-behavior: smooth;
+    }
+    .message-row {
+      display: flex;
+      gap: 14px;
+      max-width: 80%;
+      animation: fadeIn 0.25s ease;
+    }
+    .user-row {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+    .ai-row {
+      align-self: flex-start;
+    }
+    .message-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 30px;
+      background: #e0aaa0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .chat-message-bubble {
+      background: rgba(255, 247, 245, 0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      padding: 14px 20px;
+      border: 1px solid rgba(255,255,240,0.8);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    }
+    .user-row .chat-message-bubble {
+      background: rgba(224, 170, 160, 0.2);
+      border: 1px solid rgba(224, 170, 160, 0.5);
+      backdrop-filter: blur(8px);
+    }
+    .message-text {
+      line-height: 1.5;
+      color: #2c2c2c;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .message-time {
+      font-size: 0.6rem;
+      color: #8a8a8a;
+      margin-top: 8px;
+      text-align: right;
+      letter-spacing: 0.3px;
+    }
+    .typing-indicator {
+      display: flex;
+      gap: 5px;
+      padding: 8px 0;
+    }
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: #e0aaa0;
+      border-radius: 50%;
+      animation: pulse 1.2s infinite;
+    }
+    @keyframes pulse {
+      0%, 60%, 100% { opacity: 0.3; transform: translateY(0);}
+      30% { opacity: 1; transform: translateY(-4px);}
+    }
+
+    /* Input Area */
+    .input-container {
+      padding: 16px 24px 24px 24px;
+      flex-shrink: 0;
+    }
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 247, 245, 0.92);
+      backdrop-filter: blur(12px);
+      border-radius: 60px;
+      padding: 6px 8px 6px 26px;
+      border: 1px solid rgba(224, 170, 160, 0.5);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      transition: all 0.2s;
+    }
+    .input-wrapper:focus-within {
+      border-color: #e0aaa0;
+      box-shadow: 0 4px 20px rgba(224, 170, 160, 0.15);
+      background: rgba(255, 247, 245, 0.98);
+    }
+    .input-wrapper input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 16px 0;
+      font-size: 0.95rem;
+      outline: none;
+      font-family: "Inter", sans-serif;
+      color: #2c2c2c;
+    }
+    .input-wrapper input::placeholder {
+      color: #b2a19e;
+      font-weight: 400;
+    }
+    .send-btn {
+      background: #e0aaa0;
+      border: none;
+      width: 48px;
+      height: 48px;
       border-radius: 40px;
-      border: 1px solid rgba(125, 154, 201, 0.3);
-      white-space: nowrap;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .send-btn:hover {
+      background: #d49b90;
+      transform: scale(1.02);
     }
 
-    .footer a {
-      color: #ffffff;
-      text-decoration: none;
-      transition: opacity 0.3s ease;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
     }
 
-    .footer a:hover {
-      opacity: 0.7;
-    }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: #e0aaa0; border-radius: 10px; }
 
-    /* Responsive Breakpoints - COMPLETELY REWRITTEN FOR MOBILE */
-    @media (min-width: 1600px) {
-      .dashboard {
-        max-width: 1800px;
-        margin: 0 auto;
-      }
-    }
-
-    @media (max-width: 1200px) {
-      .dashboard {
-        grid-template-columns: 260px 1fr 300px;
-        padding: 16px;
-        gap: 12px;
-      }
-      
-      .principles-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 992px) {
-      .dashboard {
-        grid-template-columns: 1fr;
-        padding: 12px;
-        gap: 12px;
-      }
-      
-      .sidebar {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 280px;
-        height: 100vh;
-        z-index: 1001;
-        border-radius: 0 28px 28px 0;
-        animation: slideIn 0.3s ease;
-        background: rgba(10, 31, 58, 0.4);
-        max-height: 100vh;
-        padding: 20px 16px;
-      }
-      
-      .sidebar.active {
-        display: flex;
-      }
-      
-      @keyframes slideIn {
-        from { transform: translateX(-100%); }
-        to { transform: translateX(0); }
-      }
-      
-      .mobile-menu-toggle {
-        display: flex;
-      }
-      
-      .right-panel {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        max-height: none;
-      }
-      
-      .progress-ring-card {
-        grid-column: span 2;
-      }
-      
-      .main-content {
-        max-height: none;
-        padding: 20px 16px;
-      }
-      
-      .sidebar {
-        max-height: 100vh;
-      }
-      
-      .footer {
-        font-size: 0.7rem;
-        padding: 0.4rem 1.2rem;
-      }
-    }
-
+    /* Responsive */
     @media (max-width: 768px) {
-      .dashboard { 
-        padding: 10px; 
-      }
-      
-      .stats-grid { 
-        grid-template-columns: 1fr; 
-        gap: 12px;
-      }
-      
-      .principles-grid { 
-        grid-template-columns: 1fr; 
-        gap: 12px;
-      }
-      
-      .courses-grid { 
-        grid-template-columns: 1fr; 
-        gap: 12px;
-      }
-      
-      .resources-grid { 
-        grid-template-columns: 1fr; 
-        gap: 12px;
-      }
-      
-      .right-panel { 
-        grid-template-columns: 1fr; 
-      }
-      
-      .progress-ring-card {
-        grid-column: span 1;
-      }
-      
-      .access-bar {
-        flex-direction: column;
-        gap: 12px;
-        align-items: stretch;
-        padding: 12px;
-      }
-      
-      .access-controls {
-        justify-content: center;
-      }
-      
-      .stat-number { 
-        font-size: 2.2rem; 
-      }
-      
-      .section-header h2 { 
-        font-size: 1.3rem; 
-      }
-      
-      .principle-number { 
-        font-size: 2rem; 
-      }
-      
-      .nav-item a { 
-        padding: 14px 16px; 
-      }
-      
-      .a11y-btn { 
-        padding: 10px 16px; 
-        font-size: 0.8rem;
-      }
-      
-      .user-chip { 
-        padding: 14px; 
-      }
-      
-      .featured-card > div {
-        flex-direction: column;
-        align-items: flex-start !important;
-      }
-      
-      .featured-card .btn-primary {
-        width: 100%;
-      }
-      
-      .section-header {
-        margin: 24px 0 12px;
-      }
-      
-      .course-card, .principle-card, .resource-card, .stat-card {
-        padding: 18px;
-      }
-      
-      .logo-area {
-        margin-bottom: 32px;
-      }
-      
-      .logo-text h1 {
-        font-size: 1.4rem;
-      }
+      .single-container { padding: 12px; gap: 12px; }
+      .message-row { max-width: 90%; }
+      .info-icon, .menu-toggle-btn { width: 42px; height: 42px; font-size: 1.1rem; }
+      .model-btn { padding: 6px 12px; font-size: 0.75rem; }
+      .tooltip-text { width: 260px; font-size: 0.75rem; right: 0; }
+      .sidebar-ai { width: 280px; }
     }
 
-    @media (max-width: 600px) {
-      .dashboard {
-        padding: 8px;
-      }
-      
-      .access-controls {
-        flex-direction: column;
-        width: 100%;
-      }
-      
-      .a11y-btn {
-        width: 100%;
-        justify-content: center;
-      }
-      
-      .wcag-badge {
-        width: 100%;
-        text-align: center;
-      }
-      
-      .right-panel .btn-primary,
-      .right-panel .btn-secondary {
-        padding: 14px;
-      }
-      
-      .ring-progress {
-        width: 110px;
-        height: 110px;
-      }
-      
-      .ring-progress::before {
-        width: 84px;
-        height: 84px;
-      }
-      
-      .ring-progress span {
-        font-size: 1.8rem;
-      }
+    @media (max-width: 640px) {
+      .top-bar { gap: 10px; }
+      .model-selector { gap: 3px; padding: 4px 6px; }
+      .model-btn { padding: 5px 10px; font-size: 0.7rem; }
+      .messages-area { padding: 12px; }
+      .input-container { padding: 10px 12px 16px; }
     }
 
     @media (max-width: 480px) {
-      .dashboard { 
-        padding: 6px; 
-      }
-      
-      .logo-icon { 
-        width: 44px; 
-        height: 44px; 
-        font-size: 1.8rem; 
-      }
-      
-      .logo-text h1 { 
-        font-size: 1.3rem; 
-      }
-      
-      .stat-number { 
-        font-size: 1.8rem; 
-      }
-      
-      .ring-progress { 
-        width: 100px; 
-        height: 100px; 
-      }
-      
-      .ring-progress::before { 
-        width: 76px; 
-        height: 76px; 
-      }
-      
-      .ring-progress span { 
-        font-size: 1.6rem; 
-      }
-      
-      .mobile-menu-toggle { 
-        width: 50px; 
-        height: 50px; 
-        bottom: 16px; 
-        right: 16px; 
-      }
-      
-      .footer {
-        font-size: 0.65rem;
-        padding: 0.3rem 1rem;
-        bottom: 0.5rem;
-      }
-      
-      .section-header h2 {
-        font-size: 1.2rem;
-      }
-      
-      .course-meta {
-        font-size: 0.75rem;
-        gap: 10px;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .logo-text h1 { 
-        font-size: 1.1rem; 
-      }
-      
-      .a11y-btn { 
-        padding: 8px 12px; 
-        font-size: 0.75rem; 
-      }
-      
-      .stat-number {
-        font-size: 1.6rem;
-      }
-      
-      .principle-number {
-        font-size: 1.8rem;
-      }
-    }
-
-    /* Landscape orientation fixes */
-    @media (max-height: 600px) and (orientation: landscape) {
-      .dashboard {
-        min-height: auto;
-        padding: 8px;
-      }
-      
-      .sidebar, .main-content, .right-panel {
-        max-height: none;
-      }
-      
-      .footer {
-        position: relative;
-        margin-top: 20px;
-        transform: translateX(-50%);
-      }
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
+      .message-avatar { width: 36px; height: 36px; font-size: 0.9rem; }
+      .chat-message-bubble { padding: 10px 14px; }
+      .tooltip-text { width: 240px; }
     }
   </style>
 </head>
 <body>
-  <!-- Animated gradient canvas -->
   <div class="gradient-container">
-    <div class="gradient-hero-light">
-      <canvas id="canvas"></canvas>
+    <canvas id="canvas-bg"></canvas>
+  </div>
+
+  <div class="single-container">
+    <!-- Top Bar: menu button first, then models, then accessibility -->
+    <div class="top-bar">
+      <!-- Menu button (first) -->
+      <div class="menu-btn-wrapper">
+        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Меню">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      
+      <!-- Model selector (center) -->
+      <div class="model-selector">
+        <button class="model-btn active" data-model="gpt">GPT-4</button>
+        <button class="model-btn" data-model="assist">Assistant</button>
+        <button class="model-btn" data-model="inclusive">Inclusive AI</button>
+      </div>
+      
+      <!-- Accessibility tooltip button (last) -->
+      <div class="tooltip-wrapper">
+        <div class="info-icon">
+          <i class="fas fa-universal-access"></i>
+        </div>
+        <div class="tooltip-text">
+          <strong style="color: #e0aaa0;">Инклюзивный дизайн</strong><br>
+          Поддержка скринридеров, семантическая разметка, альтернативный текст, клавиатурная доступность, высокий контраст.
+        </div>
+      </div>
     </div>
-    <div class="gradient-overlay"></div>
+
+    <!-- Main Grid with chat area -->
+    <div class="dashboard-grid" id="dashboardGrid">
+      <!-- Overlay for menu -->
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+      
+      <!-- Floating Sidebar Menu (overlays everything) -->
+      <aside class="sidebar-ai" id="sidebarMenu">
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Закрыть меню">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="brand-area">
+          <div class="brand-icon"><i class="fas fa-robot"></i></div>
+          <div class="brand-text">
+            <h2>AI Mentor</h2>
+            <span>Траектория роста</span>
+          </div>
+        </div>
+        <button class="new-chat-btn" id="newChatMain"><i class="fas fa-plus-circle"></i> Новый диалог</button>
+        <div>
+          <div class="history-header"><span><i class="fas fa-history"></i> История</span></div>
+          <ul class="convo-list" id="convoListMain">
+            <li class="convo-item active" data-convo="0"><i class="fas fa-comment-dots"></i> Доступность интерфейсов</li>
+            <li class="convo-item" data-convo="1"><i class="fas fa-comment"></i> WCAG принципы</li>
+            <li class="convo-item" data-convo="2"><i class="fas fa-comment"></i> ARIA практики</li>
+          </ul>
+        </div>
+        <div class="status-chip"><i class="fas fa-shield-alt"></i> Инклюзивный режим</div>
+      </aside>
+
+      <!-- Центральная область чата -->
+      <div class="chat-center">
+        <div class="messages-area" id="messagesArea">
+          <div class="message-row ai-row">
+            <div class="message-avatar"><i class="fas fa-sparkles"></i></div>
+            <div class="chat-message-bubble">
+              <div class="message-text">Привет! Я AI-ассистент с фокусом на инклюзивный дизайн и стандарты доступности. Спрашивай о WCAG, ARIA, семантической верстке, скринридерах или просто задавай вопросы. Чем могу помочь?</div>
+              <div class="message-time">сейчас</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="input-wrapper">
+            <input type="text" id="chatInputMain" placeholder="Спросите о доступности, WCAG, ARIA..." aria-label="Сообщение для AI">
+            <button class="send-btn" id="sendBtnMain"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <!-- Custom cursor -->
-  <div class="custom-cursor" id="customCursor"></div>
-
-  <!-- Mobile menu toggle - FIXED: now fully clickable -->
-  <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Открыть меню">
-    <i class="fas fa-bars"></i>
-  </button>
-
-  <div class="dashboard">
-    <!-- Sidebar -->
-    <aside class="sidebar glass-ui glass-card" id="sidebar">
-      <div class="logo-area">
-        <div class="logo-icon">ТР</div>
-        <div class="logo-text">
-          <h1>Траектория роста</h1>
-          <span>инклюзивное обучение</span>
-        </div>
-      </div>
-
-      <ul class="nav-menu">
-        <li class="nav-item active">
-          <a href="#"><i class="fas fa-compass"></i><span>Обзор</span></a>
-        </li>
-        <li class="nav-item">
-          <a href="#"><i class="fas fa-book-open"></i><span>Мои курсы</span></a>
-        </li>
-        <li class="nav-item">
-          <a href="#"><i class="fas fa-file-alt"></i><span>Стандарты WCAG</span></a>
-        </li>
-        <li class="nav-item">
-          <a href="#"><i class="fas fa-chart-line"></i><span>Прогресс</span></a>
-        </li>
-        <li class="nav-item">
-          <a href="#"><i class="fas fa-users"></i><span>Сообщество</span></a>
-        </li>
-        <li class="nav-item">
-          <a href="#"><i class="fas fa-bookmark"></i><span>Ресурсы</span></a>
-        </li>
-      </ul>
-
-      <div class="user-chip">
-        <div class="user-avatar">А</div>
-        <div class="user-info">
-          <h4>Александра</h4>
-          <p>UX/UI дизайнер</p>
-        </div>
-        <i class="fas fa-chevron-right" style="margin-left: auto; opacity: 0.7;"></i>
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content glass-ui glass-card">
-      <!-- Access bar -->
-      <div class="access-bar">
-        <div class="access-controls">
-          <button class="a11y-btn" id="contrastBtn" aria-label="Повысить контраст"><i class="fas fa-adjust"></i> Контраст</button>
-          <button class="a11y-btn" id="fontBtn" aria-label="Увеличить текст"><i class="fas fa-text-height"></i> Текст</button>
-          <button class="a11y-btn" id="resetBtn" aria-label="Сбросить настройки"><i class="fas fa-undo-alt"></i> Сброс</button>
-        </div>
-        <div class="wcag-badge"><i class="fas fa-universal-access"></i> WCAG 2.1 AA</div>
-      </div>
-
-      <!-- Stats cards -->
-      <div class="stats-grid">
-        <div class="stat-card glass-ui glass-card">
-          <div class="stat-number">15%</div>
-          <div class="stat-label">населения мира имеют инвалидность</div>
-        </div>
-        <div class="stat-card glass-ui glass-card">
-          <div class="stat-number">98%</div>
-          <div class="stat-label">сайтов не соответствуют WCAG</div>
-        </div>
-        <div class="stat-card glass-ui glass-card">
-          <div class="stat-number">1.3B</div>
-          <div class="stat-label">пользователей нуждаются в доступных интерфейсах</div>
-        </div>
-      </div>
-
-      <!-- Featured course -->
-      <div class="featured-card glass-ui glass-card">
-        <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
-          <div style="background: #7d9ac9; width: 70px; height: 70px; border-radius: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <i class="fas fa-star" style="color: #0a1f3a; font-size: 2rem;"></i>
-          </div>
-          <div style="flex:1; min-width: 200px;">
-            <h3>Основы цифровой доступности</h3>
-            <p style="color: #c0d8ff;">Мини-курс · 4 урока · 30 минут</p>
-          </div>
-          <button class="btn-primary" style="width:auto; padding:12px 30px;" aria-label="Продолжить обучение">Продолжить</button>
-        </div>
-        <div style="margin-top:20px;">
-          <div class="progress-bar"><div class="progress-fill" style="width:68%"></div></div>
-          <div style="display:flex; justify-content:space-between; margin-top:8px; color:#e0f0ff;"><span>Прогресс</span><span class="progress-percent">68%</span></div>
-        </div>
-      </div>
-
-      <!-- WCAG principles -->
-      <div class="section-header">
-        <h2><i class="fas fa-file-alt"></i> 4 принципа WCAG</h2>
-        <a href="#" class="view-all">Все стандарты <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="principles-grid">
-        <div class="principle-card glass-ui glass-card">
-          <div class="principle-number">01</div>
-          <h3>Воспринимаемость</h3>
-          <p>Информация должна быть представлена способами, которые пользователи могут воспринимать.</p>
-          <div><span class="wcag-tag">1.1.1</span><span class="wcag-tag">1.4.3</span></div>
-        </div>
-        <div class="principle-card glass-ui glass-card">
-          <div class="principle-number">02</div>
-          <h3>Управляемость</h3>
-          <p>Все функции доступны с клавиатуры, достаточно времени.</p>
-          <div><span class="wcag-tag">2.1.1</span><span class="wcag-tag">2.4.7</span></div>
-        </div>
-        <div class="principle-card glass-ui glass-card">
-          <div class="principle-number">03</div>
-          <h3>Понятность</h3>
-          <p>Интерфейс предсказуем, помогает избегать ошибок.</p>
-          <div><span class="wcag-tag">3.2.3</span><span class="wcag-tag">3.3.2</span></div>
-        </div>
-        <div class="principle-card glass-ui glass-card">
-          <div class="principle-number">04</div>
-          <h3>Надежность</h3>
-          <p>Совместимость с браузерами и вспомогательными технологиями.</p>
-          <div><span class="wcag-tag">4.1.2</span><span class="wcag-tag">4.1.3</span></div>
-        </div>
-      </div>
-
-      <!-- Popular lessons -->
-      <div class="section-header">
-        <h2><i class="fas fa-fire"></i> Популярные уроки</h2>
-        <a href="#" class="view-all">Все уроки <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="courses-grid">
-        <div class="course-card glass-ui glass-card" tabindex="0" role="button" aria-label="Курс: Клавиатурная доступность, прогресс 80%">
-          <div class="course-icon"><i class="fas fa-keyboard"></i></div>
-          <h3>Клавиатурная доступность</h3>
-          <div class="course-meta"><span><i class="fas fa-clock"></i> 10 мин</span><span>Нач.</span></div>
-          <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
-          <div class="progress-stats"><span>Прогресс</span><span class="progress-percent">80%</span></div>
-        </div>
-        <div class="course-card glass-ui glass-card" tabindex="0" role="button" aria-label="Курс: Цвет и контраст, прогресс 45%">
-          <div class="course-icon"><i class="fas fa-eye"></i></div>
-          <h3>Цвет и контраст</h3>
-          <div class="course-meta"><span><i class="fas fa-clock"></i> 15 мин</span><span>Сред.</span></div>
-          <div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
-          <div class="progress-stats"><span>Прогресс</span><span class="progress-percent">45%</span></div>
-        </div>
-        <div class="course-card glass-ui glass-card" tabindex="0" role="button" aria-label="Курс: Субтитры и медиа, прогресс 20%">
-          <div class="course-icon"><i class="fas fa-closed-captioning"></i></div>
-          <h3>Субтитры и медиа</h3>
-          <div class="course-meta"><span><i class="fas fa-clock"></i> 12 мин</span><span>Нач.</span></div>
-          <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
-          <div class="progress-stats"><span>Прогресс</span><span class="progress-percent">20%</span></div>
-        </div>
-      </div>
-
-      <!-- Resources -->
-      <div class="section-header">
-        <h2><i class="fas fa-folder-open"></i> Полезные ресурсы</h2>
-        <a href="#" class="view-all">Все ресурсы <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="resources-grid">
-        <div class="resource-card glass-ui glass-card" tabindex="0" role="button">
-          <div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
-          <div class="resource-text"><h4>WCAG 2.1 Checklist</h4><p>PDF, 2.4 MB</p></div>
-        </div>
-        <div class="resource-card glass-ui glass-card" tabindex="0" role="button">
-          <div class="resource-icon"><i class="fas fa-video"></i></div>
-          <div class="resource-text"><h4>Видео-уроки</h4><p>Плейлист из 12 видео</p></div>
-        </div>
-        <div class="resource-card glass-ui glass-card" tabindex="0" role="button">
-          <div class="resource-icon"><i class="fas fa-tools"></i></div>
-          <div class="resource-text"><h4>Инструменты</h4><p>Браузерные расширения</p></div>
-        </div>
-        <div class="resource-card glass-ui glass-card" tabindex="0" role="button">
-          <div class="resource-icon"><i class="fas fa-comments"></i></div>
-          <div class="resource-text"><h4>Сообщество</h4><p>Чат поддержки</p></div>
-        </div>
-      </div>
-    </main>
-
-    <!-- Right Panel -->
-    <aside class="right-panel glass-ui glass-card">
-      <div class="progress-ring-card">
-        <h3 style="font-weight:500; color: #ffffff;">Общий прогресс</h3>
-        <div class="ring-progress"><span>68%</span></div>
-        <div class="stats-mini">
-          <div class="stat-mini-item"><div class="value">4</div><div class="label">завершено</div></div>
-          <div class="stat-mini-item"><div class="value">3</div><div class="label">в процессе</div></div>
-          <div class="stat-mini-item"><div class="value">2</div><div class="label">ресурса</div></div>
-        </div>
-      </div>
-
-      <button class="btn-primary" aria-label="Продолжить обучение"><i class="fas fa-play"></i> Продолжить обучение</button>
-      <button class="btn-secondary" aria-label="Запланировать"><i class="fas fa-calendar-alt"></i> Запланировать</button>
-
-      <div class="activity-feed">
-        <h3 style="margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: #ffffff;"><i class="fas fa-bell"></i> Активность</h3>
-        <div class="feed-item">
-          <div class="feed-avatar">М</div>
-          <div class="feed-content">
-            <p><strong>Михаил</strong> завершил курс «ARIA-разметка»</p>
-            <span class="feed-time">2 часа назад</span>
-            <span class="feed-badge"><i class="fas fa-certificate"></i> Сертификат</span>
-          </div>
-        </div>
-        <div class="feed-item">
-          <div class="feed-avatar">Е</div>
-          <div class="feed-content">
-            <p><strong>Елена</strong> поделилась ресурсом «Цветовой контраст»</p>
-            <span class="feed-time">Вчера</span>
-            <span class="feed-badge"><i class="fas fa-heart"></i> 5</span>
-          </div>
-        </div>
-        <div class="feed-item">
-          <div class="feed-avatar">Д</div>
-          <div class="feed-content">
-            <p><strong>Дмитрий</strong> задал вопрос в сообществе</p>
-            <span class="feed-time">2 дня назад</span>
-            <span class="feed-badge"><i class="fas fa-comment"></i> 3 ответа</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="tip-card">
-        <h4><i class="fas fa-lightbulb"></i> Совет дня</h4>
-        <p>Используйте ARIA-метки для динамического контента — это улучшает навигацию для скринридеров.</p>
-        <div style="margin-top:16px; font-weight:800;">#WCAG 4.1.2</div>
-      </div>
-    </aside>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <a href="#" target="_blank" rel="noopener noreferrer">by missvector</a>
-  </footer>
 
   <script>
-    // Canvas animation setup
-    const canvas = document.querySelector("#canvas");
+    // Canvas анимация
+    const canvas = document.getElementById("canvas-bg");
     const ctx = canvas.getContext("2d");
-
-    // Deep indigo-blue color palette
-    const colors = ["#7d9ac9", "#5d7ab9", "#9db6e0", "#3d5a9a", "#1d3a7a", "#0a2a5a"];
-
-    function randomBetween(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    let circles = [];
-
-    function initCircles() {
-      circles = [];
-      let circleCount = Math.floor(window.innerWidth / 8);
-      for (let i = 0; i < circleCount; i++) {
-        let radius = randomBetween(50, 150);
-        let x = randomBetween(radius, canvas.width - radius);
-        let y = randomBetween(radius, canvas.height - radius);
-        let dx = randomBetween(-0.5, 0.5);
-        let dy = randomBetween(-0.5, 0.5);
-        let color = colors[Math.floor(Math.random() * colors.length)];
-        circles.push({ x, y, dx, dy, radius, color });
-      }
-    }
-
-    function drawCircle(circle) {
-      ctx.beginPath();
-      ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2, false);
-      ctx.fillStyle = circle.color;
-      ctx.fill();
-      ctx.closePath();
-    }
-
-    function animate() {
-      requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      circles.forEach(circle => {
-        if (circle.x + circle.radius > canvas.width || circle.x - circle.radius < 0) {
-          circle.dx = -circle.dx;
-        }
-        if (circle.y + circle.radius > canvas.height || circle.y - circle.radius < 0) {
-          circle.dy = -circle.dy;
-        }
-        
-        circle.x += circle.dx;
-        circle.y += circle.dy;
-        
-        drawCircle(circle);
-      });
-    }
-
+    let w, h, particles = [];
     function resizeCanvas() {
-      canvas.width = window.innerWidth * 1.2;
-      canvas.height = window.innerHeight * 1.2;
-      initCircles();
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
+      initParticles();
     }
-
+    function initParticles() {
+      particles = [];
+      let count = Math.floor(Math.min(w, h) / 22);
+      for (let i = 0; i < count; i++) {
+        let r = Math.random() * 90 + 30;
+        particles.push({
+          x: Math.random() * (w - 2 * r) + r,
+          y: Math.random() * (h - 2 * r) + r,
+          dx: (Math.random() - 0.5) * 0.12,
+          dy: (Math.random() - 0.5) * 0.12,
+          r: r,
+          alpha: Math.random() * 0.1 + 0.03
+        });
+      }
+    }
+    function drawParticles() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(224, 170, 160, ${p.alpha})`;
+        ctx.fill();
+        if (p.x + p.r > w) p.dx = -Math.abs(p.dx);
+        if (p.x - p.r < 0) p.dx = Math.abs(p.dx);
+        if (p.y + p.r > h) p.dy = -Math.abs(p.dy);
+        if (p.y - p.r < 0) p.dy = Math.abs(p.dy);
+        p.x += p.dx;
+        p.y += p.dy;
+      });
+      requestAnimationFrame(drawParticles);
+    }
     resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-    initCircles();
-    animate();
+    window.addEventListener('resize', () => { resizeCanvas(); });
+    drawParticles();
 
-    // Custom cursor - hide on mobile
-    if (window.innerWidth > 768) {
-      const cursor = document.getElementById('customCursor');
-      
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-      });
+    // Menu overlay logic — menu overlays everything, not pushing content
+    const sidebarMenu = document.getElementById('sidebarMenu');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const menuToggleBtn = document.getElementById('menuToggleBtn');
+    const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+    
+    function openMenu() {
+      sidebarMenu.classList.add('open');
+      sidebarOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeMenu() {
+      sidebarMenu.classList.remove('open');
+      sidebarOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    menuToggleBtn.addEventListener('click', openMenu);
+    sidebarCloseBtn.addEventListener('click', closeMenu);
+    sidebarOverlay.addEventListener('click', closeMenu);
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sidebarMenu.classList.contains('open')) {
+        closeMenu();
+      }
+    });
 
-      const interactiveElements = document.querySelectorAll('button, a, .course-card, .resource-card, .user-chip, .nav-item a, .mobile-menu-toggle');
-      interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-      });
+    // Логика чата
+    const messagesContainer = document.getElementById('messagesArea');
+    const chatInput = document.getElementById('chatInputMain');
+    const sendButton = document.getElementById('sendBtnMain');
+    let currentModel = 'gpt';
+    let conversationHistory = [
+      { role: 'assistant', content: 'Привет! Я AI-ассистент с фокусом на инклюзивный дизайн и стандарты доступности. Спрашивай о WCAG, ARIA, семантической верстке, скринридерах или просто задавай вопросы. Чем могу помочь?' }
+    ];
 
-      document.addEventListener('mouseleave', () => {
-        cursor.style.opacity = '0';
-      });
-
-      document.addEventListener('mouseenter', () => {
-        cursor.style.opacity = '1';
+    function escapeHtml(str) {
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
       });
     }
 
-    // Accessibility controls
-    const body = document.body;
-    
-    document.getElementById('contrastBtn').addEventListener('click', () => {
-      body.classList.toggle('high-contrast');
-    });
-    
-    document.getElementById('fontBtn').addEventListener('click', () => {
-      body.classList.toggle('large-text');
-    });
-    
-    document.getElementById('resetBtn').addEventListener('click', () => {
-      body.classList.remove('high-contrast', 'large-text');
-    });
+    function renderMessages() {
+      messagesContainer.innerHTML = '';
+      conversationHistory.forEach(msg => {
+        const isUser = msg.role === 'user';
+        const rowDiv = document.createElement('div');
+        rowDiv.className = `message-row ${isUser ? 'user-row' : 'ai-row'}`;
+        rowDiv.innerHTML = `
+          <div class="message-avatar">${isUser ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>'}</div>
+          <div class="chat-message-bubble">
+            <div class="message-text">${escapeHtml(msg.content)}</div>
+            <div class="message-time">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>
+          </div>
+        `;
+        messagesContainer.appendChild(rowDiv);
+      });
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
 
-    // Navigation
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
+    async function getAIResponse(userMsg) {
+      await new Promise(r => setTimeout(r, 600 + Math.random() * 300));
+      const lower = userMsg.toLowerCase();
+      if (lower.includes('wcag')) {
+        return "WCAG (Web Content Accessibility Guidelines) — это международные стандарты доступности. Включают 4 принципа: Воспринимаемость, Управляемость, Понятность, Надежность. Хотите узнать подробнее о каком-то из них?";
+      } else if (lower.includes('aria')) {
+        return "ARIA (Accessible Rich Internet Applications) — это набор атрибутов, которые делают динамический контент доступным для скринридеров. Используйте aria-label, aria-describedby, role и другие, когда нативных HTML-элементов недостаточно.";
+      } else if (lower.includes('семантик') || lower.includes('верстк')) {
+        return "Семантическая верстка — использование HTML-тегов по их назначению: <header>, <nav>, <main>, <article>, <button>. Это помогает скринридерам правильно интерпретировать структуру страницы и улучшает навигацию.";
+      } else if (lower.includes('скринридер') || lower.includes('screen reader')) {
+        return "Скринридеры (NVDA, VoiceOver, JAWS) озвучивают интерфейс для незрячих пользователей. Для корректной работы используйте alt-текст, ARIA-метки, логическую структуру заголовков и фокусируемые элементы.";
+      } else if (lower.includes('доступн') || lower.includes('инклюз')) {
+        return "Цифровая доступность делает продукты удобными для всех, включая людей с инвалидностью. Ключевые практики: контрастность, клавиатурная навигация, alt-текст, семантическая разметка, поддержка скринридеров.";
+      } else {
+        return `Хороший вопрос! В контексте инклюзивного дизайна важно помнить о разнообразии пользователей. Рекомендую изучить раздел "Основы доступности" в нашем дашборде. (Модель: ${currentModel === 'gpt' ? 'GPT-4' : currentModel === 'assist' ? 'Assistant' : 'Inclusive AI'})`;
+      }
+    }
+
+    async function addUserMessage(text) {
+      if (!text.trim()) return;
+      conversationHistory.push({ role: 'user', content: text });
+      renderMessages();
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'message-row ai-row';
+      typingDiv.id = 'typingLoader';
+      typingDiv.innerHTML = `<div class="message-avatar"><i class="fas fa-sparkles"></i></div><div class="chat-message-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
+      messagesContainer.appendChild(typingDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      
+      const reply = await getAIResponse(text);
+      document.getElementById('typingLoader')?.remove();
+      conversationHistory.push({ role: 'assistant', content: reply });
+      renderMessages();
+    }
+
+    sendButton.addEventListener('click', () => { const val = chatInput.value.trim(); if(val) { addUserMessage(val); chatInput.value = ''; } });
+    chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendButton.click(); });
+    document.getElementById('newChatMain').addEventListener('click', () => {
+      conversationHistory = [{ role: 'assistant', content: 'Новый диалог начат! Я здесь, чтобы помочь с инклюзивным дизайном и WCAG. Задавайте любые вопросы.' }];
+      renderMessages();
+      closeMenu();
+    });
+    
+    document.querySelectorAll('.model-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const newModel = btn.getAttribute('data-model');
+        const modelName = newModel === 'gpt' ? 'GPT-4' : newModel === 'assist' ? 'Assistant' : 'Inclusive AI';
+        currentModel = newModel;
+        addUserMessage(`Переключение на модель ${modelName}`);
+      });
+    });
+    
+    document.querySelectorAll('.convo-item').forEach(item => {
       item.addEventListener('click', function() {
-        navItems.forEach(n => n.classList.remove('active'));
+        document.querySelectorAll('.convo-item').forEach(i => i.classList.remove('active'));
         this.classList.add('active');
-        
-        if (window.innerWidth <= 992) {
-          document.getElementById('sidebar').classList.remove('active');
-          document.getElementById('mobileMenuToggle').innerHTML = '<i class="fas fa-bars"></i>';
-        }
+        const id = this.getAttribute('data-convo');
+        if(id === '0') conversationHistory = [{ role: 'assistant', content: 'Доступность интерфейсов: тема, которую вы обсуждали ранее. Какие аспекты вас интересуют?' }];
+        else if(id === '1') conversationHistory = [{ role: 'assistant', content: 'WCAG принципы: Воспринимаемость, Управляемость, Понятность, Надежность. Хотите детали?' }];
+        else conversationHistory = [{ role: 'assistant', content: 'ARIA практики: используйте aria-live для динамических обновлений, aria-label для кнопок без текста.' }];
+        renderMessages();
+        closeMenu();
       });
     });
-
-    // Course card progress increment
-    document.querySelectorAll('.course-card').forEach(card => {
-      card.addEventListener('click', function() {
-        const fill = this.querySelector('.progress-fill');
-        const percentSpan = this.querySelector('.progress-percent');
-        if (fill && percentSpan) {
-          let current = parseInt(fill.style.width) || 0;
-          if (current < 100) {
-            let newWidth = Math.min(current + 15, 100);
-            fill.style.width = newWidth + '%';
-            percentSpan.textContent = newWidth + '%';
-            
-            const announcement = document.createElement('div');
-            announcement.setAttribute('aria-live', 'polite');
-            announcement.classList.add('sr-only');
-            announcement.textContent = `Прогресс обновлен до ${newWidth} процентов`;
-            document.body.appendChild(announcement);
-            setTimeout(() => announcement.remove(), 1000);
-          }
-        }
-      });
-      
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.click();
-        }
-      });
-    });
-
-    // Mobile menu toggle - FIXED: fully functional
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const sidebar = document.getElementById('sidebar');
-    
-    if (mobileMenuToggle) {
-      mobileMenuToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        sidebar.classList.toggle('active');
-        const isActive = sidebar.classList.contains('active');
-        this.innerHTML = isActive ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-        this.setAttribute('aria-label', isActive ? 'Закрыть меню' : 'Открыть меню');
-      });
-      
-      document.addEventListener('click', (e) => {
-        if (window.innerWidth <= 992 && 
-            sidebar.classList.contains('active') && 
-            !sidebar.contains(e.target) && 
-            !mobileMenuToggle.contains(e.target)) {
-          sidebar.classList.remove('active');
-          mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-          mobileMenuToggle.setAttribute('aria-label', 'Открыть меню');
-        }
-      });
-    }
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 992) {
-        sidebar.classList.remove('active');
-        if (mobileMenuToggle) {
-          mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-          mobileMenuToggle.setAttribute('aria-label', 'Открыть меню');
-        }
-      }
-    });
-
-    // Prevent body scroll when mobile menu is open
-    sidebar.addEventListener('transitionend', function() {
-      if (window.innerWidth <= 992) {
-        if (this.classList.contains('active')) {
-          document.body.style.overflow = 'hidden';
-        } else {
-          document.body.style.overflow = '';
-        }
-      }
-    });
+    renderMessages();
   </script>
 </body>
 </html>

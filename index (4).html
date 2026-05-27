@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="description" content="Траектория роста — инклюзивный образовательный дашборд">
+  <title>Траектория роста | beige-pink gradient</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts - Cyrillic-friendly fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Raleway:wght@400;500;600;700;800&family=Ubuntu:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body {
+      font-family: "Inter", "Montserrat", sans-serif;
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      transition: font-size 0.2s ease;
+      position: relative;
+      cursor: default;
+      background: linear-gradient(135deg, #fbe9e7 0%, #f5e0dd 100%);
+      font-size: 16px;
+      width: 100%;
+    }
+
+    /* HIGH CONTRAST MODE - PURE BLACK, YELLOW AND WHITE ONLY */
+    body.high-contrast {
+      background: #000000 !important;
+    }
+
+    /* Force all borders to yellow */
+    body.high-contrast,
+    body.high-contrast * {
+      border-color: #ffff00 !important;
+    }
+
+    /* Cards and containers - black background, yellow border */
+    body.high-contrast .glass-ui,
+    body.high-contrast .glass-card,
+    body.high-contrast .access-bar,
+    body.high-contrast .stat-card,
+    body.high-contrast .featured-card,
+    body.high-contrast .principle-card,
+    body.high-contrast .course-card,
+    body.high-contrast .resource-card,
+    body.high-contrast .right-panel > *,
+    body.high-contrast .progress-ring-card,
+    body.high-contrast .activity-feed,
+    body.high-contrast .tip-card,
+    body.high-contrast .sidebar,
+    body.high-contrast .main-content,
+    body.high-contrast .footer,
+    body.high-contrast .mobile-menu-toggle {
+      background-color: #000000 !important;
+      background-image: none !important;
+      border: 2px solid #ffff00 !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: none !important;
+    }
+
+    /* ALL text elements - yellow only */
+    body.high-contrast p,
+    body.high-contrast h1,
+    body.high-contrast h2,
+    body.high-contrast h3,
+    body.high-contrast h4,
+    body.high-contrast span,
+    body.high-contrast div,
+    body.high-contrast .stat-number,
+    body.high-contrast .stat-label,
+    body.high-contrast .course-meta,
+    body.high-contrast .feed-time,
+    body.high-contrast .feed-content p,
+    body.high-contrast .principle-card p,
+    body.high-contrast .resource-text p,
+    body.high-contrast .tip-card p,
+    body.high-contrast .logo-text h1,
+    body.high-contrast .logo-text span,
+    body.high-contrast .user-info h4,
+    body.high-contrast .user-info p,
+    body.high-contrast .section-header h2,
+    body.high-contrast .activity-feed h3,
+    body.high-contrast .tip-card h4,
+    body.high-contrast .tip-card div,
+    body.high-contrast .footer,
+    body.high-contrast .footer a,
+    body.high-contrast .principle-number,
+    body.high-contrast .progress-percent,
+    body.high-contrast .value,
+    body.high-contrast .label,
+    body.high-contrast .feed-badge,
+    body.high-contrast .wcag-badge {
+      color: #ffff00 !important;
+    }
+
+    /* ALL icons - FORCE YELLOW with maximum specificity */
+    body.high-contrast i,
+    body.high-contrast .fas,
+    body.high-contrast .far,
+    body.high-contrast .fab,
+    body.high-contrast .fa,
+    body.high-contrast [class^="fa-"],
+    body.high-contrast [class*=" fa-"],
+    body.high-contrast .fa-star,
+    body.high-contrast .fa-compass,
+    body.high-contrast .fa-book-open,
+    body.high-contrast .fa-file-alt,
+    body.high-contrast .fa-chart-line,
+    body.high-contrast .fa-users,
+    body.high-contrast .fa-bookmark,
+    body.high-contrast .fa-chevron-right,
+    body.high-contrast .fa-adjust,
+    body.high-contrast .fa-text-height,
+    body.high-contrast .fa-undo-alt,
+    body.high-contrast .fa-universal-access,
+    body.high-contrast .fa-arrow-right,
+    body.high-contrast .fa-keyboard,
+    body.high-contrast .fa-eye,
+    body.high-contrast .fa-closed-captioning,
+    body.high-contrast .fa-clock,
+    body.high-contrast .fa-file-pdf,
+    body.high-contrast .fa-video,
+    body.high-contrast .fa-tools,
+    body.high-contrast .fa-comments,
+    body.high-contrast .fa-play,
+    body.high-contrast .fa-calendar-alt,
+    body.high-contrast .fa-bell,
+    body.high-contrast .fa-certificate,
+    body.high-contrast .fa-heart,
+    body.high-contrast .fa-comment,
+    body.high-contrast .fa-lightbulb,
+    body.high-contrast .fa-bars,
+    body.high-contrast .fa-times {
+      color: #ffff00 !important;
+    }
+
+    /* Override any inline styles that might cause pink icons */
+    body.high-contrast [style*="color"] {
+      color: #ffff00 !important;
+    }
+
+    /* Buttons - PRESERVING STYLES from new version */
+    body.high-contrast button,
+    body.high-contrast .btn-primary,
+    body.high-contrast .btn-secondary,
+    body.high-contrast .a11y-btn,
+    body.high-contrast .color-btn,
+    body.high-contrast .view-all,
+    body.high-contrast .nav-item a,
+    body.high-contrast .user-chip {
+      background-color: #000000 !important;
+      border: 2px solid #ffff00 !important;
+      color: #ffff00 !important;
+      box-shadow: none !important;
+      border-radius: 30px !important;
+      padding: 0.75rem 1.25rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.03em !important;
+      transition: none !important;
+    }
+
+    /* Active button state */
+    body.high-contrast .btn-primary.active,
+    body.high-contrast .nav-item.active a {
+      background-color: #ffff00 !important;
+      border-color: #ffff00 !important;
+      color: #000000 !important;
+    }
+
+    body.high-contrast .btn-primary.active i,
+    body.high-contrast .nav-item.active a i {
+      color: #000000 !important;
+    }
+
+    /* Progress bars */
+    body.high-contrast .progress-fill {
+      background-color: #ffff00 !important;
+    }
+
+    body.high-contrast .progress-bar {
+      background-color: #333333 !important;
+      border: 1px solid #ffff00 !important;
+      height: 6px !important;
+      border-radius: 10px !important;
+    }
+
+    /* Colored elements that become yellow/black */
+    body.high-contrast .logo-icon,
+    body.high-contrast .course-icon,
+    body.high-contrast .resource-icon,
+    body.high-contrast .feed-avatar,
+    body.high-contrast .user-avatar {
+      background-color: #ffff00 !important;
+      color: #000000 !important;
+      border: 2px solid #ffff00 !important;
+      border-radius: inherit !important;
+    }
+
+    body.high-contrast .logo-icon i,
+    body.high-contrast .course-icon i,
+    body.high-contrast .resource-icon i,
+    body.high-contrast .feed-avatar i,
+    body.high-contrast .user-avatar i {
+      color: #000000 !important;
+    }
+
+    /* Tags */
+    body.high-contrast .wcag-tag,
+    body.high-contrast .feed-badge {
+      background-color: #000000 !important;
+      border: 2px solid #ffff00 !important;
+      color: #ffff00 !important;
+      border-radius: 30px !important;
+      padding: 4px 10px !important;
+      font-weight: 600 !important;
+    }
+
+    /* Ring progress in high contrast */
+    body.high-contrast .ring-progress {
+      background: conic-gradient(#ffff00 0deg 245deg, #333333 245deg 360deg) !important;
+    }
+
+    body.high-contrast .ring-progress::before {
+      background-color: #000000 !important;
+      border: 1px solid #ffff00 !important;
+    }
+
+    body.high-contrast .ring-progress span {
+      color: #ffff00 !important;
+    }
+
+    /* Remove all gradients and effects */
+    body.high-contrast .gradient-container,
+    body.high-contrast .gradient-overlay,
+    body.high-contrast canvas {
+      display: none !important;
+    }
+
+    /* Mobile menu toggle in high contrast */
+    body.high-contrast .mobile-menu-toggle {
+      background-color: #000000 !important;
+      border: 2px solid #ffff00 !important;
+      color: #ffff00 !important;
+    }
+
+    body.high-contrast .mobile-menu-toggle i {
+      color: #ffff00 !important;
+    }
+
+    /* Footer in high contrast */
+    body.high-contrast .footer {
+      background-color: #000000 !important;
+      border: 2px solid #ffff00 !important;
+      color: #ffff00 !important;
+    }
+
+    body.high-contrast .footer a {
+      color: #ffff00 !important;
+    }
+
+    /* Ensure no blue/purple remains */
+    body.high-contrast [style*="color"] {
+      color: #ffff00 !important;
+    }
+
+    body.high-contrast [style*="background"] {
+      background-color: #000000 !important;
+      background-image: none !important;
+    }
+
+    /* White text for special cases (if needed) */
+    body.high-contrast .white-text {
+      color: #ffffff !important;
+    }
+
+    /* Large text mode */
+    body.large-text {
+      font-size: 20px;
+    }
+    
+    body.large-text .stat-number {
+      font-size: 3.5rem;
+    }
+    
+    body.large-text .principle-number {
+      font-size: 2.8rem;
+    }
+    
+    body.large-text .btn-primary,
+    body.large-text .btn-secondary,
+    body.large-text .a11y-btn {
+      font-size: 1.1rem;
+      padding: 0.9rem 1.5rem;
+    }
+
+    p, .text-muted, .text-sm, .stat-label, .course-meta, .resource-text p, .feed-time {
+      font-family: "Raleway", "Inter", sans-serif;
+      font-weight: 500;
+    }
+
+    h1, h2, h3, h4, h5, h6, .heading-font, .nav-item a, .btn-primary, .btn-secondary, .color-btn, .a11y-btn, .view-all, .user-info h4, .stat-number, .principle-number, .feed-avatar {
+      font-family: "Montserrat", "Ubuntu", sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* Canvas background setup - OPTIMIZED FOR PERFORMANCE */
+    .gradient-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+      background: linear-gradient(135deg, #fbe9e7 0%, #f5e0dd 100%);
+    }
+
+    .gradient-hero-light {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      overflow: hidden;
+      z-index: -2;
+    }
+
+    #canvas {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -2;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    /* Glassmorphism - EXACT colors from tr-1 */
+    .glass-ui {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-card {
+      background: rgba(255, 247, 245, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 24px;
+      transition: background 0.3s ease, border 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 247, 245, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 25px rgba(224, 170, 160, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .glass-card:hover {
+        transform: none;
+      }
+    }
+
+    /* Text colors - EXACT from tr-1 */
+    body {
+      color: #5c5c5c;
+    }
+
+    h1, h2, h3, h4, h5, h6, .heading-font {
+      color: #3a3a3a;
+    }
+
+    .text-muted, .text-sm, .stat-label, .course-meta, .resource-text p, .feed-time {
+      color: #8a8a8a;
+    }
+
+    /* Main layout */
+    .dashboard {
+      display: grid;
+      grid-template-columns: 280px 1fr 340px;
+      width: 100%;
+      min-height: 100vh;
+      gap: 16px;
+      padding: 20px 24px;
+      position: relative;
+      z-index: 10;
+      margin: 0 auto;
+      max-width: 1800px;
+    }
+
+    /* Template-style buttons - EXACT from tr-1 */
+    .color-btn, .a11y-btn, .btn-primary, .btn-secondary, .view-all, .user-chip, .nav-item a, .mobile-menu-toggle {
+      min-width: 48px;
+      padding: 0.75rem 1.25rem;
+      background: rgba(255, 247, 245, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 30px;
+      color: #5c5c5c;
+      font-family: "Montserrat", "Ubuntu", sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .color-btn:hover, .a11y-btn:hover, .btn-primary:hover, .btn-secondary:hover, .view-all:hover, .user-chip:hover, .nav-item a:hover, .mobile-menu-toggle:hover {
+      background: rgba(255, 247, 245, 0.95);
+      border-color: #e0aaa0;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(224, 170, 160, 0.15);
+    }
+
+    .btn-primary {
+      background: rgba(224, 170, 160, 0.25);
+      border-color: #e0aaa0;
+      color: #3a3a3a;
+    }
+
+    .btn-primary:hover {
+      background: rgba(224, 170, 160, 0.35);
+      border-color: #d49b90;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: #e0aaa0;
+      color: #5c5c5c;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(224, 170, 160, 0.15);
+    }
+
+    .view-all {
+      background: transparent;
+      border: 1px dashed #e0aaa0;
+      color: #5c5c5c;
+    }
+
+    .color-btn.active, .nav-item.active a {
+      background: rgba(224, 170, 160, 0.2);
+      border-color: #e0aaa0;
+      color: #3a3a3a;
+      font-weight: 700;
+    }
+
+    /* Mobile menu toggle */
+    .mobile-menu-toggle {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 2000;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      padding: 0;
+      font-size: 1.5rem;
+      background: rgba(255, 247, 245, 0.9);
+      border: 2px solid #e0aaa0;
+      cursor: pointer;
+      pointer-events: auto;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      color: #3a3a3a;
+    }
+
+    .mobile-menu-toggle:hover {
+      transform: scale(1.05);
+      background: white;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      padding: 28px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      border-radius: 28px;
+      transition: transform 0.3s ease;
+      height: fit-content;
+      max-height: calc(100vh - 40px);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 48px;
+      padding-left: 6px;
+      flex-wrap: wrap;
+    }
+
+    .logo-icon {
+      width: 52px;
+      height: 52px;
+      background: #e0aaa0;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: "Montserrat", "Ubuntu", sans-serif;
+      box-shadow: 0 8px 18px -6px rgba(224, 170, 160, 0.4);
+      flex-shrink: 0;
+    }
+
+    .logo-text h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #3a3a3a;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-text span {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      font-weight: 400;
+      color: #8a8a8a;
+    }
+
+    .nav-menu {
+      list-style: none;
+      flex: 1;
+    }
+
+    .nav-item {
+      margin-bottom: 6px;
+    }
+
+    .nav-item a {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 16px;
+      color: #5c5c5c;
+      text-decoration: none;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      min-height: 48px;
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .nav-item a i {
+      width: 22px;
+      font-size: 1.2rem;
+      color: #e0aaa0;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 50px;
+      margin-top: auto;
+      min-height: 64px;
+      width: 100%;
+    }
+
+    .user-avatar {
+      width: 42px;
+      height: 42px;
+      background: #e0aaa0;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .user-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .user-info h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #3a3a3a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-info p {
+      font-size: 0.7rem;
+      opacity: 0.7;
+      color: #8a8a8a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Main content */
+    .main-content {
+      padding: 28px 26px;
+      overflow-y: auto;
+      border-radius: 28px;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+      max-height: calc(100vh - 40px);
+    }
+
+    /* Access bar */
+    .access-bar {
+      border-radius: 50px;
+      padding: 8px 16px 8px 16px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 247, 245, 0.7);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .access-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .wcag-badge {
+      background: rgba(224, 170, 160, 0.15);
+      backdrop-filter: blur(4px);
+      color: #5c5c5c;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid #e0aaa0;
+      white-space: nowrap;
+    }
+
+    /* Stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      border-radius: 24px;
+      padding: 22px 18px;
+      transition: all 0.25s ease;
+      min-height: 120px;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #e0aaa0;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #5c5c5c;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    /* Featured card */
+    .featured-card {
+      border-radius: 28px;
+      padding: 24px;
+      margin-bottom: 40px;
+      transition: all 0.25s ease;
+    }
+
+    .featured-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #3a3a3a;
+    }
+
+    .featured-card p {
+      color: #8a8a8a !important;
+    }
+
+    /* Section headers */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 32px 0 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #3a3a3a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-header h2 i {
+      color: #e0aaa0;
+      background: rgba(224, 170, 160, 0.1);
+      padding: 8px;
+      border-radius: 14px;
+    }
+
+    /* Principles grid */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .principle-card {
+      border-radius: 24px;
+      padding: 20px 16px;
+      transition: all 0.25s ease;
+      min-height: 190px;
+    }
+
+    .principle-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: rgba(224, 170, 160, 0.25);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .principle-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #3a3a3a;
+    }
+
+    .principle-card p {
+      font-size: 0.85rem;
+      color: #5c5c5c;
+      margin-bottom: 15px;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
+    .wcag-tag {
+      background: rgba(224, 170, 160, 0.1);
+      color: #e0aaa0;
+      padding: 4px 10px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border: 1px solid rgba(224, 170, 160, 0.2);
+      display: inline-block;
+      margin-right: 5px;
+      margin-bottom: 4px;
+    }
+
+    /* Courses grid */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 20px 0 30px;
+    }
+
+    .course-card {
+      border-radius: 24px;
+      padding: 20px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      min-height: 190px;
+    }
+
+    .course-icon {
+      width: 48px;
+      height: 48px;
+      background: #e0aaa0;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+
+    .course-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #3a3a3a;
+    }
+
+    .course-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 0.75rem;
+      color: #8a8a8a;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      font-weight: 500;
+    }
+
+    .progress-bar {
+      height: 5px;
+      background: rgba(224, 170, 160, 0.15);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #e0aaa0;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: #5c5c5c;
+    }
+
+    .progress-percent {
+      font-weight: 600;
+      color: #e0aaa0;
+    }
+
+    /* Resources grid */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .resource-card {
+      border-radius: 22px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.25s ease;
+      min-height: 80px;
+    }
+
+    .resource-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(224, 170, 160, 0.15);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e0aaa0;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .resource-text {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .resource-text h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #3a3a3a;
+    }
+
+    .resource-text p {
+      font-size: 0.7rem;
+      color: #8a8a8a;
+    }
+
+    /* Right panel */
+    .right-panel {
+      padding: 24px 20px;
+      overflow-y: auto;
+      border-radius: 28px;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: calc(100vh - 40px);
+    }
+
+    .progress-ring-card {
+      border-radius: 28px;
+      padding: 24px 16px;
+      text-align: center;
+      margin-bottom: 5px;
+      transition: all 0.25s ease;
+      background: rgba(255, 247, 245, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .ring-progress {
+      width: 120px;
+      height: 120px;
+      margin: 16px auto;
+      background: conic-gradient(#e0aaa0 0deg 245deg, rgba(224, 170, 160, 0.15) 245deg 360deg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .ring-progress::before {
+      content: '';
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      background: rgba(255, 247, 245, 0.9);
+      border-radius: 50%;
+      border: 1px solid #e0aaa0;
+    }
+
+    .ring-progress span {
+      position: relative;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #e0aaa0;
+      z-index: 2;
+    }
+
+    .stats-mini {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .stat-mini-item .value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #e0aaa0;
+    }
+
+    .stat-mini-item .label {
+      font-size: 0.7rem;
+      color: #5c5c5c;
+      opacity: 0.8;
+    }
+
+    /* Right panel buttons - full width */
+    .right-panel .btn-primary,
+    .right-panel .btn-secondary {
+      width: 100%;
+      margin: 0;
+    }
+
+    /* Activity feed */
+    .activity-feed {
+      border-radius: 24px;
+      padding: 20px;
+      margin: 5px 0;
+    }
+    
+    .activity-feed h3 {
+      color: #3a3a3a;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.1rem;
+    }
+
+    .feed-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(224, 170, 160, 0.15);
+    }
+
+    .feed-item:last-child {
+      border-bottom: none;
+    }
+
+    .feed-avatar {
+      width: 40px;
+      height: 40px;
+      background: #e0aaa0;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+
+    .feed-content {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .feed-content p {
+      color: #3a3a3a;
+      font-size: 0.85rem;
+    }
+
+    .feed-time {
+      color: #8a8a8a;
+      font-size: 0.65rem;
+      display: block;
+      margin: 4px 0;
+      opacity: 0.8;
+    }
+
+    .feed-badge {
+      background: rgba(224, 170, 160, 0.1);
+      color: #5c5c5c;
+      padding: 4px 10px;
+      border-radius: 30px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      display: inline-block;
+      border: 1px solid rgba(224, 170, 160, 0.2);
+    }
+
+    .tip-card {
+      background: rgba(224, 170, 160, 0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid #e0aaa0;
+      border-radius: 24px;
+      padding: 20px;
+      transition: all 0.25s ease;
+    }
+
+    .tip-card h4 {
+      color: #e0aaa0;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .tip-card p {
+      color: #5c5c5c;
+      font-size: 0.85rem;
+    }
+
+    .tip-card div {
+      color: #e0aaa0 !important;
+      font-size: 0.8rem;
+    }
+
+    /* Footer */
+    .footer {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      color: #5c5c5c;
+      font-family: "Montserrat", "Ubuntu", sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-align: center;
+      pointer-events: auto;
+      background: rgba(255, 247, 245, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      white-space: nowrap;
+    }
+
+    .footer a {
+      color: #5c5c5c;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer a:hover {
+      opacity: 0.7;
+    }
+
+    /* Responsive Breakpoints */
+    @media (min-width: 1600px) {
+      .dashboard {
+        max-width: 1800px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .dashboard {
+        grid-template-columns: 260px 1fr 300px;
+        padding: 16px;
+        gap: 12px;
+      }
+      
+      .principles-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 992px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+        padding: 12px;
+        gap: 12px;
+      }
+      
+      .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px;
+        height: 100vh;
+        z-index: 1001;
+        border-radius: 0 24px 24px 0;
+        animation: slideIn 0.3s ease;
+        background: rgba(255, 247, 245, 0.85);
+        max-height: 100vh;
+        padding: 20px 16px;
+      }
+      
+      .sidebar.active {
+        display: flex;
+      }
+      
+      @keyframes slideIn {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(0); }
+      }
+      
+      .mobile-menu-toggle {
+        display: flex;
+      }
+      
+      .right-panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        max-height: none;
+      }
+      
+      .progress-ring-card {
+        grid-column: span 2;
+      }
+      
+      .main-content {
+        max-height: none;
+        padding: 20px 16px;
+      }
+      
+      .sidebar {
+        max-height: 100vh;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard { 
+        padding: 10px; 
+      }
+      
+      .stats-grid { 
+        grid-template-columns: 1fr; 
+        gap: 12px;
+      }
+      
+      .principles-grid { 
+        grid-template-columns: 1fr; 
+        gap: 12px;
+      }
+      
+      .courses-grid { 
+        grid-template-columns: 1fr; 
+        gap: 12px;
+      }
+      
+      .resources-grid { 
+        grid-template-columns: 1fr; 
+        gap: 12px;
+      }
+      
+      .right-panel { 
+        grid-template-columns: 1fr; 
+      }
+      
+      .progress-ring-card {
+        grid-column: span 1;
+      }
+      
+      .access-bar {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+        padding: 12px;
+      }
+      
+      .access-controls {
+        justify-content: center;
+      }
+      
+      .stat-number { 
+        font-size: 2.2rem; 
+      }
+      
+      .section-header h2 { 
+        font-size: 1.3rem; 
+      }
+      
+      .principle-number { 
+        font-size: 2rem; 
+      }
+      
+      .nav-item a { 
+        padding: 14px 16px; 
+      }
+      
+      .a11y-btn { 
+        padding: 10px 16px; 
+        font-size: 0.8rem;
+      }
+      
+      .user-chip { 
+        padding: 14px; 
+      }
+      
+      .featured-card > div {
+        flex-direction: column;
+        align-items: flex-start !important;
+      }
+      
+      .featured-card .btn-primary {
+        width: 100%;
+      }
+      
+      .section-header {
+        margin: 24px 0 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .dashboard { 
+        padding: 6px; 
+      }
+      
+      .logo-icon { 
+        width: 44px; 
+        height: 44px; 
+        font-size: 1.6rem; 
+      }
+      
+      .logo-text h1 { 
+        font-size: 1.2rem; 
+      }
+      
+      .stat-number { 
+        font-size: 1.8rem; 
+      }
+      
+      .ring-progress { 
+        width: 100px; 
+        height: 100px; 
+      }
+      
+      .ring-progress::before { 
+        width: 76px; 
+        height: 76px; 
+      }
+      
+      .ring-progress span { 
+        font-size: 1.5rem; 
+      }
+      
+      .mobile-menu-toggle { 
+        width: 50px; 
+        height: 50px; 
+        bottom: 16px; 
+        right: 16px; 
+      }
+    }
+
+    @media (max-width: 360px) {
+      .logo-text h1 { 
+        font-size: 1.1rem; 
+      }
+      
+      .a11y-btn { 
+        padding: 8px 12px; 
+        font-size: 0.75rem; 
+      }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated canvas - OPTIMIZED FOR PERFORMANCE -->
+  <div class="gradient-container">
+    <div class="gradient-hero-light">
+      <canvas id="canvas"></canvas>
+    </div>
+  </div>
+
+  <!-- Mobile menu toggle -->
+  <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Открыть меню">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar glass-ui glass-card" id="sidebar">
+      <div class="logo-area">
+        <div class="logo-icon">ТР</div>
+        <div class="logo-text">
+          <h1>Траектория роста</h1>
+          <span>инклюзивное обучение</span>
+        </div>
+      </div>
+
+      <ul class="nav-menu">
+        <li class="nav-item active">
+          <a href="#"><i class="fas fa-compass"></i><span>Обзор</span></a>
+        </li>
+        <li class="nav-item">
+          <a href="#"><i class="fas fa-book-open"></i><span>Мои курсы</span></a>
+        </li>
+        <li class="nav-item">
+          <a href="#"><i class="fas fa-file-alt"></i><span>Стандарты WCAG</span></a>
+        </li>
+        <li class="nav-item">
+          <a href="#"><i class="fas fa-chart-line"></i><span>Прогресс</span></a>
+        </li>
+        <li class="nav-item">
+          <a href="#"><i class="fas fa-users"></i><span>Сообщество</span></a>
+        </li>
+        <li class="nav-item">
+          <a href="#"><i class="fas fa-bookmark"></i><span>Ресурсы</span></a>
+        </li>
+      </ul>
+
+      <div class="user-chip">
+        <div class="user-avatar">А</div>
+        <div class="user-info">
+          <h4>Александра</h4>
+          <p>UX/UI дизайнер</p>
+        </div>
+        <i class="fas fa-chevron-right" style="margin-left: auto; opacity: 0.5;"></i>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content glass-ui glass-card">
+      <!-- Access bar -->
+      <div class="access-bar">
+        <div class="access-controls">
+          <button class="a11y-btn" id="contrastBtn" aria-label="Повысить контраст"><i class="fas fa-adjust"></i> Контраст</button>
+          <button class="a11y-btn" id="fontBtn" aria-label="Увеличить текст"><i class="fas fa-text-height"></i> Текст</button>
+          <button class="a11y-btn" id="resetBtn" aria-label="Сбросить настройки"><i class="fas fa-undo-alt"></i> Сброс</button>
+        </div>
+        <div class="wcag-badge"><i class="fas fa-universal-access"></i> WCAG 2.1 AA</div>
+      </div>
+
+      <!-- Stats cards -->
+      <div class="stats-grid">
+        <div class="stat-card glass-ui glass-card">
+          <div class="stat-number">15%</div>
+          <div class="stat-label">населения мира имеют инвалидность</div>
+        </div>
+        <div class="stat-card glass-ui glass-card">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">сайтов не соответствуют WCAG</div>
+        </div>
+        <div class="stat-card glass-ui glass-card">
+          <div class="stat-number">1.3B</div>
+          <div class="stat-label">пользователей нуждаются в доступных интерфейсах</div>
+        </div>
+      </div>
+
+      <!-- Featured course -->
+      <div class="featured-card glass-ui glass-card">
+        <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+          <div style="background: #e0aaa0; width: 64px; height: 64px; border-radius: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <i class="fas fa-star" style="color: white; font-size: 1.8rem;"></i>
+          </div>
+          <div style="flex:1; min-width: 200px;">
+            <h3>Основы цифровой доступности</h3>
+            <p style="color: #8a8a8a;">Мини-курс · 4 урока · 30 минут</p>
+          </div>
+          <button class="btn-primary" style="width:auto; padding:10px 28px;" aria-label="Продолжить обучение">Продолжить</button>
+        </div>
+        <div style="margin-top:18px;">
+          <div class="progress-bar"><div class="progress-fill" style="width:68%"></div></div>
+          <div style="display:flex; justify-content:space-between; margin-top:8px; color:#5c5c5c;"><span>Прогресс</span><span class="progress-percent">68%</span></div>
+        </div>
+      </div>
+
+      <!-- WCAG principles -->
+      <div class="section-header">
+        <h2><i class="fas fa-file-alt"></i> 4 принципа WCAG</h2>
+        <a href="#" class="view-all">Все стандарты <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="principles-grid">
+        <div class="principle-card glass-ui glass-card">
+          <div class="principle-number">01</div>
+          <h3>Воспринимаемость</h3>
+          <p>Информация должна быть представлена способами, которые пользователи могут воспринимать.</p>
+          <div><span class="wcag-tag">1.1.1</span><span class="wcag-tag">1.4.3</span></div>
+        </div>
+        <div class="principle-card glass-ui glass-card">
+          <div class="principle-number">02</div>
+          <h3>Управляемость</h3>
+          <p>Все функции доступны с клавиатуры, достаточно времени.</p>
+          <div><span class="wcag-tag">2.1.1</span><span class="wcag-tag">2.4.7</span></div>
+        </div>
+        <div class="principle-card glass-ui glass-card">
+          <div class="principle-number">03</div>
+          <h3>Понятность</h3>
+          <p>Интерфейс предсказуем, помогает избегать ошибок.</p>
+          <div><span class="wcag-tag">3.2.3</span><span class="wcag-tag">3.3.2</span></div>
+        </div>
+        <div class="principle-card glass-ui glass-card">
+          <div class="principle-number">04</div>
+          <h3>Надежность</h3>
+          <p>Совместимость с браузерами и вспомогательными технологиями.</p>
+          <div><span class="wcag-tag">4.1.2</span><span class="wcag-tag">4.1.3</span></div>
+        </div>
+      </div>
+
+      <!-- Popular lessons -->
+      <div class="section-header">
+        <h2><i class="fas fa-fire"></i> Популярные уроки</h2>
+        <a href="#" class="view-all">Все уроки <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="courses-grid">
+        <div class="course-card glass-ui glass-card" tabindex="0" role="button" aria-label="Курс: Клавиатурная доступность, прогресс 80%">
+          <div class="course-icon"><i class="fas fa-keyboard"></i></div>
+          <h3>Клавиатурная доступность</h3>
+          <div class="course-meta"><span><i class="fas fa-clock"></i> 10 мин</span><span>Нач.</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+          <div class="progress-stats"><span>Прогресс</span><span class="progress-percent">80%</span></div>
+        </div>
+        <div class="course-card glass-ui glass-card" tabindex="0" role="button" aria-label="Курс: Цвет и контраст, прогресс 45%">
+          <div class="course-icon"><i class="fas fa-eye"></i></div>
+          <h3>Цвет и контраст</h3>
+          <div class="course-meta"><span><i class="fas fa-clock"></i> 15 мин</span><span>Сред.</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
+          <div class="progress-stats"><span>Прогресс</span><span class="progress-percent">45%</span></div>
+        </div>
+        <div class="course-card glass-ui glass-card" tabindex="0" role="button" aria-label="Курс: Субтитры и медиа, прогресс 20%">
+          <div class="course-icon"><i class="fas fa-closed-captioning"></i></div>
+          <h3>Субтитры и медиа</h3>
+          <div class="course-meta"><span><i class="fas fa-clock"></i> 12 мин</span><span>Нач.</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+          <div class="progress-stats"><span>Прогресс</span><span class="progress-percent">20%</span></div>
+        </div>
+      </div>
+
+      <!-- Resources -->
+      <div class="section-header">
+        <h2><i class="fas fa-folder-open"></i> Полезные ресурсы</h2>
+        <a href="#" class="view-all">Все ресурсы <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="resources-grid">
+        <div class="resource-card glass-ui glass-card" tabindex="0" role="button">
+          <div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
+          <div class="resource-text"><h4>WCAG 2.1 Checklist</h4><p>PDF, 2.4 MB</p></div>
+        </div>
+        <div class="resource-card glass-ui glass-card" tabindex="0" role="button">
+          <div class="resource-icon"><i class="fas fa-video"></i></div>
+          <div class="resource-text"><h4>Видео-уроки</h4><p>Плейлист из 12 видео</p></div>
+        </div>
+        <div class="resource-card glass-ui glass-card" tabindex="0" role="button">
+          <div class="resource-icon"><i class="fas fa-tools"></i></div>
+          <div class="resource-text"><h4>Инструменты</h4><p>Браузерные расширения</p></div>
+        </div>
+        <div class="resource-card glass-ui glass-card" tabindex="0" role="button">
+          <div class="resource-icon"><i class="fas fa-comments"></i></div>
+          <div class="resource-text"><h4>Сообщество</h4><p>Чат поддержки</p></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Panel -->
+    <aside class="right-panel glass-ui glass-card">
+      <div class="progress-ring-card">
+        <h3 style="font-weight:500;">Общий прогресс</h3>
+        <div class="ring-progress"><span>68%</span></div>
+        <div class="stats-mini">
+          <div class="stat-mini-item"><div class="value">4</div><div class="label">завершено</div></div>
+          <div class="stat-mini-item"><div class="value">3</div><div class="label">в процессе</div></div>
+          <div class="stat-mini-item"><div class="value">2</div><div class="label">ресурса</div></div>
+        </div>
+      </div>
+
+      <button class="btn-primary" aria-label="Продолжить обучение"><i class="fas fa-play"></i> Продолжить обучение</button>
+      <button class="btn-secondary" aria-label="Запланировать"><i class="fas fa-calendar-alt"></i> Запланировать</button>
+
+      <div class="activity-feed">
+        <h3><i class="fas fa-bell"></i> Активность</h3>
+        <div class="feed-item">
+          <div class="feed-avatar">М</div>
+          <div class="feed-content">
+            <p><strong>Михаил</strong> завершил курс «ARIA-разметка»</p>
+            <span class="feed-time">2 часа назад</span>
+            <span class="feed-badge"><i class="fas fa-certificate"></i> Сертификат</span>
+          </div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-avatar">Е</div>
+          <div class="feed-content">
+            <p><strong>Елена</strong> поделилась ресурсом «Цветовой контраст»</p>
+            <span class="feed-time">Вчера</span>
+            <span class="feed-badge"><i class="fas fa-heart"></i> 5</span>
+          </div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-avatar">Д</div>
+          <div class="feed-content">
+            <p><strong>Дмитрий</strong> задал вопрос в сообществе</p>
+            <span class="feed-time">2 дня назад</span>
+            <span class="feed-badge"><i class="fas fa-comment"></i> 3 ответа</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <h4><i class="fas fa-lightbulb"></i> Совет дня</h4>
+        <p>Используйте ARIA-метки для динамического контента — это улучшает навигацию для скринридеров.</p>
+        <div style="margin-top:16px; font-weight:600;">#WCAG 4.1.2</div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <a href="#" target="_blank" rel="noopener noreferrer">by missvector</a>
+  </footer>
+
+  <script>
+    // OPTIMIZED ANIMATION for better performance
+    const canvas = document.querySelector("#canvas");
+    const ctx = canvas.getContext("2d");
+    
+    let width, height;
+    let circles = [];
+    let animationFrame;
+    
+    // Very subtle particles that complement the beige-pink gradient
+    const colors = [
+      "rgba(224, 170, 160, 0.12)",
+      "rgba(224, 170, 160, 0.08)",
+      "rgba(224, 170, 160, 0.04)",
+      "rgba(248, 235, 230, 0.2)",
+      "rgba(245, 225, 220, 0.15)"
+    ];
+    
+    function randomBetween(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function initCircles() {
+      circles = [];
+      let circleCount = Math.floor(Math.min(width, height) / 18);
+      
+      for (let i = 0; i < circleCount; i++) {
+        let radius = randomBetween(40, 140);
+        let x = randomBetween(radius, width - radius);
+        let y = randomBetween(radius, height - radius);
+        let dx = randomBetween(-0.1, 0.1);
+        let dy = randomBetween(-0.1, 0.1);
+        let color = colors[Math.floor(Math.random() * colors.length)];
+        circles.push({ x, y, dx, dy, radius, color });
+      }
+    }
+
+    function drawCircle(circle) {
+      ctx.beginPath();
+      ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+      ctx.fillStyle = circle.color;
+      ctx.fill();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      
+      for (let i = 0; i < circles.length; i++) {
+        const circle = circles[i];
+        
+        if (circle.x + circle.radius > width) {
+          circle.x = width - circle.radius;
+          circle.dx = -circle.dx;
+        } else if (circle.x - circle.radius < 0) {
+          circle.x = circle.radius;
+          circle.dx = -circle.dx;
+        }
+        
+        if (circle.y + circle.radius > height) {
+          circle.y = height - circle.radius;
+          circle.dy = -circle.dy;
+        } else if (circle.y - circle.radius < 0) {
+          circle.y = circle.radius;
+          circle.dy = -circle.dy;
+        }
+        
+        circle.x += circle.dx;
+        circle.y += circle.dy;
+        
+        drawCircle(circle);
+      }
+      
+      animationFrame = requestAnimationFrame(animate);
+    }
+
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      initCircles();
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+    animate();
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrame);
+      } else {
+        animate();
+      }
+    });
+
+    // Accessibility controls
+    const body = document.body;
+    
+    document.getElementById('contrastBtn').addEventListener('click', () => {
+      body.classList.toggle('high-contrast');
+    });
+    
+    document.getElementById('fontBtn').addEventListener('click', () => {
+      body.classList.toggle('large-text');
+    });
+    
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      body.classList.remove('high-contrast', 'large-text');
+    });
+
+    // Navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+      item.addEventListener('click', function() {
+        navItems.forEach(n => n.classList.remove('active'));
+        this.classList.add('active');
+        
+        if (window.innerWidth <= 992) {
+          document.getElementById('sidebar').classList.remove('active');
+          document.getElementById('mobileMenuToggle').innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      });
+    });
+
+    // Course card progress increment
+    document.querySelectorAll('.course-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const fill = this.querySelector('.progress-fill');
+        const percentSpan = this.querySelector('.progress-percent');
+        if (fill && percentSpan) {
+          let current = parseInt(fill.style.width) || 0;
+          if (current < 100) {
+            let newWidth = Math.min(current + 15, 100);
+            fill.style.width = newWidth + '%';
+            percentSpan.textContent = newWidth + '%';
+          }
+        }
+      });
+      
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
+    // Mobile menu toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        sidebar.classList.toggle('active');
+        const isActive = sidebar.classList.contains('active');
+        this.innerHTML = isActive ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        this.setAttribute('aria-label', isActive ? 'Закрыть меню' : 'Открыть меню');
+        document.body.style.overflow = isActive ? 'hidden' : '';
+      });
+      
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 992 && 
+            sidebar.classList.contains('active') && 
+            !sidebar.contains(e.target) && 
+            !mobileMenuToggle.contains(e.target)) {
+          sidebar.classList.remove('active');
+          mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+          mobileMenuToggle.setAttribute('aria-label', 'Открыть меню');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 992) {
+        sidebar.classList.remove('active');
+        if (mobileMenuToggle) {
+          mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+          mobileMenuToggle.setAttribute('aria-label', 'Открыть меню');
+        }
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
+</body>
+</html>

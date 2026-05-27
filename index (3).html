@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>NeuroAdapt | Мультиагентная система</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: #2a2a2a;
+            --accent: #c9f65b;
+            --accent-light: #d8f889;
+            --success: #c9f65b;
+            --warning: #ffb347;
+            --error: #ff6b6b;
+            --agent-1: #c9f65b;
+            --agent-2: #a0e632;
+            --agent-3: #87d322;
+            --agent-4: #6ec018;
+            --agent-5: #55a70e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            min-height: 100vh;
+        }
+        
+        /* Левая панель - агенты */
+        .agent-panel {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            height: fit-content;
+        }
+        
+        .panel-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+        
+        .agent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .agent-card {
+            padding: 16px;
+            background: var(--surface-secondary);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .agent-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .agent-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--bg);
+            background: var(--accent);
+        }
+        
+        .agent-icon.agent-1 { background: var(--agent-1); }
+        .agent-icon.agent-2 { background: var(--agent-2); }
+        .agent-icon.agent-3 { background: var(--agent-3); }
+        .agent-icon.agent-4 { background: var(--agent-4); }
+        .agent-icon.agent-5 { background: var(--agent-5); }
+        
+        .agent-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .agent-status {
+            margin-left: auto;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        
+        .status-active { background: var(--accent); }
+        .status-dev { background: var(--warning); }
+        
+        .agent-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        
+        .stats {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 13px;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        /* Основная панель */
+        .main-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .log-panel {
+            flex: 1;
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 0;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .log-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .log-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            letter-spacing: -0.02em;
+        }
+        
+        .log-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+        
+        .log-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px;
+            background: var(--surface-secondary);
+        }
+        
+        .log-entry {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            animation: fadeIn 0.3s ease;
+            transition: all 0.2s ease;
+        }
+        
+        .log-entry:hover {
+            border-color: var(--accent);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .log-agent {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .agent-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--surface-secondary);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            border: 1px solid var(--border);
+        }
+        
+        .log-time {
+            margin-left: auto;
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-feature-settings: "tnum";
+        }
+        
+        .log-message {
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        
+        .log-data {
+            background: var(--surface-secondary);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+            font-family: "SF Mono", "Cascadia Code", monospace;
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            overflow-x: auto;
+        }
+        
+        .log-data pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        .json-key { color: var(--accent); }
+        .json-string { color: var(--accent-light); }
+        .json-number { color: var(--warning); }
+        .json-boolean { color: var(--agent-3); }
+        
+        /* Панель ввода */
+        .input-panel {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid var(--border);
+        }
+        
+        .input-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 20px;
+            background: var(--surface-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            resize: vertical;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+            flex: 1;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        /* Типы сообщений */
+        .type-success { border-left: 4px solid var(--accent); }
+        .type-error { border-left: 4px solid var(--error); }
+        .type-processing { border-left: 4px solid var(--agent-3); }
+        .type-warning { border-left: 4px solid var(--warning); }
+        .type-thinking { border-left: 4px solid var(--text-secondary); }
+        
+        /* Скроллбар */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+        
+        /* Минималистичные иконки */
+        .icon-analyzer::before { content: "A"; }
+        .icon-adapter::before { content: "B"; }
+        .icon-personalizer::before { content: "C"; }
+        .icon-generator::before { content: "D"; }
+        .icon-feedback::before { content: "E"; }
+        .icon-system::before { content: "S"; }
+              .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: var(--surface);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .modal-close {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.2s;
+        }
+        
+        .modal-close:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .modal-body {
+            padding: 0;
+            flex: 1;
+            overflow: auto;
+            background: var(--bg);
+        }
+        
+        .preview-container {
+            padding: 32px;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        .preview-title {
+            color: var(--accent);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 12px;
+        }
+        
+        .bionic-word {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .term-tooltip {
+            position: relative;
+            border-bottom: 1px dashed var(--agent-3);
+            cursor: help;
+        }
+        
+        .term-tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            white-space: nowrap;
+            z-index: 10;
+            color: var(--text-primary);
+        }
+        
+        .key-point {
+            background: rgba(201, 246, 91, 0.1);
+            border-left: 3px solid var(--accent);
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .view-adaptation-btn {
+            margin-top: 12px;
+            background: rgba(201, 246, 91, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .view-adaptation-btn:hover {
+            background: rgba(201, 246, 91, 0.2);
+        }
+    </style>
+</head>
+<body>
+      <!-- Модальное окно для предпросмотра -->
+    <div class="modal-overlay" id="previewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Адаптированный контент</div>
+                <button class="modal-close" onclick="closePreview()">×</button>
+            </div>
+            <div class="modal-body" id="previewContent">
+                <!-- Сюда будет вставлен адаптированный контент -->
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Левая панель -->
+        <div class="agent-panel">
+            <div class="panel-title">Агентная система</div>
+            
+            <div class="agent-list">
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon agent-1 icon-analyzer"></div>
+                        <div class="agent-name">Текст-анализатор</div>
+                        <div class="agent-status status-active"></div>
+                    </div>
+                    <div class="agent-desc">Анализирует структуру и сложность текста</div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon agent-2 icon-adapter"></div>
+                        <div class="agent-name">Контент-адаптер</div>
+                        <div class="agent-status status-active"></div>
+                    </div>
+                    <div class="agent-desc">Применяет шаблоны форматирования</div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon agent-3 icon-personalizer"></div>
+                        <div class="agent-name">Персонализатор</div>
+                        <div class="agent-status status-active"></div>
+                    </div>
+                    <div class="agent-desc">Настраивает под профиль пользователя</div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon agent-4 icon-generator"></div>
+                        <div class="agent-name">Интерфейс-генератор</div>
+                        <div class="agent-status status-active"></div>
+                    </div>
+                    <div class="agent-desc">Создает адаптивную верстку</div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon agent-5 icon-feedback"></div>
+                        <div class="agent-name">Фидбэк-агент</div>
+                        <div class="agent-status status-dev"></div>
+                    </div>
+                    <div class="agent-desc">Анализирует взаимодействие</div>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">Состояние системы</span>
+                    <span class="stat-value" style="color: var(--accent)">Активна</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">RAG база</span>
+                    <span class="stat-value">347K фрагментов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Модель</span>
+                    <span class="stat-value">DeepSeek-R1</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Обработок сегодня</span>
+                    <span class="stat-value">142</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Основная панель -->
+        <div class="main-panel">
+            <div class="log-panel">
+                <div class="log-header">
+                    <div class="log-title">Системный лог</div>
+                    <div class="log-subtitle">Адаптация учебных материалов в реальном времени</div>
+                </div>
+                
+                <div class="log-content" id="logContent">
+                    <div class="log-entry type-processing">
+                        <div class="log-agent">
+                            <div class="agent-badge icon-system">Система</div>
+                            <span class="log-time">15:32:01</span>
+                        </div>
+                        <div class="log-message">
+                            Мультиагентная система инициализирована. Все основные агенты активны.
+                        </div>
+                    </div>
+                    
+                    <div class="log-entry type-thinking">
+                        <div class="log-agent">
+                            <div class="agent-badge icon-analyzer">Текст-анализатор</div>
+                            <span class="log-time">15:32:05</span>
+                        </div>
+                        <div class="log-message">
+                            Ожидаю входной текст для обработки. Готов к анализу структуры и ключевых терминов.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Панель ввода -->
+            <div class="input-panel">
+                <div class="input-title">Ввод текста для адаптации</div>
+                <textarea id="inputText" placeholder="Введите учебный текст для адаптации...">Фотосинтез — это процесс преобразования света в химическую энергию, происходящий в растениях и некоторых бактериях. В ходе фотосинтеза углекислый газ и вода преобразуются в глюкозу и кислород с использованием солнечного света.</textarea>
+                
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="startAdaptation()">
+                        Запустить адаптацию
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearLog()">
+                        Очистить лог
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+const agents = [
+    { id: 1, name: "Текст-анализатор", icon: "icon-analyzer", color: "var(--agent-1)" },
+    { id: 2, name: "Контент-адаптер", icon: "icon-adapter", color: "var(--agent-2)" },
+    { id: 3, name: "Персонализатор", icon: "icon-personalizer", color: "var(--agent-3)" },
+    { id: 4, name: "Интерфейс-генератор", icon: "icon-generator", color: "var(--agent-4)" },
+    { id: 5, name: "Фидбэк-агент", icon: "icon-feedback", color: "var(--agent-5)" }
+];
+
+function addLog(agentId, message, type = "processing", data = null) {
+    const logContent = document.getElementById('logContent');
+    const agent = agents.find(a => a.id === agentId) || { name: "Система", icon: "icon-system", color: "var(--accent)" };
+    const time = new Date().toLocaleTimeString('ru-RU', { 
+        hour12: false, 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit' 
+    });
+    
+    const logEntry = document.createElement('div');
+    logEntry.className = `log-entry type-${type}`;
+    
+    let html = `
+        <div class="log-agent">
+            <div class="agent-badge ${agent.icon}">${agent.name}</div>
+            <span class="log-time">${time}</span>
+        </div>
+        <div class="log-message">${message}</div>
+    `;
+    
+    if (data) {
+        const formattedData = typeof data === 'object' 
+            ? JSON.stringify(data, null, 2)
+            : data;
+        
+        const highlighted = formattedData
+            .replace(/"(.*?)":/g, '<span class="json-key">"$1"</span>:')
+            .replace(/: "(.*?)"/g, ': <span class="json-string">"$1"</span>')
+            .replace(/: (\d+)/g, ': <span class="json-number">$1</span>')
+            .replace(/: (true|false)/g, ': <span class="json-boolean">$1</span>');
+        
+        html += `
+            <div class="log-data">
+                <pre>${highlighted}</pre>
+            </div>
+        `;
+    }
+    
+    logEntry.innerHTML = html;
+    logContent.appendChild(logEntry);
+    logContent.scrollTop = logContent.scrollHeight;
+}
+
+// Функции для модального окна
+function showAdaptedContent(data) {
+    const modal = document.getElementById('previewModal');
+    const previewContent = document.getElementById('previewContent');
+    
+    const adaptedHTML = `
+        <div class="preview-container">
+            <h1 class="preview-title">Адаптированный материал: Фотосинтез</h1>
+            
+            <div class="key-point">
+                <strong>Основное определение:</strong>
+                <p>
+                    <span class="bionic-word">Фотосинтез</span> — это процесс 
+                    <span class="term-tooltip" data-tooltip="Превращение одной формы энергии в другую">
+                        преобразования
+                    </span> 
+                    света в <span class="bionic-word">химическую энергию</span>, происходящий в 
+                    <span class="bionic-word">растениях</span> и некоторых <span class="bionic-word">бактериях</span>.
+                </p>
+            </div>
+            
+            <p>В ходе <span class="bionic-word">фотосинтеза</span>:</p>
+            
+            <ul style="margin: 16px 0; padding-left: 24px;">
+                <li><span class="bionic-word">Углекислый газ</span> (CO₂) + <span class="bionic-word">Вода</span> (H₂O)</li>
+                <li>→ <span class="bionic-word">Глюкоза</span> (C₆H₁₂O₆) + <span class="bionic-word">Кислород</span> (O₂)</li>
+                <li>с использованием <span class="bionic-word">солнечного света</span></li>
+            </ul>
+            
+            <div class="key-point">
+                <strong>Ключевые термины:</strong><br>
+                • <span class="term-tooltip" data-tooltip="Зеленый пигмент растений">Хлорофилл</span><br>
+                • <span class="term-tooltip" data-tooltip="Основной продукт фотосинтеза">Глюкоза</span><br>
+                • <span class="term-tooltip" data-tooltip="Побочный продукт">Кислород</span>
+            </div>
+            
+            <p style="font-size: 14px; color: var(--text-secondary); margin-top: 24px;">
+                <strong>Адаптивные функции:</strong> Bionic Reading • Всплывающие подсказки • Структурирование • Выделение ключевых терминов
+            </p>
+            
+            <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border);">
+                <button class="view-adaptation-btn" onclick="downloadAdaptation()">
+                    Скачать адаптированный материал
+                </button>
+                <button class="view-adaptation-btn" onclick="openFullPage()">
+                    Открыть на отдельной странице
+                </button>
+            </div>
+        </div>
+    `;
+    
+    previewContent.innerHTML = adaptedHTML;
+    modal.style.display = 'flex';
+    addLog(4, `Показан предпросмотр адаптированного контента. Доступность: ${data.accessibility}, Адаптивность: ${data.responsive}`, "success");
+}
+
+function closePreview() {
+    document.getElementById('previewModal').style.display = 'none';
+}
+
+function downloadAdaptation() {
+    addLog(4, "Скачивание адаптированного материала инициировано", "processing");
+    setTimeout(() => {
+        addLog(4, "Материал успешно скачан в формате PDF", "success");
+        alert("Материал скачан в формате PDF");
+    }, 800);
+}
+
+function openFullPage() {
+    addLog(4, "Открытие адаптированной страницы в новой вкладке", "processing");
+    setTimeout(() => {
+        addLog(4, "Страница открыта в новой вкладке", "success");
+        window.open('#', '_blank');
+    }, 500);
+}
+
+// Основная функция адаптации (одна единственная версия)
+function startAdaptation() {
+    const input = document.getElementById('inputText').value;
+    if (!input.trim()) return;
+    
+    // Симуляция работы агентов
+    addLog(1, "Получен текст для анализа. Определяю структуру и ключевые термины...", "processing");
+    
+    setTimeout(() => {
+        addLog(1, "Анализ завершен", "success", {
+            length_chars: input.length,
+            sentences: input.split(/[.!?]+/).filter(s => s.trim()).length,
+            key_terms: ["фотосинтез", "глюкоза", "кислород", "свет", "хлорофилл"],
+            complexity: "medium"
+        });
+        
+        addLog(3, "Использую профиль по умолчанию: студент с высокой цифровой грамотностью", "thinking");
+        
+        setTimeout(() => {
+            addLog(2, "Применяю JSON-шаблон адаптации. Добавляю Bionic Reading и всплывающие подсказки...", "processing");
+            
+            setTimeout(() => {
+                addLog(2, "Контент адаптирован", "success", {
+                    template_applied: "neuro_adaptive_v2",
+                    bionic_reading: true,
+                    tooltips_added: 5,
+                    sections_created: 3,
+                    key_terms_highlighted: 8
+                });
+                
+                addLog(4, "Генерирую веб-интерфейс с адаптированным контентом...", "processing");
+                
+                setTimeout(() => {
+                    const resultData = {
+                        url_preview: "/adapted/photo_synthesis.html",
+                        accessibility: true,
+                        responsive: true,
+                        word_count: 156,
+                        adaptation_level: "high"
+                    };
+                    
+                    addLog(4, "Интерфейс готов к отображению", "success", resultData);
+                    
+                    // Добавляем кнопку для просмотра результата
+                    const logEntry = document.querySelector('.log-entry:last-child');
+                    if (logEntry) {
+                        const viewBtn = document.createElement('div');
+                        viewBtn.className = 'view-adaptation-btn';
+                        viewBtn.innerHTML = 'Посмотреть адаптированный контент';
+                        viewBtn.onclick = () => showAdaptedContent(resultData);
+                        logEntry.appendChild(viewBtn);
+                    }
+                    
+                    addLog(5, "Собираю метрики взаимодействия...", "thinking");
+                    
+                    setTimeout(() => {
+                        addLog(5, "Предварительная оценка: когнитивная нагрузка снижена на ~40% для целевой группы", "success");
+                        addLog(0, "Адаптация успешно завершена. Материал готов к использованию.", "success");
+                    }, 800);
+                }, 1200);
+            }, 1000);
+        }, 700);
+    }, 500);
+}
+
+function clearLog() {
+    document.getElementById('logContent').innerHTML = `
+        <div class="log-entry type-processing">
+            <div class="log-agent">
+                <div class="agent-badge icon-system">Система</div>
+                <span class="log-time">${new Date().toLocaleTimeString('ru-RU', { hour12: false })}</span>
+            </div>
+            <div class="log-message">Лог очищен. Система готова к работе.</div>
+        </div>
+    `;
+}
+
+// Инициализация
+setTimeout(() => {
+    addLog(0, "Все агенты подключены к RAG-базе (347K фрагментов)", "success");
+}, 100);
+    </script>
+</body>
+</html>

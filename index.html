@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ========== ORIGINAL CSS — PRESERVED ========== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
@@ -34,15 +33,13 @@
       opacity: 0.35; pointer-events: none;
     }
 
-    /* ========== NEW LAYOUT ========== */
     .container {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       display: flex; flex-direction: column;
-      z-index: 10; padding: 0; gap: 0;
-      max-width: 100%; margin: 0;
+      z-index: 10; max-width: 100%;
+      pointer-events: auto;
     }
 
-    /* Header */
     .app-header {
       display: flex; align-items: center; gap: 14px;
       flex-shrink: 0;
@@ -50,6 +47,7 @@
       background: rgba(255, 247, 245, 0.75);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(224, 170, 160, 0.3);
+      z-index: 20; pointer-events: auto;
     }
     .logo {
       width: 40px; height: 40px;
@@ -78,6 +76,7 @@
       transition: 0.2s;
       font-family: "Montserrat", sans-serif;
       white-space: nowrap;
+      pointer-events: auto;
     }
     .action-btn:hover {
       background: rgba(224, 170, 160, 0.25);
@@ -93,18 +92,18 @@
       cursor: pointer; transition: 0.2s;
       font-family: "Montserrat", sans-serif;
       color: #5c5c5c; white-space: nowrap;
+      pointer-events: auto;
     }
     .lang-toggle:hover { background: rgba(224, 170, 160, 0.3); }
 
-    /* Split view */
     .split-view {
       display: flex;
       flex: 1;
       min-height: 0;
       overflow: hidden;
+      z-index: 15; pointer-events: auto;
     }
 
-    /* Chat/Input panel — LEFT */
     .chat-panel {
       width: 380px;
       min-width: 260px;
@@ -114,6 +113,7 @@
       flex-direction: column;
       border-right: 1px solid rgba(224, 170, 160, 0.3);
       overflow: hidden;
+      pointer-events: auto; z-index: 16;
     }
     .chat-messages {
       flex: 1;
@@ -122,10 +122,12 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      pointer-events: auto;
     }
     .chat-msg {
       display: flex; gap: 8px;
       animation: msgIn 0.2s ease;
+      pointer-events: auto;
     }
     .chat-msg.user { flex-direction: row-reverse; }
     .chat-msg.user .bubble {
@@ -159,12 +161,12 @@
     }
     .chat-msg .bubble.file-bubble .remove-btn:hover { color: #d49b90; }
 
-    /* Chat input area */
     .chat-input-area {
       padding: 12px;
       border-top: 1px solid rgba(224, 170, 160, 0.3);
       background: rgba(255, 247, 245, 0.5);
       display: flex; flex-direction: column; gap: 8px;
+      pointer-events: auto;
     }
     .input-row {
       display: flex; gap: 6px;
@@ -179,6 +181,7 @@
       font-family: "Inter", sans-serif;
       color: #3a3a3a;
       outline: none;
+      pointer-events: auto;
     }
     .input-row input::placeholder { color: #b2a19e; }
     .input-row input:focus {
@@ -191,6 +194,7 @@
       display: flex; align-items: center; justify-content: center;
       transition: 0.2s; flex-shrink: 0;
       font-size: 0.85rem;
+      pointer-events: auto;
     }
     .send-btn { background: #e0aaa0; color: white; }
     .send-btn:hover { background: #d49b90; }
@@ -209,13 +213,13 @@
       font-size: 0.68rem; font-weight: 500;
       cursor: pointer; transition: 0.15s;
       color: #5c5c5c;
+      pointer-events: auto;
     }
     .preset-chip:hover {
       background: rgba(224, 170, 160, 0.25);
       border-color: #e0aaa0;
     }
 
-    /* URL input row (hidden by default) */
     .url-input-row {
       display: none; gap: 6px; margin-top: 4px;
     }
@@ -230,6 +234,7 @@
       font-family: "Inter", sans-serif;
       color: #3a3a3a;
       outline: none;
+      pointer-events: auto;
     }
     .url-input-row .fetch-btn {
       background: #e0aaa0; color: white; border: none;
@@ -237,25 +242,27 @@
       font-size: 0.7rem; font-weight: 600;
       cursor: pointer; white-space: nowrap;
       font-family: "Montserrat", sans-serif;
+      pointer-events: auto;
     }
 
-    /* Resizer */
     .panel-resizer {
       width: 4px; background: rgba(224, 170, 160, 0.2);
       cursor: col-resize; flex-shrink: 0; transition: 0.15s;
+      pointer-events: auto; z-index: 17;
     }
     .panel-resizer:hover { background: #e0aaa0; }
 
-    /* Preview panel — RIGHT */
     .preview-panel {
       flex: 1; display: flex; flex-direction: column;
       min-width: 0; overflow: hidden;
+      pointer-events: auto; z-index: 16;
     }
     .preview-tabs {
       display: flex;
       background: rgba(255, 247, 245, 0.5);
       border-bottom: 1px solid rgba(224, 170, 160, 0.3);
       padding: 0 16px; gap: 16px;
+      pointer-events: auto;
     }
     .preview-tab {
       padding: 10px 0; font-size: 0.78rem; font-weight: 600;
@@ -264,6 +271,7 @@
       transition: 0.15s;
       font-family: "Montserrat", sans-serif;
       display: flex; align-items: center; gap: 6px;
+      pointer-events: auto;
     }
     .preview-tab.active {
       color: #e0aaa0;
@@ -275,14 +283,17 @@
     }
     .preview-content {
       flex: 1; overflow: hidden; position: relative;
+      pointer-events: auto;
     }
     .preview-pane {
       position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       display: none;
+      pointer-events: auto;
     }
     .preview-pane.active { display: flex; }
     .preview-pane iframe {
       width: 100%; height: 100%; border: none; background: white;
+      pointer-events: auto;
     }
     .preview-pane .empty-state {
       width: 100%; height: 100%;
@@ -290,6 +301,7 @@
       color: #b2a19e; font-size: 0.9rem;
       text-align: center; padding: 20px;
       background: rgba(255, 247, 245, 0.5);
+      pointer-events: auto;
     }
     .preview-pane .text-preview {
       width: 100%; height: 100%;
@@ -299,15 +311,16 @@
       color: #3a3a3a;
       background: white;
       white-space: pre-wrap;
+      pointer-events: auto;
     }
 
-    /* Adaptation toggle */
     .adapt-toggle-bar {
       display: none;
       align-items: center; gap: 10px;
       padding: 8px 16px;
       background: rgba(224, 170, 160, 0.08);
       border-top: 1px solid rgba(224, 170, 160, 0.2);
+      pointer-events: auto;
     }
     .adapt-toggle-bar.show { display: flex; }
     .adapt-toggle-bar span {
@@ -316,13 +329,18 @@
     .toggle-switch {
       position: relative; width: 44px; height: 24px;
       flex-shrink: 0;
+      pointer-events: auto;
     }
-    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-switch input {
+      opacity: 0; width: 100%; height: 100%;
+      position: absolute; z-index: 2; cursor: pointer;
+    }
     .toggle-slider {
       position: absolute; cursor: pointer;
       top: 0; left: 0; right: 0; bottom: 0;
       background: #c4c4c4; border-radius: 24px;
       transition: 0.3s;
+      pointer-events: none;
     }
     .toggle-slider::before {
       content: ""; position: absolute;
@@ -336,17 +354,16 @@
       transform: translateX(20px);
     }
 
-    /* Status line */
     .status-bar {
       text-align: center; font-size: 0.7rem; color: #8a8a8a;
       padding: 4px; flex-shrink: 0;
       background: rgba(255, 247, 245, 0.5);
       border-top: 1px solid rgba(224, 170, 160, 0.15);
+      pointer-events: auto;
     }
     .status-bar.success { color: #5c9e6b; }
     .status-bar.error { color: #d49b90; }
 
-    /* Footer */
     .app-footer {
       text-align: center; padding: 6px;
       font-size: 0.65rem; color: #8a8a8a;
@@ -355,8 +372,12 @@
       gap: 14px; flex-wrap: wrap;
       background: rgba(255, 247, 245, 0.5);
       border-top: 1px solid rgba(224, 170, 160, 0.15);
+      pointer-events: auto;
     }
-    .app-footer a { color: #e0aaa0; text-decoration: none; font-weight: 600; }
+    .app-footer a {
+      color: #e0aaa0; text-decoration: none; font-weight: 600;
+      pointer-events: auto;
+    }
     .app-footer a:hover { color: #d49b90; }
 
     @keyframes msgIn {
@@ -383,7 +404,6 @@
   </div>
 
   <div class="container">
-    <!-- Header -->
     <div class="app-header">
       <div class="logo"><i class="fas fa-book-open"></i></div>
       <div class="header-text">
@@ -399,35 +419,29 @@
       </button>
     </div>
 
-    <!-- Split view -->
     <div class="split-view" id="splitView">
-      <!-- Chat panel -->
       <div class="chat-panel" id="chatPanel">
         <div class="chat-messages" id="chatMessages">
           <div class="chat-msg assistant">
             <div class="avatar"><i class="fas fa-robot"></i></div>
             <div class="bubble" data-i18n="welcomeMsg">
-              👋 Upload a file, paste a URL, or type your needs. I'll adapt content for you.
+              Upload a file, paste a URL, or type your needs. I'll adapt content for you.
             </div>
           </div>
         </div>
         <div class="chat-input-area">
-          <!-- Hidden file input -->
           <input type="file" id="fileInput" accept=".txt,.pdf,.docx" hidden>
-          <!-- Prompt input row -->
           <div class="input-row" id="promptInputRow">
             <input type="text" id="chatPromptInput" data-i18n-placeholder="chatPlaceholder" placeholder="Describe your learning needs...">
             <button class="icon-btn attach-btn" id="attachBtn" title="Attach file"><i class="fas fa-paperclip"></i></button>
             <button class="icon-btn url-btn" id="urlBtn" title="Paste URL"><i class="fas fa-link"></i></button>
             <button class="icon-btn send-btn" id="sendBtn"><i class="fas fa-arrow-up"></i></button>
           </div>
-          <!-- URL input row -->
           <div class="url-input-row" id="urlInputRow">
             <input type="text" id="urlInput" placeholder="https://example.com/article..." data-i18n-placeholder="urlPlaceholder">
             <button class="fetch-btn" id="fetchUrlBtn"><i class="fas fa-download"></i> <span data-i18n="fetchBtn">Fetch</span></button>
             <button class="icon-btn" id="urlCancelBtn" style="background:rgba(224,170,160,0.15);color:#8a8a8a;width:28px;height:28px;font-size:0.7rem;"><i class="fas fa-times"></i></button>
           </div>
-          <!-- Presets -->
           <div class="presets-row">
             <span class="preset-chip" data-prompt="I have ADHD, use short paragraphs and clear headings" data-i18n="presetAdhd">ADHD-friendly</span>
             <span class="preset-chip" data-prompt="I have dyslexia, use larger text and simple words" data-i18n="presetDyslexia">Dyslexia-friendly</span>
@@ -437,17 +451,14 @@
         </div>
       </div>
 
-      <!-- Resizer -->
       <div class="panel-resizer" id="panelResizer"></div>
 
-      <!-- Preview panel -->
       <div class="preview-panel">
         <div class="preview-tabs" id="previewTabs">
           <div class="preview-tab active" data-pane="originalPane"><i class="fas fa-file-alt"></i> <span data-i18n="tabOriginal">Original</span></div>
           <div class="preview-tab" data-pane="adaptedPane"><i class="fas fa-wand-magic-sparkles"></i> <span data-i18n="tabAdapted">Adapted</span> <span class="tab-badge" id="adaptedBadge" style="display:none;">new</span></div>
         </div>
         <div class="preview-content">
-          <!-- Original pane -->
           <div class="preview-pane active" id="originalPane">
             <div class="empty-state" id="originalEmpty">
               <span data-i18n="emptyOriginal">Upload a file or paste a URL to see the original content here</span>
@@ -455,15 +466,13 @@
             <div class="text-preview" id="originalTextPreview" style="display:none;"></div>
             <iframe id="originalFrame" style="display:none;"></iframe>
           </div>
-          <!-- Adapted pane -->
           <div class="preview-pane" id="adaptedPane">
             <div class="empty-state" id="adaptedEmpty">
-              <span data-i18n="emptyAdapted">Describe your needs and click "Adapt & Render" to generate adapted content</span>
+              <span data-i18n="emptyAdapted">Describe your needs and generate to see adapted content here</span>
             </div>
             <iframe id="previewFrame" style="display:none;"></iframe>
           </div>
         </div>
-        <!-- Toggle bar -->
         <div class="adapt-toggle-bar" id="adaptToggleBar">
           <span data-i18n="toggleLabel">Adaptation:</span>
           <label class="toggle-switch">
@@ -475,12 +484,10 @@
             <i class="fas fa-redo"></i> Re-adapt
           </button>
         </div>
-        <!-- Status -->
         <div class="status-bar" id="statusBar"></div>
       </div>
     </div>
 
-    <!-- Footer -->
     <footer class="app-footer">
       <span data-i18n="footerLine1">EMPI Agent | Trajectory of Growth | 2026</span>
       <span data-i18n="footerLine2">Made by <a href="https://github.com/vifirsanova" target="_blank">Missvector</a></span>
@@ -489,13 +496,13 @@
 
   <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
   <script>
-    // ========== ORIGINAL BACKEND CONNECTION ==========
     let backend = null;
-    new QWebChannel(qt.webChannelTransport, function(channel) {
+    try {
+      new QWebChannel(qt.webChannelTransport, function(channel) {
         backend = channel.objects.backend;
-    });
+      });
+    } catch(e) {}
 
-    // ========== ORIGINAL CANVAS (preserved) ==========
     const canvas = document.getElementById("canvas-bg");
     const ctx = canvas.getContext("2d");
     let w, h, particles = [];
@@ -533,7 +540,6 @@
     window.addEventListener('resize', resizeCanvas);
     drawCanvas();
 
-    // ========== TRANSLATIONS (extended) ==========
     const translations = {
       en: {
         title: "EMPI Agent",
@@ -541,7 +547,7 @@
         langLabel: "RU",
         downloadBtn: "Download",
         copyBtn: "Copy",
-        welcomeMsg: "👋 Upload a file, paste a URL, or type your needs. I'll adapt content for you.",
+        welcomeMsg: "Upload a file, paste a URL, or type your needs. I'll adapt content for you.",
         chatPlaceholder: "Describe your learning needs...",
         urlPlaceholder: "https://example.com/article...",
         fetchBtn: "Fetch",
@@ -559,53 +565,53 @@
         reapplyBtn: "Re-adapt",
         footerLine1: "EMPI Agent | Trajectory of Growth | 2026",
         footerLine2: "Made by Missvector",
-        msgFileAttached: "📎 File attached",
-        msgUrlFetched: "🌐 Content fetched from URL",
-        msgAdapting: "⚙️ Adapting content...",
-        msgAdapted: "✅ Content adapted! View in the Adapted tab.",
+        msgFileAttached: "File attached",
+        msgUrlFetched: "Content fetched from URL",
+        msgAdapting: "Adapting content...",
+        msgAdapted: "Content adapted. View in the Adapted tab.",
         msgNeedSource: "Please upload a file or paste a URL first.",
         msgNeedPrompt: "Please describe your needs in the input field.",
         msgBackendNotReady: "Backend not ready, please wait...",
         msgErrorFetch: "Failed to fetch URL content.",
-        msgCopied: "Copied!",
-        msgDownloaded: "Downloaded!",
+        msgCopied: "Copied.",
+        msgDownloaded: "Downloaded.",
         msgReadapting: "Re-adapting..."
       },
       ru: {
-        title: "EMPI Агент",
-        subtitle: "Адаптивное обучение для каждого",
+        title: "EMPI Agent",
+        subtitle: "Adaptive learning for everyone",
         langLabel: "EN",
-        downloadBtn: "Скачать",
-        copyBtn: "Копировать",
-        welcomeMsg: "👋 Загрузите файл, вставьте URL или опишите ваши потребности. Я адаптирую материал.",
-        chatPlaceholder: "Опишите ваши учебные потребности...",
-        urlPlaceholder: "https://example.com/статья...",
-        fetchBtn: "Загрузить",
-        presetAdhd: "Для СДВГ",
-        presetDyslexia: "Для дислексии",
-        presetChild: "Для детей",
-        presetBeginner: "Новичкам",
-        tabOriginal: "Оригинал",
-        tabAdapted: "Адаптация",
-        emptyOriginal: "Загрузите файл или вставьте URL, чтобы увидеть оригинал здесь",
-        emptyAdapted: "Опишите потребности и нажмите «Адаптировать», чтобы увидеть результат",
-        toggleLabel: "Адаптация:",
-        toggleOn: "Вкл",
-        toggleOff: "Выкл",
-        reapplyBtn: "Повторить",
-        footerLine1: "EMPI Агент | Траектория роста | 2026",
-        footerLine2: "Missvector",
-        msgFileAttached: "📎 Файл прикреплён",
-        msgUrlFetched: "🌐 Материал загружен по ссылке",
-        msgAdapting: "⚙️ Адаптирую материал...",
-        msgAdapted: "✅ Готово! Смотрите во вкладке «Адаптация».",
-        msgNeedSource: "Сначала загрузите файл или вставьте URL.",
-        msgNeedPrompt: "Опишите ваши потребности в поле ввода.",
-        msgBackendNotReady: "Бэкенд не готов, подождите...",
-        msgErrorFetch: "Не удалось загрузить содержимое URL.",
-        msgCopied: "Скопировано!",
-        msgDownloaded: "Скачано!",
-        msgReadapting: "Повторная адаптация..."
+        downloadBtn: "Download",
+        copyBtn: "Copy",
+        welcomeMsg: "Upload a file, paste a URL, or type your needs. I'll adapt content for you.",
+        chatPlaceholder: "Describe your learning needs...",
+        urlPlaceholder: "https://example.com/article...",
+        fetchBtn: "Fetch",
+        presetAdhd: "ADHD-friendly",
+        presetDyslexia: "Dyslexia-friendly",
+        presetChild: "For children",
+        presetBeginner: "Beginner",
+        tabOriginal: "Original",
+        tabAdapted: "Adapted",
+        emptyOriginal: "Upload a file or paste a URL to see the original content here",
+        emptyAdapted: "Describe your needs and generate to see adapted content here",
+        toggleLabel: "Adaptation:",
+        toggleOn: "On",
+        toggleOff: "Off",
+        reapplyBtn: "Re-adapt",
+        footerLine1: "EMPI Agent | Trajectory of Growth | 2026",
+        footerLine2: "Made by Missvector",
+        msgFileAttached: "File attached",
+        msgUrlFetched: "Content fetched from URL",
+        msgAdapting: "Adapting content...",
+        msgAdapted: "Content adapted. View in the Adapted tab.",
+        msgNeedSource: "Please upload a file or paste a URL first.",
+        msgNeedPrompt: "Please describe your needs in the input field.",
+        msgBackendNotReady: "Backend not ready, please wait...",
+        msgErrorFetch: "Failed to fetch URL content.",
+        msgCopied: "Copied.",
+        msgDownloaded: "Downloaded.",
+        msgReadapting: "Re-adapting..."
       }
     };
 
@@ -622,7 +628,6 @@
         if (translations[lang]?.[key]) el.setAttribute('placeholder', translations[lang][key]);
       });
       document.documentElement.lang = lang;
-      // Update toggle status text
       updateToggleText();
     }
 
@@ -633,29 +638,17 @@
     function updateToggleText() {
       const toggle = document.getElementById('adaptToggle');
       const label = document.getElementById('toggleStatusText');
-      if (toggle.checked) {
-        label.textContent = t('toggleOn');
-        label.style.color = '#5c9e6b';
-      } else {
-        label.textContent = t('toggleOff');
-        label.style.color = '#8a8a8a';
-      }
+      if (!toggle || !label) return;
+      label.textContent = toggle.checked ? t('toggleOn') : t('toggleOff');
+      label.style.color = toggle.checked ? '#5c9e6b' : '#8a8a8a';
     }
 
-    document.getElementById('langToggle').addEventListener('click', () => {
-      const newLang = currentLang === 'en' ? 'ru' : 'en';
-      applyLang(newLang);
-    });
-    applyLang(currentLang);
-
-    // ========== STATE ==========
     let selectedFile = null;
-    let originalText = null;   // raw text from file or URL
-    let originalHtml = null;   // if URL returns HTML
-    let adaptedHtml = null;    // result from backend.adapt
+    let originalText = null;
+    let originalHtml = null;
+    let adaptedHtml = null;
     let currentPrompt = '';
 
-    // ========== DOM REFS ==========
     const fileInput = document.getElementById('fileInput');
     const chatMessages = document.getElementById('chatMessages');
     const chatPromptInput = document.getElementById('chatPromptInput');
@@ -683,9 +676,9 @@
     const statusBar = document.getElementById('statusBar');
     const downloadBtn = document.getElementById('downloadBtn');
     const copyBtn = document.getElementById('copyBtn');
+    const langToggle = document.getElementById('langToggle');
 
-    // ========== CHAT HELPERS ==========
-    function addChatMsg(role, html) {
+    function addChatMsg(role) {
       const div = document.createElement('div');
       div.className = `chat-msg ${role}`;
       const avatar = document.createElement('div');
@@ -693,7 +686,6 @@
       avatar.innerHTML = role === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
       const bubble = document.createElement('div');
       bubble.className = 'bubble';
-      bubble.innerHTML = html;
       div.appendChild(avatar);
       div.appendChild(bubble);
       chatMessages.appendChild(div);
@@ -702,20 +694,20 @@
     }
 
     function addChatText(role, text) {
-      const bubble = addChatMsg(role, '');
+      const bubble = addChatMsg(role);
       bubble.textContent = text;
       return bubble;
     }
 
     function addFileBubble(file) {
-      const bubble = addChatMsg('user', '');
+      const bubble = addChatMsg('user');
       bubble.className += ' file-bubble';
-      bubble.innerHTML = `
-        <i class="fas fa-file-alt" style="color:#e0aaa0;"></i>
-        <span>${file.name} (${(file.size/1024).toFixed(1)} KB)</span>
-        <i class="fas fa-times-circle remove-btn" data-action="remove-file"></i>
-      `;
-      bubble.querySelector('.remove-btn').addEventListener('click', () => {
+      bubble.innerHTML =
+        '<i class="fas fa-file-alt" style="color:#e0aaa0;"></i>' +
+        '<span>' + file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)</span>' +
+        '<i class="fas fa-times-circle remove-btn" data-action="remove-file"></i>';
+      bubble.querySelector('.remove-btn').addEventListener('click', function(e) {
+        e.stopPropagation();
         selectedFile = null;
         fileInput.value = '';
         bubble.remove();
@@ -723,25 +715,29 @@
         originalHtml = null;
         resetPreviews();
         addChatText('assistant', t('msgNeedSource'));
+        statusBar.textContent = '';
+        statusBar.className = 'status-bar';
       });
       return bubble;
     }
 
     function addUrlBubble(url) {
-      const bubble = addChatMsg('user', '');
+      var bubble = addChatMsg('user');
       bubble.className += ' file-bubble';
-      const displayUrl = url.length > 40 ? url.substring(0, 40) + '...' : url;
-      bubble.innerHTML = `
-        <i class="fas fa-link" style="color:#e0aaa0;"></i>
-        <span>${displayUrl}</span>
-        <i class="fas fa-times-circle remove-btn" data-action="remove-url"></i>
-      `;
-      bubble.querySelector('.remove-btn').addEventListener('click', () => {
+      var displayUrl = url.length > 40 ? url.substring(0, 40) + '...' : url;
+      bubble.innerHTML =
+        '<i class="fas fa-link" style="color:#e0aaa0;"></i>' +
+        '<span>' + displayUrl + '</span>' +
+        '<i class="fas fa-times-circle remove-btn" data-action="remove-url"></i>';
+      bubble.querySelector('.remove-btn').addEventListener('click', function(e) {
+        e.stopPropagation();
         originalText = null;
         originalHtml = null;
         resetPreviews();
         bubble.remove();
         addChatText('assistant', t('msgNeedSource'));
+        statusBar.textContent = '';
+        statusBar.className = 'status-bar';
       });
       return bubble;
     }
@@ -750,19 +746,22 @@
       adaptedHtml = null;
       originalPane.classList.add('active');
       adaptedPane.classList.remove('active');
-      previewTabs.forEach(t => t.classList.remove('active'));
-      previewTabs[0].classList.add('active');
+      previewTabs.forEach(function(t) { t.classList.remove('active'); });
+      var t0 = document.querySelector('.preview-tab[data-pane="originalPane"]');
+      if (t0) t0.classList.add('active');
       originalEmpty.style.display = '';
       originalTextPreview.style.display = 'none';
       originalFrame.style.display = 'none';
+      originalFrame.srcdoc = '';
       adaptedEmpty.style.display = '';
       previewFrame.style.display = 'none';
       previewFrame.srcdoc = '';
       adaptedBadge.style.display = 'none';
       adaptToggleBar.classList.remove('show');
+      adaptToggle.checked = true;
+      updateToggleText();
     }
 
-    // ========== ORIGINAL CONTENT DISPLAY ==========
     function showOriginalText(text) {
       originalEmpty.style.display = 'none';
       originalFrame.style.display = 'none';
@@ -779,83 +778,84 @@
       originalPane.classList.add('active');
     }
 
-    // ========== FILE HANDLING (preserving original variable name) ==========
-    attachBtn.addEventListener('click', () => fileInput.click());
-
-    fileInput.addEventListener('change', () => {
-      if (fileInput.files.length) {
-        selectedFile = fileInput.files[0];
-        addFileBubble(selectedFile);
-        readFileAsText(selectedFile).then(text => {
-          originalText = text;
-          originalHtml = null;
-          showOriginalText(text.substring(0, 5000));
-          statusBar.textContent = t('msgFileAttached') + ': ' + selectedFile.name;
-          statusBar.className = 'status-bar success';
-        }).catch(e => {
-          statusBar.textContent = e.message;
-          statusBar.className = 'status-bar error';
-        });
-      }
-    });
-
-    // Drag & drop on the whole chat panel
-    const chatPanel = document.getElementById('chatPanel');
-    chatPanel.addEventListener('dragover', e => { e.preventDefault(); });
-    chatPanel.addEventListener('drop', e => {
-      e.preventDefault();
-      if (e.dataTransfer.files.length) {
-        selectedFile = e.dataTransfer.files[0];
-        fileInput.files = e.dataTransfer.files; // sync
-        addFileBubble(selectedFile);
-        readFileAsText(selectedFile).then(text => {
-          originalText = text;
-          originalHtml = null;
-          showOriginalText(text.substring(0, 5000));
-          statusBar.textContent = t('msgFileAttached') + ': ' + selectedFile.name;
-          statusBar.className = 'status-bar success';
-        }).catch(e => {
-          statusBar.textContent = e.message;
-          statusBar.className = 'status-bar error';
-        });
-      }
-      // Also handle URL drops
-      const urlData = e.dataTransfer.getData('text/plain');
-      if (urlData && (urlData.startsWith('http://') || urlData.startsWith('https://'))) {
-        handleUrlFetch(urlData);
-      }
-    });
-
     function readFileAsText(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
+      return new Promise(function(resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function() { resolve(reader.result); };
         reader.onerror = reject;
         reader.readAsText(file);
       });
     }
 
-    // ========== URL FETCHING ==========
-    urlBtn.addEventListener('click', () => {
+    attachBtn.addEventListener('click', function() {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function() {
+      if (fileInput.files.length) {
+        selectedFile = fileInput.files[0];
+        addFileBubble(selectedFile);
+        readFileAsText(selectedFile).then(function(text) {
+          originalText = text;
+          originalHtml = null;
+          showOriginalText(text.substring(0, 5000));
+          statusBar.textContent = t('msgFileAttached') + ': ' + selectedFile.name;
+          statusBar.className = 'status-bar success';
+        }).catch(function(e) {
+          statusBar.textContent = e.message;
+          statusBar.className = 'status-bar error';
+        });
+      }
+    });
+
+    var chatPanel = document.getElementById('chatPanel');
+    chatPanel.addEventListener('dragover', function(e) { e.preventDefault(); });
+    chatPanel.addEventListener('drop', function(e) {
+      e.preventDefault();
+      if (e.dataTransfer.files.length) {
+        selectedFile = e.dataTransfer.files[0];
+        var dt = new DataTransfer();
+        dt.items.add(selectedFile);
+        fileInput.files = dt.files;
+        addFileBubble(selectedFile);
+        readFileAsText(selectedFile).then(function(text) {
+          originalText = text;
+          originalHtml = null;
+          showOriginalText(text.substring(0, 5000));
+          statusBar.textContent = t('msgFileAttached') + ': ' + selectedFile.name;
+          statusBar.className = 'status-bar success';
+        }).catch(function(e) {
+          statusBar.textContent = e.message;
+          statusBar.className = 'status-bar error';
+        });
+      }
+      var urlData = e.dataTransfer.getData('text/plain');
+      if (urlData && (urlData.startsWith('http://') || urlData.startsWith('https://'))) {
+        handleUrlFetch(urlData);
+      }
+    });
+
+    urlBtn.addEventListener('click', function() {
       urlInputRow.classList.toggle('show');
       if (urlInputRow.classList.contains('show')) urlInput.focus();
     });
-    urlCancelBtn.addEventListener('click', () => {
+
+    urlCancelBtn.addEventListener('click', function() {
       urlInputRow.classList.remove('show');
       urlInput.value = '';
     });
 
-    fetchUrlBtn.addEventListener('click', () => {
-      const url = urlInput.value.trim();
+    fetchUrlBtn.addEventListener('click', function() {
+      var url = urlInput.value.trim();
       if (!url) return;
       handleUrlFetch(url);
       urlInputRow.classList.remove('show');
       urlInput.value = '';
     });
 
-    urlInput.addEventListener('keypress', (e) => {
+    urlInput.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
-        const url = urlInput.value.trim();
+        var url = urlInput.value.trim();
         if (!url) return;
         handleUrlFetch(url);
         urlInputRow.classList.remove('show');
@@ -867,16 +867,13 @@
       addUrlBubble(url);
       statusBar.textContent = 'Fetching URL...';
       statusBar.className = 'status-bar';
-      
       try {
-        // Try backend first if it has a fetchUrl method
-        let content;
+        var content;
         if (backend && typeof backend.fetchUrl === 'function') {
           content = await backend.fetchUrl(url);
         } else {
-          // Fallback: try fetch via proxy or direct
-          const resp = await fetch(url);
-          const contentType = resp.headers.get('content-type') || '';
+          var resp = await fetch(url);
+          var contentType = resp.headers.get('content-type') || '';
           if (contentType.includes('text/html')) {
             originalHtml = await resp.text();
             originalText = stripHtml(originalHtml);
@@ -885,8 +882,6 @@
             content = await resp.text();
           }
         }
-        
-        // If content looks like HTML, store both
         if (content && content.trim().startsWith('<') && content.includes('<')) {
           originalHtml = content;
           originalText = stripHtml(content);
@@ -896,11 +891,10 @@
           originalText = content;
           showOriginalText(content);
         }
-        
         addChatText('assistant', t('msgUrlFetched'));
         statusBar.textContent = t('msgUrlFetched');
         statusBar.className = 'status-bar success';
-        selectedFile = null; // clear file if URL used
+        selectedFile = null;
       } catch (e) {
         addChatText('assistant', t('msgErrorFetch') + ': ' + e.message);
         statusBar.textContent = t('msgErrorFetch');
@@ -909,46 +903,57 @@
     }
 
     function stripHtml(html) {
-      const tmp = document.createElement('div');
+      var tmp = document.createElement('div');
       tmp.innerHTML = html;
       return tmp.textContent || tmp.innerText || '';
     }
 
-    // ========== ADAPTATION LOGIC (preserving original flow) ==========
     async function doAdapt(promptText) {
       if (!originalText && !originalHtml) {
         addChatText('assistant', t('msgNeedSource'));
+        statusBar.textContent = t('msgNeedSource');
+        statusBar.className = 'status-bar error';
         return;
       }
       if (!promptText || !promptText.trim()) {
         addChatText('assistant', t('msgNeedPrompt'));
+        statusBar.textContent = t('msgNeedPrompt');
+        statusBar.className = 'status-bar error';
         return;
       }
       if (!backend) {
-        addChatText('assistant', t('msgBackendNotReady'));
+        currentPrompt = promptText.trim();
+        addChatText('assistant', t('msgAdapting'));
+        statusBar.textContent = t('msgAdapting');
+        statusBar.className = 'status-bar';
+        adaptToggleBar.classList.add('show');
+        await new Promise(function(r) { setTimeout(r, 800); });
+        var sourceText = originalText || stripHtml(originalHtml || '');
+        adaptedHtml = generateDemoAdaptation(sourceText, currentPrompt);
+        adaptedEmpty.style.display = 'none';
+        previewFrame.style.display = 'block';
+        previewFrame.srcdoc = adaptedHtml;
+        adaptedBadge.style.display = 'inline';
+        switchToPane('adaptedPane');
+        addChatText('assistant', t('msgAdapted'));
+        statusBar.textContent = t('msgAdapted');
+        statusBar.className = 'status-bar success';
         return;
       }
-
       currentPrompt = promptText.trim();
       addChatText('assistant', t('msgAdapting'));
       statusBar.textContent = t('msgAdapting');
       statusBar.className = 'status-bar';
       adaptToggleBar.classList.add('show');
-
       try {
-        const textToAdapt = originalText || stripHtml(originalHtml);
-        const html = await backend.adapt(textToAdapt, currentPrompt);
+        var textToAdapt = originalText || stripHtml(originalHtml);
+        var html = await backend.adapt(textToAdapt, currentPrompt);
         adaptedHtml = html;
-        
-        // Show in adapted pane
         adaptedEmpty.style.display = 'none';
         previewFrame.style.display = 'block';
         previewFrame.srcdoc = html;
         adaptedBadge.style.display = 'inline';
-        
-        // Switch to adapted tab
         switchToPane('adaptedPane');
-        
         addChatText('assistant', t('msgAdapted'));
         statusBar.textContent = t('msgAdapted');
         statusBar.className = 'status-bar success';
@@ -959,9 +964,33 @@
       }
     }
 
-    // ========== SEND / PROMPT HANDLING ==========
+    function generateDemoAdaptation(text, prompt) {
+      var pLower = prompt.toLowerCase();
+      var style = 'font-size:17px; line-height:1.7;';
+      if (pLower.includes('adhd') || pLower.includes('сдвг')) {
+        style = 'font-size:18px; line-height:1.8; max-width:700px; margin:0 auto;';
+      } else if (pLower.includes('dyslexia') || pLower.includes('дислекс')) {
+        style = 'font-family: "OpenDyslexic", "Comic Sans MS", sans-serif; font-size:20px; line-height:2; word-spacing:4px;';
+      } else if (pLower.includes('child') || pLower.includes('дет')) {
+        style = 'font-size:20px; line-height:1.9; color:#333;';
+      }
+      var paragraphs = text.split(/\n\n+/).filter(function(p) { return p.trim(); });
+      var adapted = paragraphs.map(function(p) {
+        var s = p.replace(/([.!?])\s+/g, '$1<br><br>');
+        return '<p style="margin-bottom:16px;">' + s + '</p>';
+      }).join('\n');
+      return '<!DOCTYPE html>\n<html><head><meta charset="UTF-8"><style>\n' +
+        'body { ' + style + ' padding:32px; background:#fffef9; color:#2c2c2c; }\n' +
+        'h1,h2,h3 { color:#e0aaa0; margin-top:24px; }\n' +
+        '.note { background:rgba(224,170,160,0.1); padding:12px 16px; border-left:3px solid #e0aaa0; margin:16px 0; border-radius:0 8px 8px 0; }\n' +
+        '</style></head><body>\n' +
+        '<h2>Adapted Content</h2>\n' +
+        '<p style="color:#8a8a8a;font-size:0.85em;margin-bottom:24px;">Adaptation prompt: "' + prompt + '"</p>\n' +
+        adapted + '\n</body></html>';
+    }
+
     function handleSend() {
-      const text = chatPromptInput.value.trim();
+      var text = chatPromptInput.value.trim();
       if (!text) return;
       chatPromptInput.value = '';
       addChatText('user', text);
@@ -969,87 +998,82 @@
     }
 
     sendBtn.addEventListener('click', handleSend);
-    chatPromptInput.addEventListener('keypress', e => {
+
+    chatPromptInput.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') handleSend();
     });
 
-    // Presets
-    document.querySelectorAll('.preset-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        const preset = chip.getAttribute('data-prompt');
+    document.querySelectorAll('.preset-chip').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var preset = chip.getAttribute('data-prompt');
         chatPromptInput.value = preset;
         addChatText('user', preset);
         doAdapt(preset);
       });
     });
 
-    // Re-adapt button
-    reapplyAdaptBtn.addEventListener('click', () => {
+    reapplyAdaptBtn.addEventListener('click', function() {
       if (!currentPrompt) return;
       addChatText('user', currentPrompt);
+      statusBar.textContent = t('msgReadapting');
+      statusBar.className = 'status-bar';
       doAdapt(currentPrompt);
     });
 
-    // ========== ADAPTATION TOGGLE ==========
-    adaptToggle.addEventListener('change', () => {
+    adaptToggle.addEventListener('change', function() {
       updateToggleText();
       if (adaptToggle.checked && adaptedHtml) {
-        // Show adapted
         switchToPane('adaptedPane');
       } else {
-        // Show original
         switchToPane('originalPane');
       }
     });
 
     function switchToPane(paneId) {
-      document.querySelectorAll('.preview-pane').forEach(p => p.classList.remove('active'));
-      document.getElementById(paneId).classList.add('active');
-      previewTabs.forEach(t => t.classList.remove('active'));
-      const tab = document.querySelector(`.preview-tab[data-pane="${paneId}"]`);
+      document.querySelectorAll('.preview-pane').forEach(function(p) { p.classList.remove('active'); });
+      var pane = document.getElementById(paneId);
+      if (pane) pane.classList.add('active');
+      previewTabs.forEach(function(t) { t.classList.remove('active'); });
+      var tab = document.querySelector('.preview-tab[data-pane="' + paneId + '"]');
       if (tab) tab.classList.add('active');
     }
 
-    // Tab clicks
-    previewTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const paneId = tab.getAttribute('data-pane');
+    previewTabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var paneId = tab.getAttribute('data-pane');
         switchToPane(paneId);
-        // Sync toggle
-        if (paneId === 'adaptedPane') {
-          adaptToggle.checked = true;
-        } else {
-          adaptToggle.checked = false;
-        }
+        adaptToggle.checked = (paneId === 'adaptedPane');
         updateToggleText();
       });
     });
 
-    // ========== DOWNLOAD / COPY ==========
-    downloadBtn.addEventListener('click', () => {
-      const activePane = document.querySelector('.preview-pane.active');
-      let htmlToDownload = '';
+    downloadBtn.addEventListener('click', function() {
+      var activePane = document.querySelector('.preview-pane.active');
+      var html = '';
       if (activePane && activePane.id === 'adaptedPane' && adaptedHtml) {
-        htmlToDownload = adaptedHtml;
+        html = adaptedHtml;
       } else if (activePane && activePane.id === 'originalPane' && originalHtml) {
-        htmlToDownload = originalHtml;
+        html = originalHtml;
       } else {
-        htmlToDownload = originalText || '';
+        html = originalText || '';
       }
-      const blob = new Blob([htmlToDownload], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      var blob = new Blob([html], { type: 'text/html' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
       a.href = url;
       a.download = 'content.html';
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
       URL.revokeObjectURL(url);
       statusBar.textContent = t('msgDownloaded');
       statusBar.className = 'status-bar success';
+      setTimeout(function() { statusBar.textContent = ''; statusBar.className = 'status-bar'; }, 2000);
     });
 
-    copyBtn.addEventListener('click', () => {
-      const activePane = document.querySelector('.preview-pane.active');
-      let content = '';
+    copyBtn.addEventListener('click', function() {
+      var activePane = document.querySelector('.preview-pane.active');
+      var content = '';
       if (activePane && activePane.id === 'adaptedPane' && adaptedHtml) {
         content = adaptedHtml;
       } else if (activePane && activePane.id === 'originalPane' && originalHtml) {
@@ -1057,17 +1081,23 @@
       } else {
         content = originalText || '';
       }
-      navigator.clipboard.writeText(content).then(() => {
+      navigator.clipboard.writeText(content).then(function() {
         statusBar.textContent = t('msgCopied');
         statusBar.className = 'status-bar success';
-        setTimeout(() => { statusBar.textContent = ''; }, 2000);
+        setTimeout(function() { statusBar.textContent = ''; statusBar.className = 'status-bar'; }, 2000);
+      }).catch(function() {
+        statusBar.textContent = 'Copy failed';
+        statusBar.className = 'status-bar error';
       });
     });
 
-    // ========== RESIZER ==========
-    const panelResizer = document.getElementById('panelResizer');
-    let startX, startWidth;
-    panelResizer.addEventListener('mousedown', e => {
+    langToggle.addEventListener('click', function() {
+      applyLang(currentLang === 'en' ? 'ru' : 'en');
+    });
+
+    var panelResizer = document.getElementById('panelResizer');
+    var startX, startWidth;
+    panelResizer.addEventListener('mousedown', function(e) {
       startX = e.clientX;
       startWidth = chatPanel.offsetWidth;
       document.addEventListener('mousemove', resizeMove);
@@ -1075,7 +1105,7 @@
       document.body.style.userSelect = 'none';
     });
     function resizeMove(e) {
-      const w = startWidth + (e.clientX - startX);
+      var w = startWidth + (e.clientX - startX);
       if (w > 220 && w < window.innerWidth - 300) chatPanel.style.width = w + 'px';
     }
     function resizeStop() {
@@ -1083,6 +1113,8 @@
       document.removeEventListener('mouseup', resizeStop);
       document.body.style.userSelect = '';
     }
+
+    applyLang(currentLang);
   </script>
 </body>
 </html>

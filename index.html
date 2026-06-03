@@ -1,556 +1,379 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <meta name="description" content="AI Assistant — меню поверх, компактные элементы">
-  <title>AI Assistant | Траектория роста</title>
-  <!-- Font Awesome 6 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>EMPI — Adaptive Learning</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Raleway:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    /* ========== ORIGINAL CSS — PRESERVED ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      position: fixed;
-      top: 0;
-      left: 0;
+      width: 100%; height: 100%; overflow: hidden;
+      position: fixed; top: 0; left: 0;
     }
 
     body {
       font-family: "Inter", "Montserrat", sans-serif;
       background: linear-gradient(135deg, #fbe9e7 0%, #f5e0dd 100%);
       font-size: 16px;
-      height: 100%;
-      width: 100%;
-      position: relative;
     }
 
-    /* Canvas Background */
     .gradient-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0; overflow: hidden; pointer-events: none;
     }
     #canvas-bg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
+      position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      min-width: 100%;
-      min-height: 100%;
-      opacity: 0.35;
-      pointer-events: none;
+      min-width: 100%; min-height: 100%;
+      opacity: 0.35; pointer-events: none;
     }
 
-    /* SINGLE CONTAINER */
-    .single-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      z-index: 10;
-      padding: 20px 24px;
-      gap: 20px;
-      overflow: hidden;
+    /* ========== NEW LAYOUT ========== */
+    .container {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      display: flex; flex-direction: column;
+      z-index: 10; padding: 0; gap: 0;
+      max-width: 100%; margin: 0;
     }
 
-    /* Top Bar — menu button first, then models, then accessibility */
-    .top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* Header */
+    .app-header {
+      display: flex; align-items: center; gap: 14px;
       flex-shrink: 0;
-      gap: 16px;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 5;
-    }
-    
-    /* Left: menu button */
-    .menu-btn-wrapper {
-      display: flex;
-      align-items: center;
-    }
-    .menu-toggle-btn {
-      background: rgba(224, 170, 160, 0.25);
-      border: 1px solid rgba(224, 170, 160, 0.6);
-      border-radius: 50px;
-      width: 48px;
-      height: 48px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      backdrop-filter: blur(8px);
-      color: #e0aaa0;
-      font-size: 1.3rem;
-    }
-    .menu-toggle-btn:hover {
-      background: rgba(224, 170, 160, 0.45);
-      transform: scale(1.02);
-      color: #3a3a3a;
-    }
-
-    /* Center: model selector */
-    .model-selector {
-      display: flex;
-      gap: 4px;
-      background: rgba(255,247,245,0.65);
+      padding: 10px 20px;
+      background: rgba(255, 247, 245, 0.75);
       backdrop-filter: blur(12px);
-      padding: 5px 8px;
-      border-radius: 60px;
-      border: 1px solid rgba(224, 170, 160, 0.35);
+      border-bottom: 1px solid rgba(224, 170, 160, 0.3);
     }
-    .model-btn {
-      padding: 8px 18px;
-      border-radius: 50px;
-      background: transparent;
-      border: none;
-      font-weight: 600;
+    .logo {
+      width: 40px; height: 40px;
+      background: #e0aaa0; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.2rem; flex-shrink: 0;
+    }
+    .header-text h1 {
+      font-size: 1.1rem; font-weight: 700; color: #3a3a3a;
+    }
+    .header-text span {
+      font-size: 0.7rem; color: #8a8a8a;
+    }
+    .header-actions {
+      display: flex; gap: 6px; margin-left: auto; margin-right: 8px;
+    }
+    .action-btn {
+      background: rgba(224, 170, 160, 0.15);
+      border: 1px solid rgba(224, 170, 160, 0.4);
+      padding: 6px 12px;
+      border-radius: 18px;
+      color: #5c5c5c;
+      font-size: 0.7rem; font-weight: 600;
       cursor: pointer;
-      font-size: 0.85rem;
+      display: flex; align-items: center; gap: 5px;
       transition: 0.2s;
       font-family: "Montserrat", sans-serif;
-      color: #5c5c5c;
       white-space: nowrap;
     }
-    .model-btn.active {
-      background: #e0aaa0;
-      color: white;
-      box-shadow: 0 2px 8px rgba(224, 170, 160, 0.3);
-    }
-    .model-btn:hover:not(.active) {
-      background: rgba(224, 170, 160, 0.2);
+    .action-btn:hover {
+      background: rgba(224, 170, 160, 0.25);
+      border-color: #e0aaa0;
     }
 
-    /* Right: accessibility tooltip button */
-    .tooltip-wrapper {
-      position: relative;
-      display: inline-block;
-    }
-    .info-icon {
-      background: rgba(255, 247, 245, 0.85);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(224, 170, 160, 0.6);
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: help;
-      transition: all 0.2s;
-      color: #e0aaa0;
-      font-size: 1.3rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-    .info-icon:hover {
-      background: rgba(224, 170, 160, 0.3);
-      transform: scale(1.05);
-    }
-    .tooltip-text {
-      visibility: hidden;
-      opacity: 0;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      margin-top: 12px;
-      background: rgba(30, 30, 35, 0.96);
-      backdrop-filter: blur(16px);
-      color: #fff5e8;
-      padding: 14px 20px;
-      border-radius: 24px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      width: 280px;
-      line-height: 1.55;
-      transition: all 0.25s ease;
-      z-index: 100;
-      pointer-events: none;
+    .lang-toggle {
+      background: rgba(224, 170, 160, 0.15);
       border: 1px solid rgba(224, 170, 160, 0.5);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      text-align: left;
-      font-family: "Inter", sans-serif;
-      letter-spacing: 0.2px;
+      border-radius: 30px;
+      padding: 7px 14px;
+      font-weight: 700; font-size: 0.7rem;
+      cursor: pointer; transition: 0.2s;
+      font-family: "Montserrat", sans-serif;
+      color: #5c5c5c; white-space: nowrap;
     }
-    .tooltip-wrapper:hover .tooltip-text {
-      visibility: visible;
-      opacity: 1;
-      transform: translateY(5px);
-    }
+    .lang-toggle:hover { background: rgba(224, 170, 160, 0.3); }
 
-    /* MAIN GRID */
-    .dashboard-grid {
+    /* Split view */
+    .split-view {
       display: flex;
-      gap: 20px;
       flex: 1;
       min-height: 0;
       overflow: hidden;
-      position: relative;
     }
-    
-    /* Sidebar Overlay Menu — appears as overlay on top of everything */
-    .sidebar-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(4px);
-      z-index: 1000;
-      visibility: hidden;
-      opacity: 0;
-      transition: all 0.3s ease;
-    }
-    .sidebar-overlay.active {
-      visibility: visible;
-      opacity: 1;
-    }
-    
-    /* Left Sidebar — floating overlay menu, full height */
-    .sidebar-ai {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 320px;
-      max-width: 85vw;
-      height: 100vh;
+
+    /* Chat/Input panel — LEFT */
+    .chat-panel {
+      width: 380px;
+      min-width: 260px;
+      background: rgba(255, 247, 245, 0.6);
+      backdrop-filter: blur(8px);
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      padding: 28px 20px;
-      border-radius: 0 28px 28px 0;
+      border-right: 1px solid rgba(224, 170, 160, 0.3);
+      overflow: hidden;
+    }
+    .chat-messages {
+      flex: 1;
       overflow-y: auto;
-      background: rgba(255, 247, 245, 0.96);
-      backdrop-filter: blur(24px);
-      border-right: 1px solid rgba(224, 170, 160, 0.4);
-      box-shadow: 8px 0 30px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: translateX(-100%);
-      z-index: 1001;
-    }
-    .sidebar-ai.open {
-      transform: translateX(0);
-    }
-    
-    .sidebar-close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(224, 170, 160, 0.2);
-      border: 1px solid rgba(224, 170, 160, 0.5);
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
+      padding: 16px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: #e0aaa0;
-      font-size: 1rem;
-      z-index: 10;
-    }
-    .sidebar-close-btn:hover {
-      background: rgba(224, 170, 160, 0.4);
-      transform: scale(1.05);
-      color: #3a3a3a;
-    }
-    
-    .brand-area {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-top: 8px;
-    }
-    .brand-icon {
-      width: 48px;
-      height: 48px;
-      background: #e0aaa0;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.6rem;
-    }
-    .brand-text h2 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #3a3a3a;
-    }
-    .brand-text span {
-      font-size: 0.7rem;
-      color: #8a8a8a;
-    }
-    .new-chat-btn {
-      width: 100%;
-      padding: 12px;
-      background: rgba(224, 170, 160, 0.2);
-      border: 1px solid #e0aaa0;
-      border-radius: 40px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
       gap: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: "Montserrat", sans-serif;
+    }
+    .chat-msg {
+      display: flex; gap: 8px;
+      animation: msgIn 0.2s ease;
+    }
+    .chat-msg.user { flex-direction: row-reverse; }
+    .chat-msg.user .bubble {
+      background: #e0aaa0; color: white;
+      border-radius: 14px 14px 4px 14px;
+    }
+    .chat-msg.assistant .bubble {
+      background: rgba(224, 170, 160, 0.15); color: #3a3a3a;
+      border-radius: 14px 14px 14px 4px;
+    }
+    .chat-msg .avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(224, 170, 160, 0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; color: #e0aaa0; flex-shrink: 0;
+    }
+    .chat-msg .bubble {
+      max-width: 260px; padding: 8px 12px;
+      font-size: 0.8rem; line-height: 1.4;
+    }
+    .chat-msg .bubble.file-bubble {
+      background: rgba(224, 170, 160, 0.12);
+      border: 1px solid rgba(224, 170, 160, 0.3);
+      border-radius: 12px;
       color: #3a3a3a;
+      display: flex; align-items: center; gap: 8px;
     }
-    .new-chat-btn:hover {
-      background: rgba(224, 170, 160, 0.35);
-      transform: translateY(-1px);
+    .chat-msg .bubble.file-bubble .remove-btn {
+      margin-left: auto; cursor: pointer;
+      color: #8a8a8a; font-size: 0.8rem;
     }
-    .history-header {
-      display: flex;
-      justify-content: space-between;
-      margin: 8px 0 12px;
-      font-size: 0.75rem;
-      font-weight: 600;
+    .chat-msg .bubble.file-bubble .remove-btn:hover { color: #d49b90; }
+
+    /* Chat input area */
+    .chat-input-area {
+      padding: 12px;
+      border-top: 1px solid rgba(224, 170, 160, 0.3);
+      background: rgba(255, 247, 245, 0.5);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .input-row {
+      display: flex; gap: 6px;
+    }
+    .input-row input {
+      flex: 1;
+      background: rgba(255, 247, 245, 0.8);
+      border: 1px solid rgba(224, 170, 160, 0.4);
+      border-radius: 18px;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-family: "Inter", sans-serif;
+      color: #3a3a3a;
+      outline: none;
+    }
+    .input-row input::placeholder { color: #b2a19e; }
+    .input-row input:focus {
+      border-color: #e0aaa0;
+      box-shadow: 0 0 0 2px rgba(224, 170, 160, 0.1);
+    }
+    .icon-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: 0.2s; flex-shrink: 0;
+      font-size: 0.85rem;
+    }
+    .send-btn { background: #e0aaa0; color: white; }
+    .send-btn:hover { background: #d49b90; }
+    .attach-btn { background: rgba(224, 170, 160, 0.15); color: #e0aaa0; }
+    .attach-btn:hover { background: rgba(224, 170, 160, 0.25); }
+    .url-btn { background: rgba(224, 170, 160, 0.15); color: #e0aaa0; }
+    .url-btn:hover { background: rgba(224, 170, 160, 0.25); }
+
+    .presets-row {
+      display: flex; gap: 5px; flex-wrap: wrap;
+    }
+    .preset-chip {
+      background: rgba(224, 170, 160, 0.12);
+      border: 1px solid rgba(224, 170, 160, 0.3);
+      padding: 4px 10px; border-radius: 12px;
+      font-size: 0.68rem; font-weight: 500;
+      cursor: pointer; transition: 0.15s;
       color: #5c5c5c;
     }
-    .convo-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .convo-item {
-      padding: 12px 14px;
-      border-radius: 20px;
-      background: rgba(224, 170, 160, 0.1);
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      transition: 0.2s;
-      color: #3a3a3a;
-    }
-    .convo-item i {
-      color: #e0aaa0;
-      width: 20px;
-    }
-    .convo-item.active {
+    .preset-chip:hover {
       background: rgba(224, 170, 160, 0.25);
-      border: 1px solid #e0aaa0;
-    }
-    .convo-item:hover {
-      background: rgba(224, 170, 160, 0.2);
-      transform: translateX(2px);
-    }
-    .status-chip {
-      background: rgba(224,170,160,0.15);
-      border-radius: 30px;
-      padding: 10px 12px;
-      font-size: 0.7rem;
-      text-align: center;
-      margin-top: auto;
-    }
-
-    /* CENTER: CHAT AREA */
-    .chat-center {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      overflow: hidden;
-      background: transparent;
-      transition: all 0.3s ease;
-    }
-
-    /* Messages scrollable */
-    .messages-area {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px 24px 16px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      scroll-behavior: smooth;
-    }
-    .message-row {
-      display: flex;
-      gap: 14px;
-      max-width: 80%;
-      animation: fadeIn 0.25s ease;
-    }
-    .user-row {
-      align-self: flex-end;
-      flex-direction: row-reverse;
-    }
-    .ai-row {
-      align-self: flex-start;
-    }
-    .message-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 30px;
-      background: #e0aaa0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .chat-message-bubble {
-      background: rgba(255, 247, 245, 0.85);
-      backdrop-filter: blur(8px);
-      border-radius: 24px;
-      padding: 14px 20px;
-      border: 1px solid rgba(255,255,240,0.8);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-    }
-    .user-row .chat-message-bubble {
-      background: rgba(224, 170, 160, 0.2);
-      border: 1px solid rgba(224, 170, 160, 0.5);
-      backdrop-filter: blur(8px);
-    }
-    .message-text {
-      line-height: 1.5;
-      color: #2c2c2c;
-      font-weight: 500;
-      font-size: 0.95rem;
-    }
-    .message-time {
-      font-size: 0.6rem;
-      color: #8a8a8a;
-      margin-top: 8px;
-      text-align: right;
-      letter-spacing: 0.3px;
-    }
-    .typing-indicator {
-      display: flex;
-      gap: 5px;
-      padding: 8px 0;
-    }
-    .typing-indicator span {
-      width: 8px;
-      height: 8px;
-      background: #e0aaa0;
-      border-radius: 50%;
-      animation: pulse 1.2s infinite;
-    }
-    @keyframes pulse {
-      0%, 60%, 100% { opacity: 0.3; transform: translateY(0);}
-      30% { opacity: 1; transform: translateY(-4px);}
-    }
-
-    /* Input Area */
-    .input-container {
-      padding: 16px 24px 24px 24px;
-      flex-shrink: 0;
-    }
-    .input-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(255, 247, 245, 0.92);
-      backdrop-filter: blur(12px);
-      border-radius: 60px;
-      padding: 6px 8px 6px 26px;
-      border: 1px solid rgba(224, 170, 160, 0.5);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-      transition: all 0.2s;
-    }
-    .input-wrapper:focus-within {
       border-color: #e0aaa0;
-      box-shadow: 0 4px 20px rgba(224, 170, 160, 0.15);
-      background: rgba(255, 247, 245, 0.98);
     }
-    .input-wrapper input {
+
+    /* URL input row (hidden by default) */
+    .url-input-row {
+      display: none; gap: 6px; margin-top: 4px;
+    }
+    .url-input-row.show { display: flex; }
+    .url-input-row input {
       flex: 1;
-      background: transparent;
-      border: none;
-      padding: 16px 0;
-      font-size: 0.95rem;
-      outline: none;
+      background: rgba(255, 247, 245, 0.8);
+      border: 1px solid rgba(224, 170, 160, 0.4);
+      border-radius: 14px;
+      padding: 6px 12px;
+      font-size: 0.75rem;
       font-family: "Inter", sans-serif;
-      color: #2c2c2c;
+      color: #3a3a3a;
+      outline: none;
     }
-    .input-wrapper input::placeholder {
-      color: #b2a19e;
-      font-weight: 400;
+    .url-input-row .fetch-btn {
+      background: #e0aaa0; color: white; border: none;
+      padding: 6px 12px; border-radius: 12px;
+      font-size: 0.7rem; font-weight: 600;
+      cursor: pointer; white-space: nowrap;
+      font-family: "Montserrat", sans-serif;
     }
-    .send-btn {
-      background: #e0aaa0;
-      border: none;
-      width: 48px;
-      height: 48px;
-      border-radius: 40px;
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: 0.2s;
+
+    /* Resizer */
+    .panel-resizer {
+      width: 4px; background: rgba(224, 170, 160, 0.2);
+      cursor: col-resize; flex-shrink: 0; transition: 0.15s;
+    }
+    .panel-resizer:hover { background: #e0aaa0; }
+
+    /* Preview panel — RIGHT */
+    .preview-panel {
+      flex: 1; display: flex; flex-direction: column;
+      min-width: 0; overflow: hidden;
+    }
+    .preview-tabs {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      background: rgba(255, 247, 245, 0.5);
+      border-bottom: 1px solid rgba(224, 170, 160, 0.3);
+      padding: 0 16px; gap: 16px;
     }
-    .send-btn:hover {
-      background: #d49b90;
-      transform: scale(1.02);
+    .preview-tab {
+      padding: 10px 0; font-size: 0.78rem; font-weight: 600;
+      color: #8a8a8a; cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: 0.15s;
+      font-family: "Montserrat", sans-serif;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .preview-tab.active {
+      color: #e0aaa0;
+      border-bottom-color: #e0aaa0;
+    }
+    .preview-tab .tab-badge {
+      font-size: 0.6rem; background: #e0aaa0; color: white;
+      padding: 1px 6px; border-radius: 8px;
+    }
+    .preview-content {
+      flex: 1; overflow: hidden; position: relative;
+    }
+    .preview-pane {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      display: none;
+    }
+    .preview-pane.active { display: flex; }
+    .preview-pane iframe {
+      width: 100%; height: 100%; border: none; background: white;
+    }
+    .preview-pane .empty-state {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      color: #b2a19e; font-size: 0.9rem;
+      text-align: center; padding: 20px;
+      background: rgba(255, 247, 245, 0.5);
+    }
+    .preview-pane .text-preview {
+      width: 100%; height: 100%;
+      overflow-y: auto; padding: 24px;
+      font-family: "Inter", sans-serif;
+      font-size: 0.9rem; line-height: 1.6;
+      color: #3a3a3a;
+      background: white;
+      white-space: pre-wrap;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px);}
-      to { opacity: 1; transform: translateY(0);}
+    /* Adaptation toggle */
+    .adapt-toggle-bar {
+      display: none;
+      align-items: center; gap: 10px;
+      padding: 8px 16px;
+      background: rgba(224, 170, 160, 0.08);
+      border-top: 1px solid rgba(224, 170, 160, 0.2);
+    }
+    .adapt-toggle-bar.show { display: flex; }
+    .adapt-toggle-bar span {
+      font-size: 0.75rem; color: #5c5c5c; font-weight: 500;
+    }
+    .toggle-switch {
+      position: relative; width: 44px; height: 24px;
+      flex-shrink: 0;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #c4c4c4; border-radius: 24px;
+      transition: 0.3s;
+    }
+    .toggle-slider::before {
+      content: ""; position: absolute;
+      height: 18px; width: 18px; left: 3px; bottom: 3px;
+      background: white; border-radius: 50%; transition: 0.3s;
+    }
+    input:checked + .toggle-slider {
+      background: #e0aaa0;
+    }
+    input:checked + .toggle-slider::before {
+      transform: translateX(20px);
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb { background: #e0aaa0; border-radius: 10px; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .single-container { padding: 12px; gap: 12px; }
-      .message-row { max-width: 90%; }
-      .info-icon, .menu-toggle-btn { width: 42px; height: 42px; font-size: 1.1rem; }
-      .model-btn { padding: 6px 12px; font-size: 0.75rem; }
-      .tooltip-text { width: 260px; font-size: 0.75rem; right: 0; }
-      .sidebar-ai { width: 280px; }
+    /* Status line */
+    .status-bar {
+      text-align: center; font-size: 0.7rem; color: #8a8a8a;
+      padding: 4px; flex-shrink: 0;
+      background: rgba(255, 247, 245, 0.5);
+      border-top: 1px solid rgba(224, 170, 160, 0.15);
     }
+    .status-bar.success { color: #5c9e6b; }
+    .status-bar.error { color: #d49b90; }
+
+    /* Footer */
+    .app-footer {
+      text-align: center; padding: 6px;
+      font-size: 0.65rem; color: #8a8a8a;
+      flex-shrink: 0;
+      display: flex; justify-content: center;
+      gap: 14px; flex-wrap: wrap;
+      background: rgba(255, 247, 245, 0.5);
+      border-top: 1px solid rgba(224, 170, 160, 0.15);
+    }
+    .app-footer a { color: #e0aaa0; text-decoration: none; font-weight: 600; }
+    .app-footer a:hover { color: #d49b90; }
+
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; border-radius: 8px; }
+    ::-webkit-scrollbar-thumb { background: #e0aaa0; border-radius: 8px; }
 
     @media (max-width: 640px) {
-      .top-bar { gap: 10px; }
-      .model-selector { gap: 3px; padding: 4px 6px; }
-      .model-btn { padding: 5px 10px; font-size: 0.7rem; }
-      .messages-area { padding: 12px; }
-      .input-container { padding: 10px 12px 16px; }
-    }
-
-    @media (max-width: 480px) {
-      .message-avatar { width: 36px; height: 36px; font-size: 0.9rem; }
-      .chat-message-bubble { padding: 10px 14px; }
-      .tooltip-text { width: 240px; }
+      .split-view { flex-direction: column; }
+      .chat-panel { width: 100%; min-width: 100%; height: 42%; }
+      .panel-resizer { display: none; }
+      .header-text span { display: none; }
+      .action-btn { padding: 5px 8px; font-size: 0.65rem; }
     }
   </style>
 </head>
@@ -559,265 +382,707 @@
     <canvas id="canvas-bg"></canvas>
   </div>
 
-  <div class="single-container">
-    <!-- Top Bar: menu button first, then models, then accessibility -->
-    <div class="top-bar">
-      <!-- Menu button (first) -->
-      <div class="menu-btn-wrapper">
-        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Меню">
-          <i class="fas fa-bars"></i>
-        </button>
+  <div class="container">
+    <!-- Header -->
+    <div class="app-header">
+      <div class="logo"><i class="fas fa-book-open"></i></div>
+      <div class="header-text">
+        <h1 data-i18n="title">EMPI Agent</h1>
+        <span data-i18n="subtitle">Adaptive learning for everyone</span>
       </div>
-      
-      <!-- Model selector (center) -->
-      <div class="model-selector">
-        <button class="model-btn active" data-model="gpt">GPT-4</button>
-        <button class="model-btn" data-model="assist">Assistant</button>
-        <button class="model-btn" data-model="inclusive">Inclusive AI</button>
+      <div class="header-actions">
+        <button class="action-btn" id="downloadBtn"><i class="fas fa-download"></i> <span data-i18n="downloadBtn">Download</span></button>
+        <button class="action-btn" id="copyBtn"><i class="fas fa-copy"></i> <span data-i18n="copyBtn">Copy</span></button>
       </div>
-      
-      <!-- Accessibility tooltip button (last) -->
-      <div class="tooltip-wrapper">
-        <div class="info-icon">
-          <i class="fas fa-universal-access"></i>
-        </div>
-        <div class="tooltip-text">
-          <strong style="color: #e0aaa0;">Инклюзивный дизайн</strong><br>
-          Поддержка скринридеров, семантическая разметка, альтернативный текст, клавиатурная доступность, высокий контраст.
-        </div>
-      </div>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <span data-i18n="langLabel">RU</span>
+      </button>
     </div>
 
-    <!-- Main Grid with chat area -->
-    <div class="dashboard-grid" id="dashboardGrid">
-      <!-- Overlay for menu -->
-      <div class="sidebar-overlay" id="sidebarOverlay"></div>
-      
-      <!-- Floating Sidebar Menu (overlays everything) -->
-      <aside class="sidebar-ai" id="sidebarMenu">
-        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Закрыть меню">
-          <i class="fas fa-times"></i>
-        </button>
-        <div class="brand-area">
-          <div class="brand-icon"><i class="fas fa-robot"></i></div>
-          <div class="brand-text">
-            <h2>AI Mentor</h2>
-            <span>Траектория роста</span>
-          </div>
-        </div>
-        <button class="new-chat-btn" id="newChatMain"><i class="fas fa-plus-circle"></i> Новый диалог</button>
-        <div>
-          <div class="history-header"><span><i class="fas fa-history"></i> История</span></div>
-          <ul class="convo-list" id="convoListMain">
-            <li class="convo-item active" data-convo="0"><i class="fas fa-comment-dots"></i> Доступность интерфейсов</li>
-            <li class="convo-item" data-convo="1"><i class="fas fa-comment"></i> WCAG принципы</li>
-            <li class="convo-item" data-convo="2"><i class="fas fa-comment"></i> ARIA практики</li>
-          </ul>
-        </div>
-        <div class="status-chip"><i class="fas fa-shield-alt"></i> Инклюзивный режим</div>
-      </aside>
-
-      <!-- Центральная область чата -->
-      <div class="chat-center">
-        <div class="messages-area" id="messagesArea">
-          <div class="message-row ai-row">
-            <div class="message-avatar"><i class="fas fa-sparkles"></i></div>
-            <div class="chat-message-bubble">
-              <div class="message-text">Привет! Я AI-ассистент с фокусом на инклюзивный дизайн и стандарты доступности. Спрашивай о WCAG, ARIA, семантической верстке, скринридерах или просто задавай вопросы. Чем могу помочь?</div>
-              <div class="message-time">сейчас</div>
+    <!-- Split view -->
+    <div class="split-view" id="splitView">
+      <!-- Chat panel -->
+      <div class="chat-panel" id="chatPanel">
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-msg assistant">
+            <div class="avatar"><i class="fas fa-robot"></i></div>
+            <div class="bubble" data-i18n="welcomeMsg">
+              👋 Upload a file, paste a URL, or type your needs. I'll adapt content for you.
             </div>
           </div>
         </div>
-
-        <div class="input-container">
-          <div class="input-wrapper">
-            <input type="text" id="chatInputMain" placeholder="Спросите о доступности, WCAG, ARIA..." aria-label="Сообщение для AI">
-            <button class="send-btn" id="sendBtnMain"><i class="fas fa-paper-plane"></i></button>
+        <div class="chat-input-area">
+          <!-- Hidden file input -->
+          <input type="file" id="fileInput" accept=".txt,.pdf,.docx" hidden>
+          <!-- Prompt input row -->
+          <div class="input-row" id="promptInputRow">
+            <input type="text" id="chatPromptInput" data-i18n-placeholder="chatPlaceholder" placeholder="Describe your learning needs...">
+            <button class="icon-btn attach-btn" id="attachBtn" title="Attach file"><i class="fas fa-paperclip"></i></button>
+            <button class="icon-btn url-btn" id="urlBtn" title="Paste URL"><i class="fas fa-link"></i></button>
+            <button class="icon-btn send-btn" id="sendBtn"><i class="fas fa-arrow-up"></i></button>
+          </div>
+          <!-- URL input row -->
+          <div class="url-input-row" id="urlInputRow">
+            <input type="text" id="urlInput" placeholder="https://example.com/article..." data-i18n-placeholder="urlPlaceholder">
+            <button class="fetch-btn" id="fetchUrlBtn"><i class="fas fa-download"></i> <span data-i18n="fetchBtn">Fetch</span></button>
+            <button class="icon-btn" id="urlCancelBtn" style="background:rgba(224,170,160,0.15);color:#8a8a8a;width:28px;height:28px;font-size:0.7rem;"><i class="fas fa-times"></i></button>
+          </div>
+          <!-- Presets -->
+          <div class="presets-row">
+            <span class="preset-chip" data-prompt="I have ADHD, use short paragraphs and clear headings" data-i18n="presetAdhd">ADHD-friendly</span>
+            <span class="preset-chip" data-prompt="I have dyslexia, use larger text and simple words" data-i18n="presetDyslexia">Dyslexia-friendly</span>
+            <span class="preset-chip" data-prompt="Make this suitable for a 10-year-old child" data-i18n="presetChild">For children</span>
+            <span class="preset-chip" data-prompt="Simplify to beginner level, add summaries" data-i18n="presetBeginner">Beginner</span>
           </div>
         </div>
       </div>
+
+      <!-- Resizer -->
+      <div class="panel-resizer" id="panelResizer"></div>
+
+      <!-- Preview panel -->
+      <div class="preview-panel">
+        <div class="preview-tabs" id="previewTabs">
+          <div class="preview-tab active" data-pane="originalPane"><i class="fas fa-file-alt"></i> <span data-i18n="tabOriginal">Original</span></div>
+          <div class="preview-tab" data-pane="adaptedPane"><i class="fas fa-wand-magic-sparkles"></i> <span data-i18n="tabAdapted">Adapted</span> <span class="tab-badge" id="adaptedBadge" style="display:none;">new</span></div>
+        </div>
+        <div class="preview-content">
+          <!-- Original pane -->
+          <div class="preview-pane active" id="originalPane">
+            <div class="empty-state" id="originalEmpty">
+              <span data-i18n="emptyOriginal">Upload a file or paste a URL to see the original content here</span>
+            </div>
+            <div class="text-preview" id="originalTextPreview" style="display:none;"></div>
+            <iframe id="originalFrame" style="display:none;"></iframe>
+          </div>
+          <!-- Adapted pane -->
+          <div class="preview-pane" id="adaptedPane">
+            <div class="empty-state" id="adaptedEmpty">
+              <span data-i18n="emptyAdapted">Describe your needs and click "Adapt & Render" to generate adapted content</span>
+            </div>
+            <iframe id="previewFrame" style="display:none;"></iframe>
+          </div>
+        </div>
+        <!-- Toggle bar -->
+        <div class="adapt-toggle-bar" id="adaptToggleBar">
+          <span data-i18n="toggleLabel">Adaptation:</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="adaptToggle" checked>
+            <span class="toggle-slider"></span>
+          </label>
+          <span id="toggleStatusText" data-i18n="toggleOn" style="font-size:0.7rem;color:#5c9e6b;">On</span>
+          <button class="action-btn" id="reapplyAdaptBtn" style="margin-left:auto;" data-i18n="reapplyBtn">
+            <i class="fas fa-redo"></i> Re-adapt
+          </button>
+        </div>
+        <!-- Status -->
+        <div class="status-bar" id="statusBar"></div>
+      </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <span data-i18n="footerLine1">EMPI Agent | Trajectory of Growth | 2026</span>
+      <span data-i18n="footerLine2">Made by <a href="https://github.com/vifirsanova" target="_blank">Missvector</a></span>
+    </footer>
   </div>
 
+  <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
   <script>
-    // Canvas анимация
+    // ========== ORIGINAL BACKEND CONNECTION ==========
+    let backend = null;
+    new QWebChannel(qt.webChannelTransport, function(channel) {
+        backend = channel.objects.backend;
+    });
+
+    // ========== ORIGINAL CANVAS (preserved) ==========
     const canvas = document.getElementById("canvas-bg");
     const ctx = canvas.getContext("2d");
     let w, h, particles = [];
+
     function resizeCanvas() {
-      w = window.innerWidth;
-      h = window.innerHeight;
-      canvas.width = w;
-      canvas.height = h;
-      initParticles();
-    }
-    function initParticles() {
+      w = window.innerWidth; h = window.innerHeight;
+      canvas.width = w; canvas.height = h;
       particles = [];
-      let count = Math.floor(Math.min(w, h) / 22);
+      const count = Math.floor(Math.min(w, h) / 22);
       for (let i = 0; i < count; i++) {
-        let r = Math.random() * 90 + 30;
+        const r = Math.random() * 90 + 30;
         particles.push({
-          x: Math.random() * (w - 2 * r) + r,
-          y: Math.random() * (h - 2 * r) + r,
-          dx: (Math.random() - 0.5) * 0.12,
-          dy: (Math.random() - 0.5) * 0.12,
-          r: r,
-          alpha: Math.random() * 0.1 + 0.03
+          x: Math.random() * w, y: Math.random() * h,
+          dx: (Math.random() - 0.5) * 0.12, dy: (Math.random() - 0.5) * 0.12,
+          r, alpha: Math.random() * 0.1 + 0.03
         });
       }
     }
-    function drawParticles() {
+
+    function drawCanvas() {
       ctx.clearRect(0, 0, w, h);
       particles.forEach(p => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(224, 170, 160, ${p.alpha})`;
         ctx.fill();
-        if (p.x + p.r > w) p.dx = -Math.abs(p.dx);
-        if (p.x - p.r < 0) p.dx = Math.abs(p.dx);
-        if (p.y + p.r > h) p.dy = -Math.abs(p.dy);
-        if (p.y - p.r < 0) p.dy = Math.abs(p.dy);
-        p.x += p.dx;
-        p.y += p.dy;
+        p.x += p.dx; p.y += p.dy;
+        if (p.x + p.r > w || p.x - p.r < 0) p.dx *= -1;
+        if (p.y + p.r > h || p.y - p.r < 0) p.dy *= -1;
       });
-      requestAnimationFrame(drawParticles);
+      requestAnimationFrame(drawCanvas);
     }
+
     resizeCanvas();
-    window.addEventListener('resize', () => { resizeCanvas(); });
-    drawParticles();
+    window.addEventListener('resize', resizeCanvas);
+    drawCanvas();
 
-    // Menu overlay logic — menu overlays everything, not pushing content
-    const sidebarMenu = document.getElementById('sidebarMenu');
-    const sidebarOverlay = document.getElementById('sidebarOverlay');
-    const menuToggleBtn = document.getElementById('menuToggleBtn');
-    const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
-    
-    function openMenu() {
-      sidebarMenu.classList.add('open');
-      sidebarOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    
-    function closeMenu() {
-      sidebarMenu.classList.remove('open');
-      sidebarOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    
-    menuToggleBtn.addEventListener('click', openMenu);
-    sidebarCloseBtn.addEventListener('click', closeMenu);
-    sidebarOverlay.addEventListener('click', closeMenu);
-    
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && sidebarMenu.classList.contains('open')) {
-        closeMenu();
+    // ========== TRANSLATIONS (extended) ==========
+    const translations = {
+      en: {
+        title: "EMPI Agent",
+        subtitle: "Adaptive learning for everyone",
+        langLabel: "RU",
+        downloadBtn: "Download",
+        copyBtn: "Copy",
+        welcomeMsg: "👋 Upload a file, paste a URL, or type your needs. I'll adapt content for you.",
+        chatPlaceholder: "Describe your learning needs...",
+        urlPlaceholder: "https://example.com/article...",
+        fetchBtn: "Fetch",
+        presetAdhd: "ADHD-friendly",
+        presetDyslexia: "Dyslexia-friendly",
+        presetChild: "For children",
+        presetBeginner: "Beginner",
+        tabOriginal: "Original",
+        tabAdapted: "Adapted",
+        emptyOriginal: "Upload a file or paste a URL to see the original content here",
+        emptyAdapted: "Describe your needs and generate to see adapted content here",
+        toggleLabel: "Adaptation:",
+        toggleOn: "On",
+        toggleOff: "Off",
+        reapplyBtn: "Re-adapt",
+        footerLine1: "EMPI Agent | Trajectory of Growth | 2026",
+        footerLine2: "Made by Missvector",
+        msgFileAttached: "📎 File attached",
+        msgUrlFetched: "🌐 Content fetched from URL",
+        msgAdapting: "⚙️ Adapting content...",
+        msgAdapted: "✅ Content adapted! View in the Adapted tab.",
+        msgNeedSource: "Please upload a file or paste a URL first.",
+        msgNeedPrompt: "Please describe your needs in the input field.",
+        msgBackendNotReady: "Backend not ready, please wait...",
+        msgErrorFetch: "Failed to fetch URL content.",
+        msgCopied: "Copied!",
+        msgDownloaded: "Downloaded!",
+        msgReadapting: "Re-adapting..."
+      },
+      ru: {
+        title: "EMPI Агент",
+        subtitle: "Адаптивное обучение для каждого",
+        langLabel: "EN",
+        downloadBtn: "Скачать",
+        copyBtn: "Копировать",
+        welcomeMsg: "👋 Загрузите файл, вставьте URL или опишите ваши потребности. Я адаптирую материал.",
+        chatPlaceholder: "Опишите ваши учебные потребности...",
+        urlPlaceholder: "https://example.com/статья...",
+        fetchBtn: "Загрузить",
+        presetAdhd: "Для СДВГ",
+        presetDyslexia: "Для дислексии",
+        presetChild: "Для детей",
+        presetBeginner: "Новичкам",
+        tabOriginal: "Оригинал",
+        tabAdapted: "Адаптация",
+        emptyOriginal: "Загрузите файл или вставьте URL, чтобы увидеть оригинал здесь",
+        emptyAdapted: "Опишите потребности и нажмите «Адаптировать», чтобы увидеть результат",
+        toggleLabel: "Адаптация:",
+        toggleOn: "Вкл",
+        toggleOff: "Выкл",
+        reapplyBtn: "Повторить",
+        footerLine1: "EMPI Агент | Траектория роста | 2026",
+        footerLine2: "Missvector",
+        msgFileAttached: "📎 Файл прикреплён",
+        msgUrlFetched: "🌐 Материал загружен по ссылке",
+        msgAdapting: "⚙️ Адаптирую материал...",
+        msgAdapted: "✅ Готово! Смотрите во вкладке «Адаптация».",
+        msgNeedSource: "Сначала загрузите файл или вставьте URL.",
+        msgNeedPrompt: "Опишите ваши потребности в поле ввода.",
+        msgBackendNotReady: "Бэкенд не готов, подождите...",
+        msgErrorFetch: "Не удалось загрузить содержимое URL.",
+        msgCopied: "Скопировано!",
+        msgDownloaded: "Скачано!",
+        msgReadapting: "Повторная адаптация..."
       }
-    });
+    };
 
-    // Логика чата
-    const messagesContainer = document.getElementById('messagesArea');
-    const chatInput = document.getElementById('chatInputMain');
-    const sendButton = document.getElementById('sendBtnMain');
-    let currentModel = 'gpt';
-    let conversationHistory = [
-      { role: 'assistant', content: 'Привет! Я AI-ассистент с фокусом на инклюзивный дизайн и стандарты доступности. Спрашивай о WCAG, ARIA, семантической верстке, скринридерах или просто задавай вопросы. Чем могу помочь?' }
-    ];
+    let currentLang = (navigator.language || navigator.userLanguage || 'en').startsWith('ru') ? 'ru' : 'en';
 
-    function escapeHtml(str) {
-      return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
+    function applyLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang]?.[key]) el.textContent = translations[lang][key];
       });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang]?.[key]) el.setAttribute('placeholder', translations[lang][key]);
+      });
+      document.documentElement.lang = lang;
+      // Update toggle status text
+      updateToggleText();
     }
 
-    function renderMessages() {
-      messagesContainer.innerHTML = '';
-      conversationHistory.forEach(msg => {
-        const isUser = msg.role === 'user';
-        const rowDiv = document.createElement('div');
-        rowDiv.className = `message-row ${isUser ? 'user-row' : 'ai-row'}`;
-        rowDiv.innerHTML = `
-          <div class="message-avatar">${isUser ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>'}</div>
-          <div class="chat-message-bubble">
-            <div class="message-text">${escapeHtml(msg.content)}</div>
-            <div class="message-time">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>
-          </div>
-        `;
-        messagesContainer.appendChild(rowDiv);
-      });
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    function t(key) {
+      return translations[currentLang]?.[key] || key;
     }
 
-    async function getAIResponse(userMsg) {
-      await new Promise(r => setTimeout(r, 600 + Math.random() * 300));
-      const lower = userMsg.toLowerCase();
-      if (lower.includes('wcag')) {
-        return "WCAG (Web Content Accessibility Guidelines) — это международные стандарты доступности. Включают 4 принципа: Воспринимаемость, Управляемость, Понятность, Надежность. Хотите узнать подробнее о каком-то из них?";
-      } else if (lower.includes('aria')) {
-        return "ARIA (Accessible Rich Internet Applications) — это набор атрибутов, которые делают динамический контент доступным для скринридеров. Используйте aria-label, aria-describedby, role и другие, когда нативных HTML-элементов недостаточно.";
-      } else if (lower.includes('семантик') || lower.includes('верстк')) {
-        return "Семантическая верстка — использование HTML-тегов по их назначению: <header>, <nav>, <main>, <article>, <button>. Это помогает скринридерам правильно интерпретировать структуру страницы и улучшает навигацию.";
-      } else if (lower.includes('скринридер') || lower.includes('screen reader')) {
-        return "Скринридеры (NVDA, VoiceOver, JAWS) озвучивают интерфейс для незрячих пользователей. Для корректной работы используйте alt-текст, ARIA-метки, логическую структуру заголовков и фокусируемые элементы.";
-      } else if (lower.includes('доступн') || lower.includes('инклюз')) {
-        return "Цифровая доступность делает продукты удобными для всех, включая людей с инвалидностью. Ключевые практики: контрастность, клавиатурная навигация, alt-текст, семантическая разметка, поддержка скринридеров.";
+    function updateToggleText() {
+      const toggle = document.getElementById('adaptToggle');
+      const label = document.getElementById('toggleStatusText');
+      if (toggle.checked) {
+        label.textContent = t('toggleOn');
+        label.style.color = '#5c9e6b';
       } else {
-        return `Хороший вопрос! В контексте инклюзивного дизайна важно помнить о разнообразии пользователей. Рекомендую изучить раздел "Основы доступности" в нашем дашборде. (Модель: ${currentModel === 'gpt' ? 'GPT-4' : currentModel === 'assist' ? 'Assistant' : 'Inclusive AI'})`;
+        label.textContent = t('toggleOff');
+        label.style.color = '#8a8a8a';
       }
     }
 
-    async function addUserMessage(text) {
-      if (!text.trim()) return;
-      conversationHistory.push({ role: 'user', content: text });
-      renderMessages();
-      const typingDiv = document.createElement('div');
-      typingDiv.className = 'message-row ai-row';
-      typingDiv.id = 'typingLoader';
-      typingDiv.innerHTML = `<div class="message-avatar"><i class="fas fa-sparkles"></i></div><div class="chat-message-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
-      messagesContainer.appendChild(typingDiv);
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-      
-      const reply = await getAIResponse(text);
-      document.getElementById('typingLoader')?.remove();
-      conversationHistory.push({ role: 'assistant', content: reply });
-      renderMessages();
+    document.getElementById('langToggle').addEventListener('click', () => {
+      const newLang = currentLang === 'en' ? 'ru' : 'en';
+      applyLang(newLang);
+    });
+    applyLang(currentLang);
+
+    // ========== STATE ==========
+    let selectedFile = null;
+    let originalText = null;   // raw text from file or URL
+    let originalHtml = null;   // if URL returns HTML
+    let adaptedHtml = null;    // result from backend.adapt
+    let currentPrompt = '';
+
+    // ========== DOM REFS ==========
+    const fileInput = document.getElementById('fileInput');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatPromptInput = document.getElementById('chatPromptInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const attachBtn = document.getElementById('attachBtn');
+    const urlBtn = document.getElementById('urlBtn');
+    const urlInputRow = document.getElementById('urlInputRow');
+    const urlInput = document.getElementById('urlInput');
+    const fetchUrlBtn = document.getElementById('fetchUrlBtn');
+    const urlCancelBtn = document.getElementById('urlCancelBtn');
+
+    const previewTabs = document.querySelectorAll('.preview-tab');
+    const originalPane = document.getElementById('originalPane');
+    const adaptedPane = document.getElementById('adaptedPane');
+    const originalEmpty = document.getElementById('originalEmpty');
+    const originalTextPreview = document.getElementById('originalTextPreview');
+    const originalFrame = document.getElementById('originalFrame');
+    const adaptedEmpty = document.getElementById('adaptedEmpty');
+    const previewFrame = document.getElementById('previewFrame');
+    const adaptedBadge = document.getElementById('adaptedBadge');
+
+    const adaptToggle = document.getElementById('adaptToggle');
+    const adaptToggleBar = document.getElementById('adaptToggleBar');
+    const reapplyAdaptBtn = document.getElementById('reapplyAdaptBtn');
+    const statusBar = document.getElementById('statusBar');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    // ========== CHAT HELPERS ==========
+    function addChatMsg(role, html) {
+      const div = document.createElement('div');
+      div.className = `chat-msg ${role}`;
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      avatar.innerHTML = role === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.innerHTML = html;
+      div.appendChild(avatar);
+      div.appendChild(bubble);
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return bubble;
     }
 
-    sendButton.addEventListener('click', () => { const val = chatInput.value.trim(); if(val) { addUserMessage(val); chatInput.value = ''; } });
-    chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendButton.click(); });
-    document.getElementById('newChatMain').addEventListener('click', () => {
-      conversationHistory = [{ role: 'assistant', content: 'Новый диалог начат! Я здесь, чтобы помочь с инклюзивным дизайном и WCAG. Задавайте любые вопросы.' }];
-      renderMessages();
-      closeMenu();
+    function addChatText(role, text) {
+      const bubble = addChatMsg(role, '');
+      bubble.textContent = text;
+      return bubble;
+    }
+
+    function addFileBubble(file) {
+      const bubble = addChatMsg('user', '');
+      bubble.className += ' file-bubble';
+      bubble.innerHTML = `
+        <i class="fas fa-file-alt" style="color:#e0aaa0;"></i>
+        <span>${file.name} (${(file.size/1024).toFixed(1)} KB)</span>
+        <i class="fas fa-times-circle remove-btn" data-action="remove-file"></i>
+      `;
+      bubble.querySelector('.remove-btn').addEventListener('click', () => {
+        selectedFile = null;
+        fileInput.value = '';
+        bubble.remove();
+        originalText = null;
+        originalHtml = null;
+        resetPreviews();
+        addChatText('assistant', t('msgNeedSource'));
+      });
+      return bubble;
+    }
+
+    function addUrlBubble(url) {
+      const bubble = addChatMsg('user', '');
+      bubble.className += ' file-bubble';
+      const displayUrl = url.length > 40 ? url.substring(0, 40) + '...' : url;
+      bubble.innerHTML = `
+        <i class="fas fa-link" style="color:#e0aaa0;"></i>
+        <span>${displayUrl}</span>
+        <i class="fas fa-times-circle remove-btn" data-action="remove-url"></i>
+      `;
+      bubble.querySelector('.remove-btn').addEventListener('click', () => {
+        originalText = null;
+        originalHtml = null;
+        resetPreviews();
+        bubble.remove();
+        addChatText('assistant', t('msgNeedSource'));
+      });
+      return bubble;
+    }
+
+    function resetPreviews() {
+      adaptedHtml = null;
+      originalPane.classList.add('active');
+      adaptedPane.classList.remove('active');
+      previewTabs.forEach(t => t.classList.remove('active'));
+      previewTabs[0].classList.add('active');
+      originalEmpty.style.display = '';
+      originalTextPreview.style.display = 'none';
+      originalFrame.style.display = 'none';
+      adaptedEmpty.style.display = '';
+      previewFrame.style.display = 'none';
+      previewFrame.srcdoc = '';
+      adaptedBadge.style.display = 'none';
+      adaptToggleBar.classList.remove('show');
+    }
+
+    // ========== ORIGINAL CONTENT DISPLAY ==========
+    function showOriginalText(text) {
+      originalEmpty.style.display = 'none';
+      originalFrame.style.display = 'none';
+      originalTextPreview.style.display = 'block';
+      originalTextPreview.textContent = text;
+      originalPane.classList.add('active');
+    }
+
+    function showOriginalHtml(html) {
+      originalEmpty.style.display = 'none';
+      originalTextPreview.style.display = 'none';
+      originalFrame.style.display = 'block';
+      originalFrame.srcdoc = html;
+      originalPane.classList.add('active');
+    }
+
+    // ========== FILE HANDLING (preserving original variable name) ==========
+    attachBtn.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) {
+        selectedFile = fileInput.files[0];
+        addFileBubble(selectedFile);
+        readFileAsText(selectedFile).then(text => {
+          originalText = text;
+          originalHtml = null;
+          showOriginalText(text.substring(0, 5000));
+          statusBar.textContent = t('msgFileAttached') + ': ' + selectedFile.name;
+          statusBar.className = 'status-bar success';
+        }).catch(e => {
+          statusBar.textContent = e.message;
+          statusBar.className = 'status-bar error';
+        });
+      }
     });
-    
-    document.querySelectorAll('.model-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const newModel = btn.getAttribute('data-model');
-        const modelName = newModel === 'gpt' ? 'GPT-4' : newModel === 'assist' ? 'Assistant' : 'Inclusive AI';
-        currentModel = newModel;
-        addUserMessage(`Переключение на модель ${modelName}`);
+
+    // Drag & drop on the whole chat panel
+    const chatPanel = document.getElementById('chatPanel');
+    chatPanel.addEventListener('dragover', e => { e.preventDefault(); });
+    chatPanel.addEventListener('drop', e => {
+      e.preventDefault();
+      if (e.dataTransfer.files.length) {
+        selectedFile = e.dataTransfer.files[0];
+        fileInput.files = e.dataTransfer.files; // sync
+        addFileBubble(selectedFile);
+        readFileAsText(selectedFile).then(text => {
+          originalText = text;
+          originalHtml = null;
+          showOriginalText(text.substring(0, 5000));
+          statusBar.textContent = t('msgFileAttached') + ': ' + selectedFile.name;
+          statusBar.className = 'status-bar success';
+        }).catch(e => {
+          statusBar.textContent = e.message;
+          statusBar.className = 'status-bar error';
+        });
+      }
+      // Also handle URL drops
+      const urlData = e.dataTransfer.getData('text/plain');
+      if (urlData && (urlData.startsWith('http://') || urlData.startsWith('https://'))) {
+        handleUrlFetch(urlData);
+      }
+    });
+
+    function readFileAsText(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsText(file);
+      });
+    }
+
+    // ========== URL FETCHING ==========
+    urlBtn.addEventListener('click', () => {
+      urlInputRow.classList.toggle('show');
+      if (urlInputRow.classList.contains('show')) urlInput.focus();
+    });
+    urlCancelBtn.addEventListener('click', () => {
+      urlInputRow.classList.remove('show');
+      urlInput.value = '';
+    });
+
+    fetchUrlBtn.addEventListener('click', () => {
+      const url = urlInput.value.trim();
+      if (!url) return;
+      handleUrlFetch(url);
+      urlInputRow.classList.remove('show');
+      urlInput.value = '';
+    });
+
+    urlInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const url = urlInput.value.trim();
+        if (!url) return;
+        handleUrlFetch(url);
+        urlInputRow.classList.remove('show');
+        urlInput.value = '';
+      }
+    });
+
+    async function handleUrlFetch(url) {
+      addUrlBubble(url);
+      statusBar.textContent = 'Fetching URL...';
+      statusBar.className = 'status-bar';
+      
+      try {
+        // Try backend first if it has a fetchUrl method
+        let content;
+        if (backend && typeof backend.fetchUrl === 'function') {
+          content = await backend.fetchUrl(url);
+        } else {
+          // Fallback: try fetch via proxy or direct
+          const resp = await fetch(url);
+          const contentType = resp.headers.get('content-type') || '';
+          if (contentType.includes('text/html')) {
+            originalHtml = await resp.text();
+            originalText = stripHtml(originalHtml);
+            content = originalText;
+          } else {
+            content = await resp.text();
+          }
+        }
+        
+        // If content looks like HTML, store both
+        if (content && content.trim().startsWith('<') && content.includes('<')) {
+          originalHtml = content;
+          originalText = stripHtml(content);
+          showOriginalHtml(content);
+        } else {
+          originalHtml = null;
+          originalText = content;
+          showOriginalText(content);
+        }
+        
+        addChatText('assistant', t('msgUrlFetched'));
+        statusBar.textContent = t('msgUrlFetched');
+        statusBar.className = 'status-bar success';
+        selectedFile = null; // clear file if URL used
+      } catch (e) {
+        addChatText('assistant', t('msgErrorFetch') + ': ' + e.message);
+        statusBar.textContent = t('msgErrorFetch');
+        statusBar.className = 'status-bar error';
+      }
+    }
+
+    function stripHtml(html) {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || '';
+    }
+
+    // ========== ADAPTATION LOGIC (preserving original flow) ==========
+    async function doAdapt(promptText) {
+      if (!originalText && !originalHtml) {
+        addChatText('assistant', t('msgNeedSource'));
+        return;
+      }
+      if (!promptText || !promptText.trim()) {
+        addChatText('assistant', t('msgNeedPrompt'));
+        return;
+      }
+      if (!backend) {
+        addChatText('assistant', t('msgBackendNotReady'));
+        return;
+      }
+
+      currentPrompt = promptText.trim();
+      addChatText('assistant', t('msgAdapting'));
+      statusBar.textContent = t('msgAdapting');
+      statusBar.className = 'status-bar';
+      adaptToggleBar.classList.add('show');
+
+      try {
+        const textToAdapt = originalText || stripHtml(originalHtml);
+        const html = await backend.adapt(textToAdapt, currentPrompt);
+        adaptedHtml = html;
+        
+        // Show in adapted pane
+        adaptedEmpty.style.display = 'none';
+        previewFrame.style.display = 'block';
+        previewFrame.srcdoc = html;
+        adaptedBadge.style.display = 'inline';
+        
+        // Switch to adapted tab
+        switchToPane('adaptedPane');
+        
+        addChatText('assistant', t('msgAdapted'));
+        statusBar.textContent = t('msgAdapted');
+        statusBar.className = 'status-bar success';
+      } catch (e) {
+        addChatText('assistant', 'Error: ' + e.message);
+        statusBar.textContent = e.message;
+        statusBar.className = 'status-bar error';
+      }
+    }
+
+    // ========== SEND / PROMPT HANDLING ==========
+    function handleSend() {
+      const text = chatPromptInput.value.trim();
+      if (!text) return;
+      chatPromptInput.value = '';
+      addChatText('user', text);
+      doAdapt(text);
+    }
+
+    sendBtn.addEventListener('click', handleSend);
+    chatPromptInput.addEventListener('keypress', e => {
+      if (e.key === 'Enter') handleSend();
+    });
+
+    // Presets
+    document.querySelectorAll('.preset-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const preset = chip.getAttribute('data-prompt');
+        chatPromptInput.value = preset;
+        addChatText('user', preset);
+        doAdapt(preset);
       });
     });
-    
-    document.querySelectorAll('.convo-item').forEach(item => {
-      item.addEventListener('click', function() {
-        document.querySelectorAll('.convo-item').forEach(i => i.classList.remove('active'));
-        this.classList.add('active');
-        const id = this.getAttribute('data-convo');
-        if(id === '0') conversationHistory = [{ role: 'assistant', content: 'Доступность интерфейсов: тема, которую вы обсуждали ранее. Какие аспекты вас интересуют?' }];
-        else if(id === '1') conversationHistory = [{ role: 'assistant', content: 'WCAG принципы: Воспринимаемость, Управляемость, Понятность, Надежность. Хотите детали?' }];
-        else conversationHistory = [{ role: 'assistant', content: 'ARIA практики: используйте aria-live для динамических обновлений, aria-label для кнопок без текста.' }];
-        renderMessages();
-        closeMenu();
+
+    // Re-adapt button
+    reapplyAdaptBtn.addEventListener('click', () => {
+      if (!currentPrompt) return;
+      addChatText('user', currentPrompt);
+      doAdapt(currentPrompt);
+    });
+
+    // ========== ADAPTATION TOGGLE ==========
+    adaptToggle.addEventListener('change', () => {
+      updateToggleText();
+      if (adaptToggle.checked && adaptedHtml) {
+        // Show adapted
+        switchToPane('adaptedPane');
+      } else {
+        // Show original
+        switchToPane('originalPane');
+      }
+    });
+
+    function switchToPane(paneId) {
+      document.querySelectorAll('.preview-pane').forEach(p => p.classList.remove('active'));
+      document.getElementById(paneId).classList.add('active');
+      previewTabs.forEach(t => t.classList.remove('active'));
+      const tab = document.querySelector(`.preview-tab[data-pane="${paneId}"]`);
+      if (tab) tab.classList.add('active');
+    }
+
+    // Tab clicks
+    previewTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const paneId = tab.getAttribute('data-pane');
+        switchToPane(paneId);
+        // Sync toggle
+        if (paneId === 'adaptedPane') {
+          adaptToggle.checked = true;
+        } else {
+          adaptToggle.checked = false;
+        }
+        updateToggleText();
       });
     });
-    renderMessages();
+
+    // ========== DOWNLOAD / COPY ==========
+    downloadBtn.addEventListener('click', () => {
+      const activePane = document.querySelector('.preview-pane.active');
+      let htmlToDownload = '';
+      if (activePane && activePane.id === 'adaptedPane' && adaptedHtml) {
+        htmlToDownload = adaptedHtml;
+      } else if (activePane && activePane.id === 'originalPane' && originalHtml) {
+        htmlToDownload = originalHtml;
+      } else {
+        htmlToDownload = originalText || '';
+      }
+      const blob = new Blob([htmlToDownload], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'content.html';
+      a.click();
+      URL.revokeObjectURL(url);
+      statusBar.textContent = t('msgDownloaded');
+      statusBar.className = 'status-bar success';
+    });
+
+    copyBtn.addEventListener('click', () => {
+      const activePane = document.querySelector('.preview-pane.active');
+      let content = '';
+      if (activePane && activePane.id === 'adaptedPane' && adaptedHtml) {
+        content = adaptedHtml;
+      } else if (activePane && activePane.id === 'originalPane' && originalHtml) {
+        content = originalHtml;
+      } else {
+        content = originalText || '';
+      }
+      navigator.clipboard.writeText(content).then(() => {
+        statusBar.textContent = t('msgCopied');
+        statusBar.className = 'status-bar success';
+        setTimeout(() => { statusBar.textContent = ''; }, 2000);
+      });
+    });
+
+    // ========== RESIZER ==========
+    const panelResizer = document.getElementById('panelResizer');
+    let startX, startWidth;
+    panelResizer.addEventListener('mousedown', e => {
+      startX = e.clientX;
+      startWidth = chatPanel.offsetWidth;
+      document.addEventListener('mousemove', resizeMove);
+      document.addEventListener('mouseup', resizeStop);
+      document.body.style.userSelect = 'none';
+    });
+    function resizeMove(e) {
+      const w = startWidth + (e.clientX - startX);
+      if (w > 220 && w < window.innerWidth - 300) chatPanel.style.width = w + 'px';
+    }
+    function resizeStop() {
+      document.removeEventListener('mousemove', resizeMove);
+      document.removeEventListener('mouseup', resizeStop);
+      document.body.style.userSelect = '';
+    }
   </script>
 </body>
 </html>

@@ -443,10 +443,10 @@
             <button class="icon-btn" id="urlCancelBtn" style="background:rgba(224,170,160,0.15);color:#8a8a8a;width:28px;height:28px;font-size:0.7rem;"><i class="fas fa-times"></i></button>
           </div>
           <div class="presets-row">
-            <span class="preset-chip" data-prompt="I have ADHD, use short paragraphs and clear headings" data-i18n="presetAdhd">ADHD-friendly</span>
-            <span class="preset-chip" data-prompt="I have dyslexia, use larger text and simple words" data-i18n="presetDyslexia">Dyslexia-friendly</span>
-            <span class="preset-chip" data-prompt="Make this suitable for a 10-year-old child" data-i18n="presetChild">For children</span>
-            <span class="preset-chip" data-prompt="Simplify to beginner level, add summaries" data-i18n="presetBeginner">Beginner</span>
+            <span class="preset-chip" data-prompt-en="I have ADHD, use short paragraphs and clear headings" data-prompt-ru="У меня СДВГ, используйте короткие абзацы и чёткие заголовки" data-i18n="presetAdhd">ADHD-friendly</span>
+            <span class="preset-chip" data-prompt-en="I have dyslexia, use larger text and simple words" data-prompt-ru="У меня дислексия, используйте крупный шрифт и простые слова" data-i18n="presetDyslexia">Dyslexia-friendly</span>
+            <span class="preset-chip" data-prompt-en="Make this suitable for a 10-year-old child" data-prompt-ru="Адаптируйте для ребёнка 10 лет" data-i18n="presetChild">For children</span>
+            <span class="preset-chip" data-prompt-en="Simplify to beginner level, add summaries" data-prompt-ru="Упростите до начального уровня, добавьте краткие выводы" data-i18n="presetBeginner">Beginner</span>
           </div>
         </div>
       </div>
@@ -579,39 +579,39 @@
       },
       ru: {
         title: "EMPI Agent",
-        subtitle: "Adaptive learning for everyone",
+        subtitle: "Адаптивное обучение для каждого",
         langLabel: "EN",
-        downloadBtn: "Download",
-        copyBtn: "Copy",
-        welcomeMsg: "Upload a file, paste a URL, or type your needs. I'll adapt content for you.",
-        chatPlaceholder: "Describe your learning needs...",
-        urlPlaceholder: "https://example.com/article...",
-        fetchBtn: "Fetch",
-        presetAdhd: "ADHD-friendly",
-        presetDyslexia: "Dyslexia-friendly",
-        presetChild: "For children",
-        presetBeginner: "Beginner",
-        tabOriginal: "Original",
-        tabAdapted: "Adapted",
-        emptyOriginal: "Upload a file or paste a URL to see the original content here",
-        emptyAdapted: "Describe your needs and generate to see adapted content here",
-        toggleLabel: "Adaptation:",
-        toggleOn: "On",
-        toggleOff: "Off",
-        reapplyBtn: "Re-adapt",
-        footerLine1: "EMPI Agent | Trajectory of Growth | 2026",
-        footerLine2: "Made by Missvector",
-        msgFileAttached: "File attached",
-        msgUrlFetched: "Content fetched from URL",
-        msgAdapting: "Adapting content...",
-        msgAdapted: "Content adapted. View in the Adapted tab.",
-        msgNeedSource: "Please upload a file or paste a URL first.",
-        msgNeedPrompt: "Please describe your needs in the input field.",
-        msgBackendNotReady: "Backend not ready, please wait...",
-        msgErrorFetch: "Failed to fetch URL content.",
-        msgCopied: "Copied.",
-        msgDownloaded: "Downloaded.",
-        msgReadapting: "Re-adapting..."
+        downloadBtn: "Скачать",
+        copyBtn: "Копировать",
+        welcomeMsg: "Загрузите файл, вставьте URL или опишите ваши потребности. Я адаптирую материал.",
+        chatPlaceholder: "Опишите ваши учебные потребности...",
+        urlPlaceholder: "https://example.com/статья...",
+        fetchBtn: "Загрузить",
+        presetAdhd: "Для СДВГ",
+        presetDyslexia: "Для дислексии",
+        presetChild: "Для детей",
+        presetBeginner: "Начинающим",
+        tabOriginal: "Оригинал",
+        tabAdapted: "Адаптация",
+        emptyOriginal: "Загрузите файл или вставьте URL, чтобы увидеть оригинал",
+        emptyAdapted: "Опишите потребности и создайте адаптированную версию",
+        toggleLabel: "Адаптация:",
+        toggleOn: "Вкл",
+        toggleOff: "Выкл",
+        reapplyBtn: "Повторить",
+        footerLine1: "EMPI Agent | Траектория роста | 2026",
+        footerLine2: "Создано Missvector",
+        msgFileAttached: "Файл прикреплён",
+        msgUrlFetched: "Материал загружен по ссылке",
+        msgAdapting: "Адаптирую материал...",
+        msgAdapted: "Готово! Смотрите во вкладке Адаптация.",
+        msgNeedSource: "Сначала загрузите файл или вставьте URL.",
+        msgNeedPrompt: "Опишите ваши потребности в поле ввода.",
+        msgBackendNotReady: "Бэкенд не готов, подождите...",
+        msgErrorFetch: "Не удалось загрузить содержимое по ссылке.",
+        msgCopied: "Скопировано.",
+        msgDownloaded: "Скачано.",
+        msgReadapting: "Повторная адаптация..."
       }
     };
 
@@ -619,72 +619,76 @@
 
     function applyLang(lang) {
       currentLang = lang;
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang]?.[key]) el.textContent = translations[lang][key];
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
       });
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder');
-        if (translations[lang]?.[key]) el.setAttribute('placeholder', translations[lang][key]);
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang] && translations[lang][key]) {
+          el.setAttribute('placeholder', translations[lang][key]);
+        }
       });
       document.documentElement.lang = lang;
       updateToggleText();
     }
 
     function t(key) {
-      return translations[currentLang]?.[key] || key;
+      return (translations[currentLang] && translations[currentLang][key]) || key;
     }
 
     function updateToggleText() {
-      const toggle = document.getElementById('adaptToggle');
-      const label = document.getElementById('toggleStatusText');
+      var toggle = document.getElementById('adaptToggle');
+      var label = document.getElementById('toggleStatusText');
       if (!toggle || !label) return;
       label.textContent = toggle.checked ? t('toggleOn') : t('toggleOff');
       label.style.color = toggle.checked ? '#5c9e6b' : '#8a8a8a';
     }
 
-    let selectedFile = null;
-    let originalText = null;
-    let originalHtml = null;
-    let adaptedHtml = null;
-    let currentPrompt = '';
+    var selectedFile = null;
+    var originalText = null;
+    var originalHtml = null;
+    var adaptedHtml = null;
+    var currentPrompt = '';
 
-    const fileInput = document.getElementById('fileInput');
-    const chatMessages = document.getElementById('chatMessages');
-    const chatPromptInput = document.getElementById('chatPromptInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const attachBtn = document.getElementById('attachBtn');
-    const urlBtn = document.getElementById('urlBtn');
-    const urlInputRow = document.getElementById('urlInputRow');
-    const urlInput = document.getElementById('urlInput');
-    const fetchUrlBtn = document.getElementById('fetchUrlBtn');
-    const urlCancelBtn = document.getElementById('urlCancelBtn');
+    var fileInput = document.getElementById('fileInput');
+    var chatMessages = document.getElementById('chatMessages');
+    var chatPromptInput = document.getElementById('chatPromptInput');
+    var sendBtn = document.getElementById('sendBtn');
+    var attachBtn = document.getElementById('attachBtn');
+    var urlBtn = document.getElementById('urlBtn');
+    var urlInputRow = document.getElementById('urlInputRow');
+    var urlInput = document.getElementById('urlInput');
+    var fetchUrlBtn = document.getElementById('fetchUrlBtn');
+    var urlCancelBtn = document.getElementById('urlCancelBtn');
 
-    const previewTabs = document.querySelectorAll('.preview-tab');
-    const originalPane = document.getElementById('originalPane');
-    const adaptedPane = document.getElementById('adaptedPane');
-    const originalEmpty = document.getElementById('originalEmpty');
-    const originalTextPreview = document.getElementById('originalTextPreview');
-    const originalFrame = document.getElementById('originalFrame');
-    const adaptedEmpty = document.getElementById('adaptedEmpty');
-    const previewFrame = document.getElementById('previewFrame');
-    const adaptedBadge = document.getElementById('adaptedBadge');
+    var previewTabs = document.querySelectorAll('.preview-tab');
+    var originalPane = document.getElementById('originalPane');
+    var adaptedPane = document.getElementById('adaptedPane');
+    var originalEmpty = document.getElementById('originalEmpty');
+    var originalTextPreview = document.getElementById('originalTextPreview');
+    var originalFrame = document.getElementById('originalFrame');
+    var adaptedEmpty = document.getElementById('adaptedEmpty');
+    var previewFrame = document.getElementById('previewFrame');
+    var adaptedBadge = document.getElementById('adaptedBadge');
 
-    const adaptToggle = document.getElementById('adaptToggle');
-    const adaptToggleBar = document.getElementById('adaptToggleBar');
-    const reapplyAdaptBtn = document.getElementById('reapplyAdaptBtn');
-    const statusBar = document.getElementById('statusBar');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const copyBtn = document.getElementById('copyBtn');
-    const langToggle = document.getElementById('langToggle');
+    var adaptToggle = document.getElementById('adaptToggle');
+    var adaptToggleBar = document.getElementById('adaptToggleBar');
+    var reapplyAdaptBtn = document.getElementById('reapplyAdaptBtn');
+    var statusBar = document.getElementById('statusBar');
+    var downloadBtn = document.getElementById('downloadBtn');
+    var copyBtn = document.getElementById('copyBtn');
+    var langToggle = document.getElementById('langToggle');
 
     function addChatMsg(role) {
-      const div = document.createElement('div');
-      div.className = `chat-msg ${role}`;
-      const avatar = document.createElement('div');
+      var div = document.createElement('div');
+      div.className = 'chat-msg ' + role;
+      var avatar = document.createElement('div');
       avatar.className = 'avatar';
       avatar.innerHTML = role === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
-      const bubble = document.createElement('div');
+      var bubble = document.createElement('div');
       bubble.className = 'bubble';
       div.appendChild(avatar);
       div.appendChild(bubble);
@@ -694,13 +698,13 @@
     }
 
     function addChatText(role, text) {
-      const bubble = addChatMsg(role);
+      var bubble = addChatMsg(role);
       bubble.textContent = text;
       return bubble;
     }
 
     function addFileBubble(file) {
-      const bubble = addChatMsg('user');
+      var bubble = addChatMsg('user');
       bubble.className += ' file-bubble';
       bubble.innerHTML =
         '<i class="fas fa-file-alt" style="color:#e0aaa0;"></i>' +
@@ -830,7 +834,7 @@
         });
       }
       var urlData = e.dataTransfer.getData('text/plain');
-      if (urlData && (urlData.startsWith('http://') || urlData.startsWith('https://'))) {
+      if (urlData && (urlData.indexOf('http://') === 0 || urlData.indexOf('https://') === 0)) {
         handleUrlFetch(urlData);
       }
     });
@@ -874,7 +878,7 @@
         } else {
           var resp = await fetch(url);
           var contentType = resp.headers.get('content-type') || '';
-          if (contentType.includes('text/html')) {
+          if (contentType.indexOf('text/html') !== -1) {
             originalHtml = await resp.text();
             originalText = stripHtml(originalHtml);
             content = originalText;
@@ -882,7 +886,7 @@
             content = await resp.text();
           }
         }
-        if (content && content.trim().startsWith('<') && content.includes('<')) {
+        if (content && content.trim().charAt(0) === '<' && content.indexOf('<') !== -1) {
           originalHtml = content;
           originalText = stripHtml(content);
           showOriginalHtml(content);
@@ -967,11 +971,11 @@
     function generateDemoAdaptation(text, prompt) {
       var pLower = prompt.toLowerCase();
       var style = 'font-size:17px; line-height:1.7;';
-      if (pLower.includes('adhd') || pLower.includes('сдвг')) {
+      if (pLower.indexOf('adhd') !== -1 || pLower.indexOf('сдвг') !== -1) {
         style = 'font-size:18px; line-height:1.8; max-width:700px; margin:0 auto;';
-      } else if (pLower.includes('dyslexia') || pLower.includes('дислекс')) {
+      } else if (pLower.indexOf('dyslexia') !== -1 || pLower.indexOf('дислекс') !== -1) {
         style = 'font-family: "OpenDyslexic", "Comic Sans MS", sans-serif; font-size:20px; line-height:2; word-spacing:4px;';
-      } else if (pLower.includes('child') || pLower.includes('дет')) {
+      } else if (pLower.indexOf('child') !== -1 || pLower.indexOf('дет') !== -1) {
         style = 'font-size:20px; line-height:1.9; color:#333;';
       }
       var paragraphs = text.split(/\n\n+/).filter(function(p) { return p.trim(); });
@@ -1005,7 +1009,9 @@
 
     document.querySelectorAll('.preset-chip').forEach(function(chip) {
       chip.addEventListener('click', function() {
-        var preset = chip.getAttribute('data-prompt');
+        var preset = currentLang === 'ru'
+          ? chip.getAttribute('data-prompt-ru')
+          : chip.getAttribute('data-prompt-en');
         chatPromptInput.value = preset;
         addChatText('user', preset);
         doAdapt(preset);

@@ -1,6 +1,3 @@
-// ============================================================
-// 1. CANVAS ANIMATION
-// ============================================================
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 
@@ -93,9 +90,6 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
-// ============================================================
-// 2. SPA NAVIGATION
-// ============================================================
 function showView(viewName) {
   document.querySelectorAll('.view').forEach(view => {
     view.classList.remove('active');
@@ -155,9 +149,6 @@ document.querySelectorAll('.nav-item a[data-view]').forEach(link => {
 window.addEventListener('hashchange', handleHash);
 handleHash();
 
-// ============================================================
-// 3. ACCESSIBILITY CONTROLS
-// ============================================================
 const state = {
   fontSize: 'medium',
   contrast: 'normal',
@@ -273,9 +264,6 @@ document.querySelectorAll('[data-action="reset"]').forEach(btn => {
   });
 });
 
-// ============================================================
-// 4. TASK TOGGLES
-// ============================================================
 document.querySelectorAll('.btn-show-answer').forEach(btn => {
   btn.addEventListener('click', function() {
     const targetId = this.dataset.target;
@@ -287,9 +275,6 @@ document.querySelectorAll('.btn-show-answer').forEach(btn => {
   });
 });
 
-// ============================================================
-// 5. PROGRESS STATE
-// ============================================================
 const progress = {
   featured: 68,
   keyboard: 80,
@@ -386,20 +371,14 @@ document.querySelectorAll('.course-sidebar-item').forEach(item => {
   });
 });
 
-// ============================================================
-// 6. MOBILE MENU
-// ============================================================
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const sidebar = document.getElementById('sidebar');
 
-// ============================================================
-// 7. DEMO MOCKS
-// ============================================================
 const navDemos = {
-  'Стандарты WCAG': '📄 Раздел «Стандарты WCAG»: каталог из 87 критериев успеха 2.2 с фильтрами по уровням A / AA / AAA и принципам POUR.',
-  'Прогресс': '📈 Раздел «Прогресс»: графики прохождения курсов, серии активности и полученные сертификаты.',
-  'Сообщество': '👥 Раздел «Сообщество»: обсуждения, вопросы и ответы, обмен полезными ресурсами.',
-  'Ресурсы': '🔖 Раздел «Ресурсы»: чек-листы, шаблоны и ссылки на инструменты доступности.'
+  'Стандарты WCAG': 'Раздел «Стандарты WCAG»: каталог из 87 критериев успеха 2.2 с фильтрами по уровням A / AA / AAA и принципам POUR.',
+  'Прогресс': 'Раздел «Прогресс»: графики прохождения курсов, серии активности и полученные сертификаты.',
+  'Сообщество': 'Раздел «Сообщество»: обсуждения, вопросы и ответы, обмен полезными ресурсами.',
+  'Ресурсы': 'Раздел «Ресурсы»: чек-листы, шаблоны и ссылки на инструменты доступности.'
 };
 
 document.querySelectorAll('.nav-item a').forEach(a => {
@@ -422,21 +401,18 @@ document.querySelectorAll('.view-all').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault();
     const section = this.closest('.section-header')?.querySelector('h2')?.textContent.trim() || 'Раздел';
-    alert('🗂 «' + section + '» — полный список откроется в финальной версии.');
+    alert('«' + section + '» — полный список откроется в финальной версии.');
   });
 });
 
 document.querySelector('.user-chip')?.addEventListener('click', () => {
-  alert('👤 Профиль: Александра — UX/UI дизайнер. Здесь появятся настройки аккаунта.');
+  alert('Профиль: Александра — UX/UI дизайнер. Здесь появятся настройки аккаунта.');
 });
 
 document.querySelector('.tip-card')?.addEventListener('click', () => {
-  alert('💡 Совет дня (WCAG 4.1.2). В демо-версии советы будут обновляться ежедневно.');
+  alert('Совет дня (WCAG 4.1.2). В демо-версии советы будут обновляться ежедневно.');
 });
 
-// ============================================================
-// 8. MOBILE MENU TOGGLE EVENTS (после объявления переменных)
-// ============================================================
 if (mobileMenuToggle) {
   mobileMenuToggle.addEventListener('click', function(e) {
     e.preventDefault();
@@ -472,8 +448,5 @@ window.addEventListener('resize', () => {
   }
 });
 
-// ============================================================
-// 9. INIT
-// ============================================================
 applyAccessibility();
 updateProgress();
